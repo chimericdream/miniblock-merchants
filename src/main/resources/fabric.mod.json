@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "blocktraders",
   "version": "${version}",
 
-  "name": "Example Mod",
+  "name": "BlockTraders",
   "description": "This is an example description! Tell everyone what your mod is about!",
   "authors": [
     "Me!"
@@ -14,16 +14,16 @@
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/blocktraders/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "com.chimericdream.blocktraders.BlockTradersMod"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "blocktraders.mixins.json"
   ],
 
   "depends": {
@@ -32,7 +32,5 @@
     "minecraft": "~1.19",
     "java": ">=17"
   },
-  "suggests": {
-    "another-mod": "*"
-  }
+  "suggests": {}
 }
