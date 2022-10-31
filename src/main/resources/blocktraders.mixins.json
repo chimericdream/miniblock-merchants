@@ -6,7 +6,8 @@
   "mixins": [
   ],
   "client": [
-      "BlockTradersMixin"
+      "BTMerchantEntityMixin",
+      "BTVillagerEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
