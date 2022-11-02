@@ -17,6 +17,9 @@
     "entrypoints": {
         "main": [
             "com.chimericdream.blocktraders.BlockTradersMod"
+        ],
+        "client": [
+            "com.chimericdream.blocktraders.BlockTradersClient"
         ]
     },
     "mixins": [
