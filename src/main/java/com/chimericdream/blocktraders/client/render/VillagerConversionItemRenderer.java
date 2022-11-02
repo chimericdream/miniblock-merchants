@@ -18,7 +18,7 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.util.math.Direction;
 
 @Environment(EnvType.CLIENT)
-public class SoakedVillagerPlushieItemRenderer implements BuiltinItemRendererRegistry.DynamicItemRenderer {
+public class VillagerConversionItemRenderer implements BuiltinItemRendererRegistry.DynamicItemRenderer {
     private static SkullEntityModel MODEL = new SkullEntityModel(SkullEntityModel.getHeadTexturedModelData().createModel());
 
     @Override
