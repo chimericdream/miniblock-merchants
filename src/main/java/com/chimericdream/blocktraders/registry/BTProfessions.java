@@ -1,9 +1,11 @@
 package com.chimericdream.blocktraders.registry;
 
+import com.chimericdream.blocktraders.data.MiniblockTextures;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.village.VillagerProfession;
@@ -13,33 +15,6 @@ import net.minecraft.world.poi.PointOfInterestTypes;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
-/*
-"entity.minecraft.villager.bt_arboriculturalist": "",
-"entity.minecraft.villager.bt_astronomer": "",
-"entity.minecraft.villager.bt_baker": "",
-"entity.minecraft.villager.bt_bartender": "",
-"entity.minecraft.villager.bt_beekeeper": "",
-"entity.minecraft.villager.bt_blacksmith": "",
-"entity.minecraft.villager.bt_chef": "",
-"entity.minecraft.villager.bt_engineer": "",
-"entity.minecraft.villager.bt_eremologist": "",
-"entity.minecraft.villager.bt_furnisher": "",
-"entity.minecraft.villager.bt_gamemaster": "",
-"entity.minecraft.villager.bt_horticulturist": "",
-"entity.minecraft.villager.bt_mineralogist": "",
-"entity.minecraft.villager.bt_netherographer": "",
-"entity.minecraft.villager.bt_oceanographer": "",
-"entity.minecraft.villager.bt_olericulturist": "",
-"entity.minecraft.villager.bt_petrologist": "",
-"entity.minecraft.villager.bt_plushie_maniac": "",
-"entity.minecraft.villager.bt_pomologist": "",
-"entity.minecraft.villager.bt_recycler": "",
-"entity.minecraft.villager.bt_ritualist": "",
-"entity.minecraft.villager.bt_sculptor": "",
-"entity.minecraft.villager.bt_steampunker": "",
-"entity.minecraft.villager.bt_tailor": ""
- */
 
 public class BTProfessions {
     public static final VillagerProfession ALCHEMIST = register("bt_alchemist");
@@ -912,6 +887,31 @@ public class BTProfessions {
 
         NbtCompound recyclerTrades = new NbtCompound();
         recyclerTrades.put("Recipes", makeRecipeList(
+            makeOffer("blocktraders:ancient_shell", "Ancient Shell", MiniblockTextures.ANCIENT_SHELL.getLeft(), MiniblockTextures.ANCIENT_SHELL.getRight()),
+            makeOffer("blocktraders:book_of_rituals", "Book of Rituals", MiniblockTextures.BOOK_OF_RITUALS.getLeft(), MiniblockTextures.BOOK_OF_RITUALS.getRight()),
+            makeOffer("blocktraders:budding_cactus", "Budding Cactus", MiniblockTextures.BUDDING_CACTUS.getLeft(), MiniblockTextures.BUDDING_CACTUS.getRight()),
+            makeOffer("blocktraders:crystal_phial", "Crystal Phial", MiniblockTextures.CRYSTAL_PHIAL.getLeft(), MiniblockTextures.CRYSTAL_PHIAL.getRight()),
+            makeOffer("blocktraders:cultivated_sapling", "Cultivated Sapling", MiniblockTextures.CULTIVATED_SAPLING.getLeft(), MiniblockTextures.CULTIVATED_SAPLING.getRight()),
+            makeOffer("blocktraders:drenched_score_sheet", "Drenched Score Sheet", MiniblockTextures.DRENCHED_SCORE_SHEET.getLeft(), MiniblockTextures.DRENCHED_SCORE_SHEET.getRight()),
+            makeOffer("blocktraders:enchanted_red_delicious", "Enchanted Red Delicious", MiniblockTextures.ENCHANTED_RED_DELICIOUS.getLeft(), MiniblockTextures.ENCHANTED_RED_DELICIOUS.getRight()),
+            makeOffer("blocktraders:endless_bookshelf", "Endless Bookshelf", MiniblockTextures.ENDLESS_BOOKSHELF.getLeft(), MiniblockTextures.ENDLESS_BOOKSHELF.getRight()),
+            makeOffer("blocktraders:fine_thread", "Fine Thread", MiniblockTextures.FINE_THREAD.getLeft(), MiniblockTextures.FINE_THREAD.getRight()),
+            makeOffer("blocktraders:forgotten_scrap_metal", "Forgotten Scrap Metal", MiniblockTextures.FORGOTTEN_SCRAP_METAL.getLeft(), MiniblockTextures.FORGOTTEN_SCRAP_METAL.getRight()),
+            makeOffer("blocktraders:fragrant_flower", "Fragrant Flower", MiniblockTextures.FRAGRANT_FLOWER.getLeft(), MiniblockTextures.FRAGRANT_FLOWER.getRight()),
+            makeOffer("blocktraders:galilean_spyglass", "Galilean Spyglass", MiniblockTextures.GALILEAN_SPYGLASS.getLeft(), MiniblockTextures.GALILEAN_SPYGLASS.getRight()),
+            makeOffer("blocktraders:mastercrafted_iron", "Mastercrafted Iron", MiniblockTextures.MASTERCRAFTED_IRON.getLeft(), MiniblockTextures.MASTERCRAFTED_IRON.getRight()),
+            makeOffer("blocktraders:mixology_station", "Mixology Station", MiniblockTextures.MIXOLOGY_STATION.getLeft(), MiniblockTextures.MIXOLOGY_STATION.getRight()),
+            makeOffer("blocktraders:overgrown_carrot", "Overgrown Carrot", MiniblockTextures.OVERGROWN_CARROT.getLeft(), MiniblockTextures.OVERGROWN_CARROT.getRight()),
+            makeOffer("blocktraders:prismatic_honeycomb", "Prismatic Honeycomb", MiniblockTextures.PRISMATIC_HONEYCOMB.getLeft(), MiniblockTextures.PRISMATIC_HONEYCOMB.getRight()),
+            makeOffer("blocktraders:pure_gold", "24-Karat Gold", MiniblockTextures.PURE_GOLD.getLeft(), MiniblockTextures.PURE_GOLD.getRight()),
+            makeOffer("blocktraders:radiating_redstone", "Radiating Redstone", MiniblockTextures.RADIATING_REDSTONE.getLeft(), MiniblockTextures.RADIATING_REDSTONE.getRight()),
+            makeOffer("blocktraders:rotting_recycling_bin", "Rotting Recycling Bin", MiniblockTextures.ROTTING_RECYCLING_BIN.getLeft(), MiniblockTextures.ROTTING_RECYCLING_BIN.getRight()),
+            makeOffer("blocktraders:sculpting_clay", "Sculpting Clay", MiniblockTextures.SCULPTING_CLAY.getLeft(), MiniblockTextures.SCULPTING_CLAY.getRight()),
+            makeOffer("blocktraders:shimmering_wheat", "Shimmering Wheat", MiniblockTextures.SHIMMERING_WHEAT.getLeft(), MiniblockTextures.SHIMMERING_WHEAT.getRight()),
+            makeOffer("blocktraders:soaked_villager_plushie", "Soaked Villager Plushie", MiniblockTextures.SOAKED_VILLAGER_PLUSHIE.getLeft(), MiniblockTextures.SOAKED_VILLAGER_PLUSHIE.getRight()),
+            makeOffer("blocktraders:sparkling_blaze_powder", "Sparkling Blaze Powder", MiniblockTextures.SPARKLING_BLAZE_POWDER.getLeft(), MiniblockTextures.SPARKLING_BLAZE_POWDER.getRight()),
+            makeOffer("blocktraders:unusually_dense_rock", "Unusually Dense Rock", MiniblockTextures.UNUSUALLY_DENSE_ROCK.getLeft(), MiniblockTextures.UNUSUALLY_DENSE_ROCK.getRight()),
+            makeOffer("blocktraders:wagyu_beef", "Wagyu Beef", MiniblockTextures.WAGYU_BEEF.getLeft(), MiniblockTextures.WAGYU_BEEF.getRight())
         ));
 
         NbtCompound ritualistTrades = new NbtCompound();
@@ -1135,10 +1135,14 @@ public class BTProfessions {
     }
 
     private static NbtCompound makeOffer(String name, String texture, int[] id) {
+        return makeOffer("emerald", name, texture, id);
+    }
+
+    private static NbtCompound makeOffer(String buyItem, String name, String texture, int[] id) {
         NbtCompound offer = new NbtCompound();
 
         NbtCompound buy = new NbtCompound();
-        buy.putString("id", "emerald");
+        buy.putString("id", buyItem);
         buy.putInt("Count", 1);
 
         NbtCompound sell = new NbtCompound();
