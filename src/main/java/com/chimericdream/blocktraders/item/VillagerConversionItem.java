@@ -20,10 +20,5 @@ abstract public class VillagerConversionItem extends Item {
         tooltip.add(TextHelpers.getTooltip("tooltip.conversion_item.lore"));
     }
 
-    @Override
-    public boolean hasGlint(ItemStack stack) {
-        return true;
-    }
-
     abstract protected String getVillagerProfession();
 }
