@@ -11,7 +11,7 @@ public class SoakedVillagerPlushieItem extends VillagerConversionItem {
     }
 
     @Override
-    protected String getVillagerProfession() {
+    public String getVillagerProfession() {
         return "bt_plushie_maniac";
     }
 }

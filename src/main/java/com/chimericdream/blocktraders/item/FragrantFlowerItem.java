@@ -11,7 +11,7 @@ public class FragrantFlowerItem extends VillagerConversionItem {
     }
 
     @Override
-    protected String getVillagerProfession() {
+    public String getVillagerProfession() {
         return "bt_horticulturist";
     }
 }

@@ -11,7 +11,7 @@ public class PureGoldItem extends VillagerConversionItem {
     }
 
     @Override
-    protected String getVillagerProfession() {
+    public String getVillagerProfession() {
         return "bt_mineralogist";
     }
 }

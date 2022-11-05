@@ -11,7 +11,7 @@ public class EndlessBookshelfItem extends VillagerConversionItem {
     }
 
     @Override
-    protected String getVillagerProfession() {
+    public String getVillagerProfession() {
         return "bt_furnisher";
     }
 }

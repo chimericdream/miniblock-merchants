@@ -20,5 +20,5 @@ abstract public class VillagerConversionItem extends Item {
         tooltip.add(TextHelpers.getTooltip("tooltip.conversion_item.lore"));
     }
 
-    abstract protected String getVillagerProfession();
+    abstract public String getVillagerProfession();
 }

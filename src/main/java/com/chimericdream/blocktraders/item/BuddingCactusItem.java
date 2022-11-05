@@ -11,7 +11,7 @@ public class BuddingCactusItem extends VillagerConversionItem {
     }
 
     @Override
-    protected String getVillagerProfession() {
+    public String getVillagerProfession() {
         return "bt_eremologist";
     }
 }
