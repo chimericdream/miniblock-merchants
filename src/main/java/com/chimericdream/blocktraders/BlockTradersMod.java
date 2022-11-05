@@ -1,6 +1,7 @@
 package com.chimericdream.blocktraders;
 
 import com.chimericdream.blocktraders.item.ModItems;
+import com.chimericdream.blocktraders.loot.BTLootTables;
 import com.chimericdream.blocktraders.registry.BTProfessions;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
@@ -17,5 +18,7 @@ public class BlockTradersMod implements ModInitializer {
 
 		BTProfessions.init();
 		BTProfessions.populateTrades();
+
+		BTLootTables.init();
 	}
 }
