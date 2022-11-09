@@ -1,5 +1,6 @@
 package com.chimericdream.blocktraders;
 
+import com.chimericdream.blocktraders.config.ConfigManager;
 import com.chimericdream.blocktraders.item.ModItems;
 import com.chimericdream.blocktraders.loot.BTLootTables;
 import com.chimericdream.blocktraders.registry.BTProfessions;
@@ -11,6 +12,10 @@ public class BlockTradersMod implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger("blocktraders");
 
 	public static final ModItems ITEMS = new ModItems();
+
+	static {
+		ConfigManager.registerAutoConfig();
+	}
 
 	@Override
 	public void onInitialize() {
