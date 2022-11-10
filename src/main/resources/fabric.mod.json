@@ -8,8 +8,8 @@
         "chimericdream"
     ],
     "contact": {
-        "homepage": "https://www.curseforge.com/minecraft/mc-mods/block-traders",
-        "sources": "https://github.com/chimericdream/block-traders/"
+        "homepage": "https://www.curseforge.com/minecraft/mc-mods/miniblock-merchants",
+        "sources": "https://github.com/chimericdream/miniblock-merchants/"
     },
     "license": "MIT",
     "icon": "assets/miniblockmerchants/icon.png",
