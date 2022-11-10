@@ -36,127 +36,127 @@ public class BlockTradersConfig implements ConfigData {
     public int wagyuBeefChance = Defaults.WAGYU_BEEF_CHANCE;
 
     public void validatePostLoad() {
-        if (this.ancientShellChance < 1) {
+        if (this.ancientShellChance < 0) {
             BlockTradersMod.LOGGER.info("[config] Invalid value found for 'ancientShellChance'! Resetting to default.");
             this.ancientShellChance = Defaults.ANCIENT_SHELL_CHANCE;
         }
 
-        if (this.bookOfRitualsChance < 1) {
+        if (this.bookOfRitualsChance < 0) {
             this.bookOfRitualsChance = Defaults.BOOK_OF_RITUALS_CHANCE;
             BlockTradersMod.LOGGER.info("[config] Invalid value found for 'bookOfRitualsChance'! Resetting to default.");
         }
 
-        if (this.buddingCactusChance < 1) {
+        if (this.buddingCactusChance < 0) {
             BlockTradersMod.LOGGER.info("[config] Invalid value found for 'buddingCactusChance'! Resetting to default.");
             this.buddingCactusChance = Defaults.BUDDING_CACTUS_CHANCE;
         }
 
-        if (this.crystalPhialChance < 1) {
+        if (this.crystalPhialChance < 0) {
             BlockTradersMod.LOGGER.info("[config] Invalid value found for 'crystalPhialChance'! Resetting to default.");
             this.crystalPhialChance = Defaults.CRYSTAL_PHIAL_CHANCE;
         }
 
-        if (this.cultivatedSaplingChance < 1) {
+        if (this.cultivatedSaplingChance < 0) {
             BlockTradersMod.LOGGER.info("[config] Invalid value found for 'cultivatedSaplingChance'! Resetting to default.");
             this.cultivatedSaplingChance = Defaults.CULTIVATED_SAPLING_CHANCE;
         }
 
-        if (this.drenchedScoreSheetChance < 1) {
+        if (this.drenchedScoreSheetChance < 0) {
             BlockTradersMod.LOGGER.info("[config] Invalid value found for 'drenchedScoreSheetChance'! Resetting to default.");
             this.drenchedScoreSheetChance = Defaults.DRENCHED_SCORE_SHEET_CHANCE;
         }
 
-        if (this.enchantedRedDeliciousChance < 1) {
+        if (this.enchantedRedDeliciousChance < 0) {
             BlockTradersMod.LOGGER.info("[config] Invalid value found for 'enchantedRedDeliciousChance'! Resetting to default.");
             this.enchantedRedDeliciousChance = Defaults.ENCHANTED_RED_DELICIOUS_CHANCE;
         }
 
-        if (this.endlessBookshelfChance < 1) {
+        if (this.endlessBookshelfChance < 0) {
             BlockTradersMod.LOGGER.info("[config] Invalid value found for 'endlessBookshelfChance'! Resetting to default.");
             this.endlessBookshelfChance = Defaults.ENDLESS_BOOKSHELF_CHANCE;
         }
 
-        if (this.fineThreadChance < 1) {
+        if (this.fineThreadChance < 0) {
             BlockTradersMod.LOGGER.info("[config] Invalid value found for 'fineThreadChance'! Resetting to default.");
             this.fineThreadChance = Defaults.FINE_THREAD_CHANCE;
         }
 
-        if (this.forgottenScrapMetalChance < 1) {
+        if (this.forgottenScrapMetalChance < 0) {
             BlockTradersMod.LOGGER.info("[config] Invalid value found for 'forgottenScrapMetalChance'! Resetting to default.");
             this.forgottenScrapMetalChance = Defaults.FORGOTTEN_SCRAP_METAL_CHANCE;
         }
 
-        if (this.fragrantFlowerChance < 1) {
+        if (this.fragrantFlowerChance < 0) {
             BlockTradersMod.LOGGER.info("[config] Invalid value found for 'fragrantFlowerChance'! Resetting to default.");
             this.fragrantFlowerChance = Defaults.FRAGRANT_FLOWER_CHANCE;
         }
 
-        if (this.galileanSpyglassChance < 1) {
+        if (this.galileanSpyglassChance < 0) {
             BlockTradersMod.LOGGER.info("[config] Invalid value found for 'galileanSpyglassChance'! Resetting to default.");
             this.galileanSpyglassChance = Defaults.GALILEAN_SPYGLASS_CHANCE;
         }
 
-        if (this.mastercraftedIronChance < 1) {
+        if (this.mastercraftedIronChance < 0) {
             BlockTradersMod.LOGGER.info("[config] Invalid value found for 'mastercraftedIronChance'! Resetting to default.");
             this.mastercraftedIronChance = Defaults.MASTERCRAFTED_IRON_CHANCE;
         }
 
-        if (this.mixologyStationChance < 1) {
+        if (this.mixologyStationChance < 0) {
             BlockTradersMod.LOGGER.info("[config] Invalid value found for 'mixologyStationChance'! Resetting to default.");
             this.mixologyStationChance = Defaults.MIXOLOGY_STATION_CHANCE;
         }
 
-        if (this.overgrownCarrotChance < 1) {
+        if (this.overgrownCarrotChance < 0) {
             BlockTradersMod.LOGGER.info("[config] Invalid value found for 'overgrownCarrotChance'! Resetting to default.");
             this.overgrownCarrotChance = Defaults.OVERGROWN_CARROT_CHANCE;
         }
 
-        if (this.prismaticHoneycombChance < 1) {
+        if (this.prismaticHoneycombChance < 0) {
             BlockTradersMod.LOGGER.info("[config] Invalid value found for 'prismaticHoneycombChance'! Resetting to default.");
             this.prismaticHoneycombChance = Defaults.PRISMATIC_HONEYCOMB_CHANCE;
         }
 
-        if (this.pureGoldChance < 1) {
+        if (this.pureGoldChance < 0) {
             BlockTradersMod.LOGGER.info("[config] Invalid value found for 'pureGoldChance'! Resetting to default.");
             this.pureGoldChance = Defaults.PURE_GOLD_CHANCE;
         }
 
-        if (this.radiatingRedstoneChance < 1) {
+        if (this.radiatingRedstoneChance < 0) {
             BlockTradersMod.LOGGER.info("[config] Invalid value found for 'radiatingRedstoneChance'! Resetting to default.");
             this.radiatingRedstoneChance = Defaults.RADIATING_REDSTONE_CHANCE;
         }
 
-        if (this.rottingRecyclingBinChance < 1) {
+        if (this.rottingRecyclingBinChance < 0) {
             BlockTradersMod.LOGGER.info("[config] Invalid value found for 'rottingRecyclingBinChance'! Resetting to default.");
             this.rottingRecyclingBinChance = Defaults.ROTTING_RECYCLING_BIN_CHANCE;
         }
 
-        if (this.sculptingClayChance < 1) {
+        if (this.sculptingClayChance < 0) {
             BlockTradersMod.LOGGER.info("[config] Invalid value found for 'sculptingClayChance'! Resetting to default.");
             this.sculptingClayChance = Defaults.SCULPTING_CLAY_CHANCE;
         }
 
-        if (this.shimmeringWheatChance < 1) {
+        if (this.shimmeringWheatChance < 0) {
             BlockTradersMod.LOGGER.info("[config] Invalid value found for 'shimmeringWheatChance'! Resetting to default.");
             this.shimmeringWheatChance = Defaults.SHIMMERING_WHEAT_CHANCE;
         }
 
-        if (this.soakedVillagerPlushieChance < 1) {
+        if (this.soakedVillagerPlushieChance < 0) {
             BlockTradersMod.LOGGER.info("[config] Invalid value found for 'soakedVillagerPlushieChance'! Resetting to default.");
             this.soakedVillagerPlushieChance = Defaults.SOAKED_VILLAGER_PLUSHIE_CHANCE;
         }
 
-        if (this.sparklingBlazePowderChance < 1) {
+        if (this.sparklingBlazePowderChance < 0) {
             BlockTradersMod.LOGGER.info("[config] Invalid value found for 'sparklingBlazePowderChance'! Resetting to default.");
             this.sparklingBlazePowderChance = Defaults.SPARKLING_BLAZE_POWDER_CHANCE;
         }
 
-        if (this.unusuallyDenseRockChance < 1) {
+        if (this.unusuallyDenseRockChance < 0) {
             BlockTradersMod.LOGGER.info("[config] Invalid value found for 'unusuallyDenseRockChance'! Resetting to default.");
             this.unusuallyDenseRockChance = Defaults.UNUSUALLY_DENSE_ROCK_CHANCE;
         }
 
-        if (this.wagyuBeefChance < 1) {
+        if (this.wagyuBeefChance < 0) {
             BlockTradersMod.LOGGER.info("[config] Invalid value found for 'wagyuBeefChance'! Resetting to default.");
             this.wagyuBeefChance = Defaults.WAGYU_BEEF_CHANCE;
         }
