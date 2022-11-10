@@ -34,6 +34,10 @@ public class BlockTradersConfig implements ConfigData {
     public int sparklingBlazePowderChance = Defaults.SPARKLING_BLAZE_POWDER_CHANCE;
     public int unusuallyDenseRockChance = Defaults.UNUSUALLY_DENSE_ROCK_CHANCE;
     public int wagyuBeefChance = Defaults.WAGYU_BEEF_CHANCE;
+    public int commonChestChance = Defaults.COMMON_CHEST_CHANCE;
+    public int uncommonChestChance = Defaults.UNCOMMON_CHEST_CHANCE;
+    public int rareChestChance = Defaults.RARE_CHEST_CHANCE;
+    public int epicChestChance = Defaults.EPIC_CHEST_CHANCE;
 
     public void validatePostLoad() {
         if (this.ancientShellChance < 0) {
@@ -160,6 +164,26 @@ public class BlockTradersConfig implements ConfigData {
             BlockTradersMod.LOGGER.info("[config] Invalid value found for 'wagyuBeefChance'! Resetting to default.");
             this.wagyuBeefChance = Defaults.WAGYU_BEEF_CHANCE;
         }
+
+        if (this.commonChestChance < 0) {
+            BlockTradersMod.LOGGER.info("[config] Invalid value found for 'commonChestChance'! Resetting to default.");
+            this.commonChestChance = Defaults.COMMON_CHEST_CHANCE;
+        }
+
+        if (this.uncommonChestChance < 0) {
+            BlockTradersMod.LOGGER.info("[config] Invalid value found for 'uncommonChestChance'! Resetting to default.");
+            this.uncommonChestChance = Defaults.UNCOMMON_CHEST_CHANCE;
+        }
+
+        if (this.rareChestChance < 0) {
+            BlockTradersMod.LOGGER.info("[config] Invalid value found for 'rareChestChance'! Resetting to default.");
+            this.rareChestChance = Defaults.RARE_CHEST_CHANCE;
+        }
+
+        if (this.epicChestChance < 0) {
+            BlockTradersMod.LOGGER.info("[config] Invalid value found for 'epicChestChance'! Resetting to default.");
+            this.epicChestChance = Defaults.EPIC_CHEST_CHANCE;
+        }
     }
 
     public static class Defaults {
@@ -188,5 +212,9 @@ public class BlockTradersConfig implements ConfigData {
         public static int SPARKLING_BLAZE_POWDER_CHANCE = 4;
         public static int UNUSUALLY_DENSE_ROCK_CHANCE = 12;
         public static int WAGYU_BEEF_CHANCE = 2;
+        public static int COMMON_CHEST_CHANCE = 2;
+        public static int UNCOMMON_CHEST_CHANCE = 8;
+        public static int RARE_CHEST_CHANCE = 64;
+        public static int EPIC_CHEST_CHANCE = 256;
     }
 }

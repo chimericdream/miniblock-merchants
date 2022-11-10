@@ -102,5 +102,9 @@
     "text.autoconfig.blocktraders.option.soakedVillagerPlushieChance": "Soaked Villager Plushie Chance (1 in x)",
     "text.autoconfig.blocktraders.option.sparklingBlazePowderChance": "Sparkling Blaze Powder Chance (1 in x)",
     "text.autoconfig.blocktraders.option.unusuallyDenseRockChance": "Unusually Dense Rock Chance (1 in x)",
-    "text.autoconfig.blocktraders.option.wagyuBeefChance": "Wagyu Beef Chance (1 in x)"
+    "text.autoconfig.blocktraders.option.wagyuBeefChance": "Wagyu Beef Chance (1 in x)",
+    "text.autoconfig.blocktraders.option.commonChestChance": "Common Loot Chest Chance (1 in x)",
+    "text.autoconfig.blocktraders.option.uncommonChestChance": "Uncommon Loot Chest Chance (1 in x)",
+    "text.autoconfig.blocktraders.option.rareChestChance": "Rare Loot Chest Chance (1 in x)",
+    "text.autoconfig.blocktraders.option.epicChestChance": "Epic Loot Chest Chance (1 in x)"
 }

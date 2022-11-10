@@ -39,6 +39,10 @@ public class ConfigManager {
         config.sparklingBlazePowderChance = Defaults.SPARKLING_BLAZE_POWDER_CHANCE;
         config.unusuallyDenseRockChance = Defaults.UNUSUALLY_DENSE_ROCK_CHANCE;
         config.wagyuBeefChance = Defaults.WAGYU_BEEF_CHANCE;
+        config.commonChestChance = Defaults.COMMON_CHEST_CHANCE;
+        config.uncommonChestChance = Defaults.UNCOMMON_CHEST_CHANCE;
+        config.rareChestChance = Defaults.RARE_CHEST_CHANCE;
+        config.epicChestChance = Defaults.EPIC_CHEST_CHANCE;
     };
 
     public static void registerAutoConfig() {
