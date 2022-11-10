@@ -1,8 +1,8 @@
 {
     "schemaVersion": 1,
-    "id": "blocktraders",
+    "id": "miniblockmerchants",
     "version": "${version}",
-    "name": "BlockTraders",
+    "name": "Miniblock Merchants",
     "description": "Adds more than two dozen new villagers which trade a huge variety of miniblocks for all your decorating needs.",
     "authors": [
         "chimericdream"
@@ -12,23 +12,23 @@
         "sources": "https://github.com/chimericdream/block-traders/"
     },
     "license": "MIT",
-    "icon": "assets/blocktraders/icon.png",
+    "icon": "assets/miniblockmerchants/icon.png",
     "environment": "*",
     "entrypoints": {
         "main": [
-            "com.chimericdream.blocktraders.BlockTradersMod"
+            "com.chimericdream.miniblockmerchants.MiniblockMerchantsMod"
         ],
         "client": [
-            "com.chimericdream.blocktraders.BlockTradersClient"
+            "com.chimericdream.miniblockmerchants.MiniblockMerchantsClient"
         ],
         "modmenu": [
-            "com.chimericdream.blocktraders.config.ModMenuIntegration"
+            "com.chimericdream.miniblockmerchants.config.ModMenuIntegration"
         ]
     },
     "mixins": [
-        "blocktraders.mixins.json"
+        "miniblockmerchants.mixins.json"
     ],
-    "accessWidener": "blocktraders.accesswidener",
+    "accessWidener": "miniblockmerchants.accesswidener",
     "depends": {
         "fabricloader": ">=0.14.7",
         "minecraft": "~1.19",
