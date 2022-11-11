@@ -9,7 +9,6 @@ import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.message.MessageType;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -91,7 +90,7 @@ abstract public class MMVillagerEntityMixin extends MMMerchantEntityMixin {
 
                     this.world.playSoundFromEntity(player, this, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.NEUTRAL, 1.0F, 1.0F);
                     if (this.world instanceof ServerWorld) {
-                        ((ServerPlayerEntity) player).sendMessage(getPlayerMessage(item.getVillagerProfession()), MessageType.TELLRAW_COMMAND);
+                        ((ServerPlayerEntity) player).sendMessage(getPlayerMessage(item.getVillagerProfession()), false);
                     }
 
                     NbtCompound nbtOffers = MMProfessions.getOffersForProfession(item.getVillagerProfession());
