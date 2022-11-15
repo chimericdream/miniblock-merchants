@@ -51,6 +51,9 @@ abstract public class MMVillagerEntityMixin extends MMMerchantEntityMixin {
     abstract public void reinitializeBrain(ServerWorld world);
 
     @Shadow
+    abstract public void setExperience(int experience);
+
+    @Shadow
     abstract public void setOffers(TradeOfferList offers);
 
     @Shadow
@@ -89,30 +92,30 @@ abstract public class MMVillagerEntityMixin extends MMMerchantEntityMixin {
                 if (currentProfession == VillagerProfession.NONE) {
                     VillagerProfession newProfession = MMProfessions.get(item.getVillagerProfession());
 
-                    this.world.playSoundFromEntity(player, this, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.NEUTRAL, 1.0F, 1.0F);
-                    if (this.world instanceof ServerWorld) {
+                    if (this.world.isClient) {
+                        this.world.playSoundFromEntity(player, this, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+                    } else {
                         ((ServerPlayerEntity) player).sendMessage(getPlayerMessage(item.getVillagerProfession()), MessageType.TELLRAW_COMMAND);
-                    }
 
-                    NbtCompound nbtOffers = MMProfessions.getOffersForProfession(item.getVillagerProfession());
-                    TradeOfferList offerList = new TradeOfferList(nbtOffers);
+                        NbtCompound nbtOffers = MMProfessions.getOffersForProfession(item.getVillagerProfession());
+                        TradeOfferList offerList = new TradeOfferList(nbtOffers);
 
-                    this.setVillagerData(new VillagerData(VillagerType.PLAINS, newProfession, 5));
-                    this.setOffers(offerList);
-                    this.produceParticles(ParticleTypes.HAPPY_VILLAGER);
-                    this.setPersistent();
+                        this.setVillagerData(new VillagerData(VillagerType.PLAINS, newProfession, 5));
+                        this.setOffers(offerList);
+                        this.setExperience(250);
+                        this.produceParticles(ParticleTypes.HAPPY_VILLAGER);
+                        this.setPersistent();
 
-                    if (this.world instanceof ServerWorld) {
                         this.reinitializeBrain((ServerWorld) this.world);
-                    }
 
-                    if (!player.world.isClient && !player.isCreative()) {
-                        itemStack.decrement(1);
+                        if (!player.isCreative()) {
+                            itemStack.decrement(1);
+                        }
                     }
 
                     player.incrementStat(Stats.TALKED_TO_VILLAGER);
 
-                    cir.setReturnValue(ActionResult.success(player.world.isClient));
+                    cir.setReturnValue(ActionResult.success(this.world.isClient));
                 }
             }
         }
@@ -123,6 +126,7 @@ abstract public class MMVillagerEntityMixin extends MMMerchantEntityMixin {
         Set<String> tags = this.getScoreboardTags();
 
         if (tags.contains("mt_trader")) {
+            mm_setBaseXp(nbt);
             mm_convertDatapackTrader(nbt);
             return;
         }
@@ -134,7 +138,16 @@ abstract public class MMVillagerEntityMixin extends MMMerchantEntityMixin {
             return;
         }
 
+        mm_setBaseXp(nbt);
         nbt.put("Offers", MMProfessions.getOffersForProfession(profession));
+    }
+
+    private void mm_setBaseXp(NbtCompound nbt) {
+        int currentXp = nbt.getInt("Xp");
+
+        if (currentXp == 0) {
+            nbt.putInt("Xp", 250);
+        }
     }
 
     private void mm_convertDatapackTrader(NbtCompound nbt) {
