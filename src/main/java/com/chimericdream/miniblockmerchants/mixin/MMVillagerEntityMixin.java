@@ -4,6 +4,7 @@ import com.chimericdream.miniblockmerchants.MiniblockMerchantsMod;
 import com.chimericdream.miniblockmerchants.ModInfo;
 import com.chimericdream.miniblockmerchants.item.VillagerConversionItem;
 import com.chimericdream.miniblockmerchants.registry.MMProfessions;
+import com.chimericdream.miniblockmerchants.registry.MMStats;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.VillagerEntity;
@@ -22,10 +23,7 @@ import net.minecraft.text.TextContent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
-import net.minecraft.village.TradeOfferList;
-import net.minecraft.village.VillagerData;
-import net.minecraft.village.VillagerProfession;
-import net.minecraft.village.VillagerType;
+import net.minecraft.village.*;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -140,6 +138,15 @@ abstract public class MMVillagerEntityMixin extends MMMerchantEntityMixin {
 
         mm_setBaseXp(nbt);
         nbt.put("Offers", MMProfessions.getOffersForProfession(profession));
+    }
+
+    @Inject(method = "afterUsing", at = @At("TAIL"))
+    private void mm_incrementMiniblockTrade(TradeOffer offer, CallbackInfo ci) {
+        PlayerEntity player = this.getCustomer();
+
+        if (player != null) {
+            player.incrementStat(MMStats.TRADE_FOR_MINIBLOCK);
+        }
     }
 
     private void mm_setBaseXp(NbtCompound nbt) {
