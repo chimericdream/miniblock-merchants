@@ -102,5 +102,17 @@
     "text.autoconfig.miniblockmerchants.option.soakedVillagerPlushieChance": "Soaked Villager Plushie Chance (1 in x)",
     "text.autoconfig.miniblockmerchants.option.sparklingBlazePowderChance": "Sparkling Blaze Powder Chance (1 in x)",
     "text.autoconfig.miniblockmerchants.option.unusuallyDenseRockChance": "Unusually Dense Rock Chance (1 in x)",
-    "text.autoconfig.miniblockmerchants.option.wagyuBeefChance": "Wagyu Beef Chance (1 in x)"
+    "text.autoconfig.miniblockmerchants.option.wagyuBeefChance": "Wagyu Beef Chance (1 in x)",
+    "stat.miniblockmerchants.trade_for_miniblock": "Traded with Miniblock Merchants",
+    "advancements.miniblockmerchants.root.title": "Miniblock Merchants",
+    "advancements.miniblockmerchants.root.desc.line1": "Provides over two dozen new villager professions which trade nearly",
+    "advancements.miniblockmerchants.root.desc.line2": "miniblocks to decorate your world!",
+    "advancements.miniblockmerchants.found_conversion_item.title": "This looks interesting...",
+    "advancements.miniblockmerchants.found_conversion_item.desc": "Obtain a Miniblock Merchants conversion item.",
+    "advancements.miniblockmerchants.found_all_conversion_items.title": "Miniblock Connoisseur",
+    "advancements.miniblockmerchants.found_all_conversion_items.desc": "Obtain all Miniblock Merchant conversion items!",
+    "advancements.miniblockmerchants.trade_with_merchant.title": "I know just where to put this!",
+    "advancements.miniblockmerchants.trade_with_merchant.desc": "Trade with a Miniblock Merchant after converting them by using a conversion item on them.",
+    "advancements.miniblockmerchants.trade_with_all_merchants.title": "Where are you putting these?",
+    "advancements.miniblockmerchants.trade_with_all_merchants.desc": "Trade with every Miniblock Merchant, then build more storage... you're gonna need it."
 }

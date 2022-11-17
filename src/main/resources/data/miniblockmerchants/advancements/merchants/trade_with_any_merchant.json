@@ -1,0 +1,250 @@
+{
+    "display": {
+        "title": {
+            "translate": "advancements.miniblockmerchants.trade_with_merchant.title",
+            "italic": false
+        },
+        "description": {
+            "translate": "advancements.miniblockmerchants.trade_with_merchant.desc",
+            "color": "green"
+        },
+        "icon": {
+            "item": "minecraft:player_head",
+            "nbt": "{SkullOwner:{Id:[I;-865026884,-1981921532,-2070622196,-982143645],Properties:{textures:[{Value:\"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzkyZTllNDhiMjRkYjkxZDViNGRlYTBiZTdlZTQzYmFkYmRjODRkMzM0Mzc2M2U0NGMwYTY1MWU1YmM4NDNlZSJ9fX0=\"}]}}}"
+        },
+        "show_toast": true,
+        "announce_to_chat": true
+    },
+    "parent": "miniblockmerchants:root",
+    "criteria": {
+        "trade1": {
+            "trigger": "minecraft:villager_trade",
+            "conditions": {
+                "villager": {
+                    "nbt": "{VillagerData:{profession:\"miniblockmerchants:mm_alchemist\"}}"
+                }
+            }
+        },
+        "trade2": {
+            "trigger": "minecraft:villager_trade",
+            "conditions": {
+                "villager": {
+                    "nbt": "{VillagerData:{profession:\"miniblockmerchants:mm_arboriculturist\"}}"
+                }
+            }
+        },
+        "trade3": {
+            "trigger": "minecraft:villager_trade",
+            "conditions": {
+                "villager": {
+                    "nbt": "{VillagerData:{profession:\"miniblockmerchants:mm_astronomer\"}}"
+                }
+            }
+        },
+        "trade4": {
+            "trigger": "minecraft:villager_trade",
+            "conditions": {
+                "villager": {
+                    "nbt": "{VillagerData:{profession:\"miniblockmerchants:mm_baker\"}}"
+                }
+            }
+        },
+        "trade5": {
+            "trigger": "minecraft:villager_trade",
+            "conditions": {
+                "villager": {
+                    "nbt": "{VillagerData:{profession:\"miniblockmerchants:mm_bartender\"}}"
+                }
+            }
+        },
+        "trade6": {
+            "trigger": "minecraft:villager_trade",
+            "conditions": {
+                "villager": {
+                    "nbt": "{VillagerData:{profession:\"miniblockmerchants:mm_beekeeper\"}}"
+                }
+            }
+        },
+        "trade7": {
+            "trigger": "minecraft:villager_trade",
+            "conditions": {
+                "villager": {
+                    "nbt": "{VillagerData:{profession:\"miniblockmerchants:mm_blacksmith\"}}"
+                }
+            }
+        },
+        "trade8": {
+            "trigger": "minecraft:villager_trade",
+            "conditions": {
+                "villager": {
+                    "nbt": "{VillagerData:{profession:\"miniblockmerchants:mm_chef\"}}"
+                }
+            }
+        },
+        "trade9": {
+            "trigger": "minecraft:villager_trade",
+            "conditions": {
+                "villager": {
+                    "nbt": "{VillagerData:{profession:\"miniblockmerchants:mm_engineer\"}}"
+                }
+            }
+        },
+        "trade10": {
+            "trigger": "minecraft:villager_trade",
+            "conditions": {
+                "villager": {
+                    "nbt": "{VillagerData:{profession:\"miniblockmerchants:mm_eremologist\"}}"
+                }
+            }
+        },
+        "trade11": {
+            "trigger": "minecraft:villager_trade",
+            "conditions": {
+                "villager": {
+                    "nbt": "{VillagerData:{profession:\"miniblockmerchants:mm_furnisher\"}}"
+                }
+            }
+        },
+        "trade12": {
+            "trigger": "minecraft:villager_trade",
+            "conditions": {
+                "villager": {
+                    "nbt": "{VillagerData:{profession:\"miniblockmerchants:mm_gamemaster\"}}"
+                }
+            }
+        },
+        "trade13": {
+            "trigger": "minecraft:villager_trade",
+            "conditions": {
+                "villager": {
+                    "nbt": "{VillagerData:{profession:\"miniblockmerchants:mm_horticulturist\"}}"
+                }
+            }
+        },
+        "trade14": {
+            "trigger": "minecraft:villager_trade",
+            "conditions": {
+                "villager": {
+                    "nbt": "{VillagerData:{profession:\"miniblockmerchants:mm_mineralogist\"}}"
+                }
+            }
+        },
+        "trade15": {
+            "trigger": "minecraft:villager_trade",
+            "conditions": {
+                "villager": {
+                    "nbt": "{VillagerData:{profession:\"miniblockmerchants:mm_netherographer\"}}"
+                }
+            }
+        },
+        "trade16": {
+            "trigger": "minecraft:villager_trade",
+            "conditions": {
+                "villager": {
+                    "nbt": "{VillagerData:{profession:\"miniblockmerchants:mm_oceanographer\"}}"
+                }
+            }
+        },
+        "trade17": {
+            "trigger": "minecraft:villager_trade",
+            "conditions": {
+                "villager": {
+                    "nbt": "{VillagerData:{profession:\"miniblockmerchants:mm_olericulturist\"}}"
+                }
+            }
+        },
+        "trade18": {
+            "trigger": "minecraft:villager_trade",
+            "conditions": {
+                "villager": {
+                    "nbt": "{VillagerData:{profession:\"miniblockmerchants:mm_petrologist\"}}"
+                }
+            }
+        },
+        "trade19": {
+            "trigger": "minecraft:villager_trade",
+            "conditions": {
+                "villager": {
+                    "nbt": "{VillagerData:{profession:\"miniblockmerchants:mm_plushie_maniac\"}}"
+                }
+            }
+        },
+        "trade20": {
+            "trigger": "minecraft:villager_trade",
+            "conditions": {
+                "villager": {
+                    "nbt": "{VillagerData:{profession:\"miniblockmerchants:mm_pomologist\"}}"
+                }
+            }
+        },
+        "trade21": {
+            "trigger": "minecraft:villager_trade",
+            "conditions": {
+                "villager": {
+                    "nbt": "{VillagerData:{profession:\"miniblockmerchants:mm_recycler\"}}"
+                }
+            }
+        },
+        "trade22": {
+            "trigger": "minecraft:villager_trade",
+            "conditions": {
+                "villager": {
+                    "nbt": "{VillagerData:{profession:\"miniblockmerchants:mm_ritualist\"}}"
+                }
+            }
+        },
+        "trade23": {
+            "trigger": "minecraft:villager_trade",
+            "conditions": {
+                "villager": {
+                    "nbt": "{VillagerData:{profession:\"miniblockmerchants:mm_sculptor\"}}"
+                }
+            }
+        },
+        "trade24": {
+            "trigger": "minecraft:villager_trade",
+            "conditions": {
+                "villager": {
+                    "nbt": "{VillagerData:{profession:\"miniblockmerchants:mm_steampunker\"}}"
+                }
+            }
+        },
+        "trade25": {
+            "trigger": "minecraft:villager_trade",
+            "conditions": {
+                "villager": {
+                    "nbt": "{VillagerData:{profession:\"miniblockmerchants:mm_tailor\"}}"
+                }
+            }
+        }
+    },
+    "requirements": [
+        [
+            "trade1",
+            "trade2",
+            "trade3",
+            "trade4",
+            "trade5",
+            "trade6",
+            "trade7",
+            "trade8",
+            "trade9",
+            "trade10",
+            "trade11",
+            "trade12",
+            "trade13",
+            "trade14",
+            "trade15",
+            "trade16",
+            "trade17",
+            "trade18",
+            "trade19",
+            "trade20",
+            "trade21",
+            "trade22",
+            "trade23",
+            "trade24",
+            "trade25"
+        ]
+    ]
+}
