@@ -1,5 +1,6 @@
 package com.chimericdream.miniblockmerchants.registry;
 
+import com.chimericdream.miniblockmerchants.ModInfo;
 import com.chimericdream.miniblockmerchants.data.MiniblockTextures;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.nbt.NbtCompound;
@@ -1106,7 +1107,7 @@ public class MMProfessions {
     }
 
     public static VillagerProfession register(String id) {
-        Identifier ident = new Identifier("miniblockmerchants", id);
+        Identifier ident = new Identifier(ModInfo.MOD_ID, id);
         VillagerProfession prof = Registry.register(
             Registry.VILLAGER_PROFESSION,
             ident,
@@ -1133,8 +1134,8 @@ public class MMProfessions {
     }
 
     public static NbtCompound getOffersForProfession(String profession) {
-        if (!profession.startsWith("miniblockmerchants:")) {
-            return TRADES.getOrDefault("miniblockmerchants:" + profession, getDefaultOffers());
+        if (!profession.startsWith(ModInfo.MOD_ID)) {
+            return TRADES.getOrDefault(ModInfo.MOD_ID + ":" + profession, getDefaultOffers());
         }
 
         return TRADES.getOrDefault(profession, getDefaultOffers());

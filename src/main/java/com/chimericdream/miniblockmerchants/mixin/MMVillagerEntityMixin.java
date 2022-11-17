@@ -1,6 +1,7 @@
 package com.chimericdream.miniblockmerchants.mixin;
 
 import com.chimericdream.miniblockmerchants.MiniblockMerchantsMod;
+import com.chimericdream.miniblockmerchants.ModInfo;
 import com.chimericdream.miniblockmerchants.item.VillagerConversionItem;
 import com.chimericdream.miniblockmerchants.registry.MMProfessions;
 import net.minecraft.entity.EntityType;
@@ -69,9 +70,9 @@ abstract public class MMVillagerEntityMixin extends MMMerchantEntityMixin {
         Text name = Text.translatable(String.format("entity.minecraft.villager.%s", profession)).formatted(Formatting.GOLD);
 
         MutableText greeting = MutableText.of(TextContent.EMPTY);
-        greeting.append(Text.translatable(String.format("miniblockmerchants.message.conversion.%s", profession)).formatted(Formatting.GREEN));
+        greeting.append(Text.translatable(String.format("%s.message.conversion.%s", ModInfo.MOD_ID, profession)).formatted(Formatting.GREEN));
         if (profession.equals("mm_ritualist")) {
-            greeting.append(" ").append(Text.translatable(String.format("miniblockmerchants.message.conversion.%s.obfuscated", profession)).formatted(Formatting.GREEN).formatted(Formatting.OBFUSCATED));
+            greeting.append(" ").append(Text.translatable(String.format("%s.message.conversion.%s.obfuscated", ModInfo.MOD_ID, profession)).formatted(Formatting.GREEN).formatted(Formatting.OBFUSCATED));
         }
 
         msg.append(lcarat).append(name).append(rcarat).append(" ").append(greeting);
@@ -133,7 +134,7 @@ abstract public class MMVillagerEntityMixin extends MMMerchantEntityMixin {
         NbtCompound data = nbt.getCompound("VillagerData");
         String profession = data.getString("profession");
 
-        if (!profession.startsWith("miniblockmerchants:")) {
+        if (!profession.startsWith(ModInfo.MOD_ID)) {
             return;
         }
 
@@ -158,31 +159,31 @@ abstract public class MMVillagerEntityMixin extends MMMerchantEntityMixin {
         }
 
         String profession = switch (dpProfession.get()) {
-            case "mt_trader_alchemy" -> "miniblockmerchants:mm_alchemist";
-            case "mt_trader_sapling" -> "miniblockmerchants:mm_arboriculturist";
-            case "mt_trader_astronomy" -> "miniblockmerchants:mm_astronomer";
-            case "mt_trader_bake" -> "miniblockmerchants:mm_baker";
-            case "mt_trader_bartender" -> "miniblockmerchants:mm_bartender";
-            case "mt_trader_bees" -> "miniblockmerchants:mm_beekeeper";
-            case "mt_trader_smithy" -> "miniblockmerchants:mm_blacksmith";
-            case "mt_trader_chef" -> "miniblockmerchants:mm_chef";
-            case "mt_trader_engineer" -> "miniblockmerchants:mm_engineer";
-            case "mt_trader_desert" -> "miniblockmerchants:mm_eremologist";
-            case "mt_trader_furnish" -> "miniblockmerchants:mm_furnisher";
-            case "mt_trader_game" -> "miniblockmerchants:mm_gamemaster";
-            case "mt_trader_flower" -> "miniblockmerchants:mm_horticulturist";
-            case "mt_trader_mineral" -> "miniblockmerchants:mm_mineralogist";
-            case "mt_trader_nether" -> "miniblockmerchants:mm_netherographer";
-            case "mt_trader_ocean" -> "miniblockmerchants:mm_oceanographer";
-            case "mt_trader_carrot" -> "miniblockmerchants:mm_olericulturist";
-            case "mt_trader_rock" -> "miniblockmerchants:mm_petrologist";
-            case "mt_trader_plush" -> "miniblockmerchants:mm_plushie_maniac";
-            case "mt_trader_apple" -> "miniblockmerchants:mm_pomologist";
-            case "mt_trader_recycle" -> "miniblockmerchants:mm_recycler";
-            case "mt_trader_ritual" -> "miniblockmerchants:mm_ritualist";
-            case "mt_trader_sculpt" -> "miniblockmerchants:mm_sculptor";
-            case "mt_trader_steampunk" -> "miniblockmerchants:mm_steampunker";
-            case "mt_trader_clothes" -> "miniblockmerchants:mm_tailor";
+            case "mt_trader_alchemy" -> ModInfo.MOD_ID + ":mm_alchemist";
+            case "mt_trader_sapling" -> ModInfo.MOD_ID + ":mm_arboriculturist";
+            case "mt_trader_astronomy" -> ModInfo.MOD_ID + ":mm_astronomer";
+            case "mt_trader_bake" -> ModInfo.MOD_ID + ":mm_baker";
+            case "mt_trader_bartender" -> ModInfo.MOD_ID + ":mm_bartender";
+            case "mt_trader_bees" -> ModInfo.MOD_ID + ":mm_beekeeper";
+            case "mt_trader_smithy" -> ModInfo.MOD_ID + ":mm_blacksmith";
+            case "mt_trader_chef" -> ModInfo.MOD_ID + ":mm_chef";
+            case "mt_trader_engineer" -> ModInfo.MOD_ID + ":mm_engineer";
+            case "mt_trader_desert" -> ModInfo.MOD_ID + ":mm_eremologist";
+            case "mt_trader_furnish" -> ModInfo.MOD_ID + ":mm_furnisher";
+            case "mt_trader_game" -> ModInfo.MOD_ID + ":mm_gamemaster";
+            case "mt_trader_flower" -> ModInfo.MOD_ID + ":mm_horticulturist";
+            case "mt_trader_mineral" -> ModInfo.MOD_ID + ":mm_mineralogist";
+            case "mt_trader_nether" -> ModInfo.MOD_ID + ":mm_netherographer";
+            case "mt_trader_ocean" -> ModInfo.MOD_ID + ":mm_oceanographer";
+            case "mt_trader_carrot" -> ModInfo.MOD_ID + ":mm_olericulturist";
+            case "mt_trader_rock" -> ModInfo.MOD_ID + ":mm_petrologist";
+            case "mt_trader_plush" -> ModInfo.MOD_ID + ":mm_plushie_maniac";
+            case "mt_trader_apple" -> ModInfo.MOD_ID + ":mm_pomologist";
+            case "mt_trader_recycle" -> ModInfo.MOD_ID + ":mm_recycler";
+            case "mt_trader_ritual" -> ModInfo.MOD_ID + ":mm_ritualist";
+            case "mt_trader_sculpt" -> ModInfo.MOD_ID + ":mm_sculptor";
+            case "mt_trader_steampunk" -> ModInfo.MOD_ID + ":mm_steampunker";
+            case "mt_trader_clothes" -> ModInfo.MOD_ID + ":mm_tailor";
             default -> "";
         };
 

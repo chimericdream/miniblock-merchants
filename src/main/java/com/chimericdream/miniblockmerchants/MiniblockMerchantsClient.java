@@ -11,7 +11,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 public class MiniblockMerchantsClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        MiniblockMerchantsMod.LOGGER.info("[miniblockmerchants] Initializing client code");
+        MiniblockMerchantsMod.LOGGER.info(String.format("[%s] Initializing client code", ModInfo.MOD_ID));
 
         BuiltinItemRendererRegistry.INSTANCE.register(ModItems.ANCIENT_SHELL, new VillagerConversionItemRenderer());
         BuiltinItemRendererRegistry.INSTANCE.register(ModItems.BOOK_OF_RITUALS, new VillagerConversionItemRenderer());
