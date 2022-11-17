@@ -1,10 +1,11 @@
 package com.chimericdream.miniblockmerchants.config;
 
 import com.chimericdream.miniblockmerchants.MiniblockMerchantsMod;
+import com.chimericdream.miniblockmerchants.ModInfo;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 
-@Config(name = "miniblockmerchants")
+@Config(name = ModInfo.MOD_ID)
 @Config.Gui.Background("minecraft:textures/block/composter_side.png")
 public class MiniblockMerchantsConfig implements ConfigData {
     public String reset = "";

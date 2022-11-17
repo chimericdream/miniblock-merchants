@@ -1,5 +1,6 @@
 package com.chimericdream.miniblockmerchants.item;
 
+import com.chimericdream.miniblockmerchants.ModInfo;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -31,30 +32,30 @@ public class ModItems {
     public static final VillagerConversionItem WAGYU_BEEF = new WagyuBeefItem();
 
     public void init() {
-        Registry.register(Registry.ITEM, new Identifier("miniblockmerchants", AncientShellItem.ID), ANCIENT_SHELL);
-        Registry.register(Registry.ITEM, new Identifier("miniblockmerchants", BookOfRitualsItem.ID), BOOK_OF_RITUALS);
-        Registry.register(Registry.ITEM, new Identifier("miniblockmerchants", BuddingCactusItem.ID), BUDDING_CACTUS);
-        Registry.register(Registry.ITEM, new Identifier("miniblockmerchants", CrystalPhialItem.ID), CRYSTAL_PHIAL);
-        Registry.register(Registry.ITEM, new Identifier("miniblockmerchants", CultivatedSaplingItem.ID), CULTIVATED_SAPLING);
-        Registry.register(Registry.ITEM, new Identifier("miniblockmerchants", DrenchedScoreSheetItem.ID), DRENCHED_SCORE_SHEET);
-        Registry.register(Registry.ITEM, new Identifier("miniblockmerchants", EnchantedRedDeliciousItem.ID), ENCHANTED_RED_DELICIOUS);
-        Registry.register(Registry.ITEM, new Identifier("miniblockmerchants", EndlessBookshelfItem.ID), ENDLESS_BOOKSHELF);
-        Registry.register(Registry.ITEM, new Identifier("miniblockmerchants", FineThreadItem.ID), FINE_THREAD);
-        Registry.register(Registry.ITEM, new Identifier("miniblockmerchants", ForgottenScrapMetalItem.ID), FORGOTTEN_SCRAP_METAL);
-        Registry.register(Registry.ITEM, new Identifier("miniblockmerchants", FragrantFlowerItem.ID), FRAGRANT_FLOWER);
-        Registry.register(Registry.ITEM, new Identifier("miniblockmerchants", GalileanSpyglassItem.ID), GALILEAN_SPYGLASS);
-        Registry.register(Registry.ITEM, new Identifier("miniblockmerchants", MastercraftedIronItem.ID), MASTERCRAFTED_IRON);
-        Registry.register(Registry.ITEM, new Identifier("miniblockmerchants", MixologyStationItem.ID), MIXOLOGY_STATION);
-        Registry.register(Registry.ITEM, new Identifier("miniblockmerchants", OvergrownCarrotItem.ID), OVERGROWN_CARROT);
-        Registry.register(Registry.ITEM, new Identifier("miniblockmerchants", PrismaticHoneycombItem.ID), PRISMATIC_HONEYCOMB);
-        Registry.register(Registry.ITEM, new Identifier("miniblockmerchants", PureGoldItem.ID), PURE_GOLD);
-        Registry.register(Registry.ITEM, new Identifier("miniblockmerchants", RadiatingRedstoneItem.ID), RADIATING_REDSTONE);
-        Registry.register(Registry.ITEM, new Identifier("miniblockmerchants", RottingRecyclingBinItem.ID), ROTTING_RECYCLING_BIN);
-        Registry.register(Registry.ITEM, new Identifier("miniblockmerchants", SculptingClayItem.ID), SCULPTING_CLAY);
-        Registry.register(Registry.ITEM, new Identifier("miniblockmerchants", ShimmeringWheatItem.ID), SHIMMERING_WHEAT);
-        Registry.register(Registry.ITEM, new Identifier("miniblockmerchants", SoakedVillagerPlushieItem.ID), SOAKED_VILLAGER_PLUSHIE);
-        Registry.register(Registry.ITEM, new Identifier("miniblockmerchants", SparklingBlazePowderItem.ID), SPARKLING_BLAZE_POWDER);
-        Registry.register(Registry.ITEM, new Identifier("miniblockmerchants", UnusuallyDenseRockItem.ID), UNUSUALLY_DENSE_ROCK);
-        Registry.register(Registry.ITEM, new Identifier("miniblockmerchants", WagyuBeefItem.ID), WAGYU_BEEF);
+        Registry.register(Registry.ITEM, new Identifier(ModInfo.MOD_ID, AncientShellItem.ID), ANCIENT_SHELL);
+        Registry.register(Registry.ITEM, new Identifier(ModInfo.MOD_ID, BookOfRitualsItem.ID), BOOK_OF_RITUALS);
+        Registry.register(Registry.ITEM, new Identifier(ModInfo.MOD_ID, BuddingCactusItem.ID), BUDDING_CACTUS);
+        Registry.register(Registry.ITEM, new Identifier(ModInfo.MOD_ID, CrystalPhialItem.ID), CRYSTAL_PHIAL);
+        Registry.register(Registry.ITEM, new Identifier(ModInfo.MOD_ID, CultivatedSaplingItem.ID), CULTIVATED_SAPLING);
+        Registry.register(Registry.ITEM, new Identifier(ModInfo.MOD_ID, DrenchedScoreSheetItem.ID), DRENCHED_SCORE_SHEET);
+        Registry.register(Registry.ITEM, new Identifier(ModInfo.MOD_ID, EnchantedRedDeliciousItem.ID), ENCHANTED_RED_DELICIOUS);
+        Registry.register(Registry.ITEM, new Identifier(ModInfo.MOD_ID, EndlessBookshelfItem.ID), ENDLESS_BOOKSHELF);
+        Registry.register(Registry.ITEM, new Identifier(ModInfo.MOD_ID, FineThreadItem.ID), FINE_THREAD);
+        Registry.register(Registry.ITEM, new Identifier(ModInfo.MOD_ID, ForgottenScrapMetalItem.ID), FORGOTTEN_SCRAP_METAL);
+        Registry.register(Registry.ITEM, new Identifier(ModInfo.MOD_ID, FragrantFlowerItem.ID), FRAGRANT_FLOWER);
+        Registry.register(Registry.ITEM, new Identifier(ModInfo.MOD_ID, GalileanSpyglassItem.ID), GALILEAN_SPYGLASS);
+        Registry.register(Registry.ITEM, new Identifier(ModInfo.MOD_ID, MastercraftedIronItem.ID), MASTERCRAFTED_IRON);
+        Registry.register(Registry.ITEM, new Identifier(ModInfo.MOD_ID, MixologyStationItem.ID), MIXOLOGY_STATION);
+        Registry.register(Registry.ITEM, new Identifier(ModInfo.MOD_ID, OvergrownCarrotItem.ID), OVERGROWN_CARROT);
+        Registry.register(Registry.ITEM, new Identifier(ModInfo.MOD_ID, PrismaticHoneycombItem.ID), PRISMATIC_HONEYCOMB);
+        Registry.register(Registry.ITEM, new Identifier(ModInfo.MOD_ID, PureGoldItem.ID), PURE_GOLD);
+        Registry.register(Registry.ITEM, new Identifier(ModInfo.MOD_ID, RadiatingRedstoneItem.ID), RADIATING_REDSTONE);
+        Registry.register(Registry.ITEM, new Identifier(ModInfo.MOD_ID, RottingRecyclingBinItem.ID), ROTTING_RECYCLING_BIN);
+        Registry.register(Registry.ITEM, new Identifier(ModInfo.MOD_ID, SculptingClayItem.ID), SCULPTING_CLAY);
+        Registry.register(Registry.ITEM, new Identifier(ModInfo.MOD_ID, ShimmeringWheatItem.ID), SHIMMERING_WHEAT);
+        Registry.register(Registry.ITEM, new Identifier(ModInfo.MOD_ID, SoakedVillagerPlushieItem.ID), SOAKED_VILLAGER_PLUSHIE);
+        Registry.register(Registry.ITEM, new Identifier(ModInfo.MOD_ID, SparklingBlazePowderItem.ID), SPARKLING_BLAZE_POWDER);
+        Registry.register(Registry.ITEM, new Identifier(ModInfo.MOD_ID, UnusuallyDenseRockItem.ID), UNUSUALLY_DENSE_ROCK);
+        Registry.register(Registry.ITEM, new Identifier(ModInfo.MOD_ID, WagyuBeefItem.ID), WAGYU_BEEF);
     }
 }

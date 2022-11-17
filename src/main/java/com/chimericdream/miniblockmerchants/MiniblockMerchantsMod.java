@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MiniblockMerchantsMod implements ModInitializer {
-	public static final Logger LOGGER = LoggerFactory.getLogger("miniblockmerchants");
+	public static final Logger LOGGER = LoggerFactory.getLogger(ModInfo.MOD_ID);
 
 	public static final ModItems ITEMS = new ModItems();
 
