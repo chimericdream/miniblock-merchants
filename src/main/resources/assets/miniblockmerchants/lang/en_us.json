@@ -113,6 +113,18 @@
     "advancements.miniblockmerchants.found_all_conversion_items.desc": "Obtain all Miniblock Merchant conversion items!",
     "advancements.miniblockmerchants.trade_with_merchant.title": "I know just where to put this!",
     "advancements.miniblockmerchants.trade_with_merchant.desc": "Trade with a Miniblock Merchant after converting them by using a conversion item on them.",
-    "advancements.miniblockmerchants.trade_with_all_merchants.title": "Where are you putting these?",
-    "advancements.miniblockmerchants.trade_with_all_merchants.desc": "Trade with every Miniblock Merchant, then build more storage... you're gonna need it."
+    "advancements.miniblockmerchants.trade_with_all_merchants.title": "A little bit of everything",
+    "advancements.miniblockmerchants.trade_with_all_merchants.desc": "Trade with every Miniblock Merchant",
+    "advancements.miniblockmerchants.100_trades.title": "Apprentice Decorator",
+    "advancements.miniblockmerchants.100_trades.desc": "Buy a total of 100 items from Miniblock Merchants",
+    "advancements.miniblockmerchants.250_trades.title": "Experienced Decorator",
+    "advancements.miniblockmerchants.250_trades.desc": "Buy a total of 250 items from Miniblock Merchants",
+    "advancements.miniblockmerchants.500_trades.title": "Remarkable Decorator",
+    "advancements.miniblockmerchants.500_trades.desc": "Buy a total of 500 items from Miniblock Merchants",
+    "advancements.miniblockmerchants.1000_trades.title": "Incredible Decorator",
+    "advancements.miniblockmerchants.1000_trades.desc": "Buy a total of 1,000 items from Miniblock Merchants",
+    "advancements.miniblockmerchants.5000_trades.title": "Spectacular Decorator",
+    "advancements.miniblockmerchants.5000_trades.desc": "Buy a total of 5,000 items from Miniblock Merchants",
+    "advancements.miniblockmerchants.10000_trades.title": "Legendary Decorator",
+    "advancements.miniblockmerchants.10000_trades.desc": "Buy a total of 10,000 items from Miniblock Merchants, then build more storage... you're gonna need it."
 }
