@@ -2,9 +2,11 @@ package com.chimericdream.miniblockmerchants.mixin;
 
 import com.chimericdream.miniblockmerchants.MiniblockMerchantsMod;
 import com.chimericdream.miniblockmerchants.ModInfo;
+import com.chimericdream.miniblockmerchants.advancement.MMAdvancements;
 import com.chimericdream.miniblockmerchants.item.VillagerConversionItem;
 import com.chimericdream.miniblockmerchants.registry.MMProfessions;
 import com.chimericdream.miniblockmerchants.registry.MMStats;
+import net.minecraft.advancement.PlayerAdvancementTracker;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.VillagerEntity;
@@ -13,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.message.MessageType;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -143,10 +146,45 @@ abstract public class MMVillagerEntityMixin extends MMMerchantEntityMixin {
 
     @Inject(method = "afterUsing", at = @At("TAIL"))
     private void mm_incrementMiniblockTrade(TradeOffer offer, CallbackInfo ci) {
-        PlayerEntity player = this.getCustomer();
+        if (this.getCustomer() instanceof ServerPlayerEntity player) {
+            player.incrementStat(MMStats.TRADE_FOR_MINIBLOCK_ID);
+            checkPlayerAdvancements(player);
+        }
+    }
 
-        if (player != null) {
-            player.incrementStat(MMStats.TRADE_FOR_MINIBLOCK);
+    private void checkPlayerAdvancements(ServerPlayerEntity player) {
+        int tradeCount = player.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(MMStats.TRADE_FOR_MINIBLOCK_ID));
+        MinecraftServer server = player.getServer();
+
+        // Theoretically, this shouldn't be possible. But the interfaces/IDE say this is technically nullable, so...
+        if (server == null) {
+            return;
+        }
+
+        PlayerAdvancementTracker tracker = player.getAdvancementTracker();
+
+        if (tradeCount >= 100) {
+            tracker.grantCriterion(MMAdvancements.getAdvancement(server, MMAdvancements.TRADE_100_TIMES), "magic");
+        }
+
+        if (tradeCount >= 250) {
+            tracker.grantCriterion(MMAdvancements.getAdvancement(server, MMAdvancements.TRADE_250_TIMES), "magic");
+        }
+
+        if (tradeCount >= 500) {
+            tracker.grantCriterion(MMAdvancements.getAdvancement(server, MMAdvancements.TRADE_500_TIMES), "magic");
+        }
+
+        if (tradeCount >= 1000) {
+            tracker.grantCriterion(MMAdvancements.getAdvancement(server, MMAdvancements.TRADE_1000_TIMES), "magic");
+        }
+
+        if (tradeCount >= 5000) {
+            tracker.grantCriterion(MMAdvancements.getAdvancement(server, MMAdvancements.TRADE_5000_TIMES), "magic");
+        }
+
+        if (tradeCount >= 10000) {
+            tracker.grantCriterion(MMAdvancements.getAdvancement(server, MMAdvancements.TRADE_10000_TIMES), "magic");
         }
     }
 

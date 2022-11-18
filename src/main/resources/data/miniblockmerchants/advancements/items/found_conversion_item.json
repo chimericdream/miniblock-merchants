@@ -10,7 +10,8 @@
         },
         "icon": {
             "item": "minecraft:player_head",
-            "nbt": "{SkullOwner:{Id:[I;1573971498,1316833290,-1658705939,-660866583],Properties:{textures:[{Value:'eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTllMGExYmM2ZWIwYzZmMjcxZDMyM2ExOGUwMTQwY2U0M2Q5NTQ1OGI2YjViNmU4NDhkZjE3NDI1ZGJhOTZhZCJ9fX0='}]}}}"
+            "nbt": "{SkullOwner:{Id:[I;1573971498,1316833290,-1658705939,-660866583],Properties:{textures:[{Value:'eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTllMGExYmM2ZWIwYzZmMjcxZDMyM2ExOGUwMTQwY2U0M2Q5NTQ1OGI2YjViNmU4NDhkZjE3NDI1ZGJhOTZhZCJ9fX0='}]}}}",
+            "comment": "https://minecraft-heads.com/custom-heads/decoration/47722-trophy-silver"
         }
     },
     "parent": "miniblockmerchants:root",
