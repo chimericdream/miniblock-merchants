@@ -4,8 +4,10 @@
   "package": "com.chimericdream.miniblockmerchants.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "MMEntityMixin",
     "MMMerchantEntityMixin",
-    "MMVillagerEntityMixin"
+    "MMVillagerEntityMixin",
+    "MMZombieVillagerEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
