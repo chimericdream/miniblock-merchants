@@ -10,3 +10,6 @@ accessible	class	net/minecraft/village/TradeOffers$EnchantBookFactory
 accessible	class	net/minecraft/village/TradeOffers$SellMapFactory
 accessible	class	net/minecraft/village/TradeOffers$SellDyedArmorFactory
 accessible	method	net/minecraft/village/TradeOffers	copyToFastUtilMap	(Lcom/google/common/collect/ImmutableMap;)Lit/unimi/dsi/fastutil/ints/Int2ObjectMap;
+accessible	field	net/minecraft/entity/mob/ZombieVillagerEntity	offerData	Lnet/minecraft/nbt/NbtCompound;
+accessible	field	net/minecraft/entity/Entity	dataTracker	Lnet/minecraft/entity/data/DataTracker;
+accessible	field	net/minecraft/entity/mob/ZombieVillagerEntity	VILLAGER_DATA	Lnet/minecraft/entity/data/TrackedData;
