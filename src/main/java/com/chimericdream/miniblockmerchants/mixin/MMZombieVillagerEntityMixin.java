@@ -23,7 +23,7 @@ abstract public class MMZombieVillagerEntityMixin extends MMEntityMixin {
 
     @Inject(method = "setVillagerData", at = @At("TAIL"))
     private void mm_updateVillagerData(VillagerData data, CallbackInfo ci) {
-        String profession = data.getProfession().id();
+        String profession = data.getProfession().getId();
 
         if (!profession.startsWith(ModInfo.MOD_ID)) {
             return;
