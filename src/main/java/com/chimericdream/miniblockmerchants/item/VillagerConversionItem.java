@@ -1,6 +1,7 @@
 package com.chimericdream.miniblockmerchants.item;
 
 import com.chimericdream.miniblockmerchants.util.TextHelpers;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -11,8 +12,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 abstract public class VillagerConversionItem extends Item {
-    public VillagerConversionItem(Settings settings) {
-        super(settings);
+    public VillagerConversionItem() {
+        super(new FabricItemSettings());
     }
 
     @Override
