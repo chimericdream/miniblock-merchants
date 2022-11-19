@@ -13,7 +13,6 @@ import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.message.MessageType;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -23,7 +22,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TextContent;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
@@ -66,15 +65,15 @@ abstract public class MMVillagerEntityMixin extends MMMerchantEntityMixin {
     }
 
     private Text getPlayerMessage(String profession) {
-        MutableText msg = MutableText.of(TextContent.EMPTY);
-        Text lcarat = MutableText.of(TextContent.EMPTY).append("<").formatted(Formatting.WHITE);
-        Text rcarat = MutableText.of(TextContent.EMPTY).append(">").formatted(Formatting.WHITE);
-        Text name = Text.translatable(String.format("entity.minecraft.villager.%s", profession)).formatted(Formatting.GOLD);
+        MutableText msg = Text.of("").copy();
+        Text lcarat = Text.of("").copy().append("<").formatted(Formatting.WHITE);
+        Text rcarat = Text.of("").copy().append(">").formatted(Formatting.WHITE);
+        Text name = new TranslatableText(String.format("entity.minecraft.villager.%s", profession)).formatted(Formatting.GOLD);
 
-        MutableText greeting = MutableText.of(TextContent.EMPTY);
-        greeting.append(Text.translatable(String.format("%s.message.conversion.%s", ModInfo.MOD_ID, profession)).formatted(Formatting.GREEN));
+        MutableText greeting = Text.of("").copy();
+        greeting.append(new TranslatableText(String.format("%s.message.conversion.%s", ModInfo.MOD_ID, profession)).formatted(Formatting.GREEN));
         if (profession.equals("mm_ritualist")) {
-            greeting.append(" ").append(Text.translatable(String.format("%s.message.conversion.%s.obfuscated", ModInfo.MOD_ID, profession)).formatted(Formatting.GREEN).formatted(Formatting.OBFUSCATED));
+            greeting.append(" ").append(new TranslatableText(String.format("%s.message.conversion.%s.obfuscated", ModInfo.MOD_ID, profession)).formatted(Formatting.GREEN).formatted(Formatting.OBFUSCATED));
         }
 
         msg.append(lcarat).append(name).append(rcarat).append(" ").append(greeting);
@@ -97,7 +96,7 @@ abstract public class MMVillagerEntityMixin extends MMMerchantEntityMixin {
                     if (this.world.isClient) {
                         this.world.playSoundFromEntity(player, this, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.NEUTRAL, 1.0F, 1.0F);
                     } else {
-                        ((ServerPlayerEntity) player).sendMessage(getPlayerMessage(item.getVillagerProfession()), MessageType.TELLRAW_COMMAND);
+                        ((ServerPlayerEntity) player).sendMessage(getPlayerMessage(item.getVillagerProfession()), false);
 
                         NbtCompound nbtOffers = MMProfessions.getOffersForProfession(item.getVillagerProfession());
                         TradeOfferList offerList = new TradeOfferList(nbtOffers);

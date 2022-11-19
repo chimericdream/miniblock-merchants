@@ -1075,31 +1075,31 @@ public class MMProfessions {
             makeOffer("Towels (green)", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWYyNzIzMTBjNTk2MDdmNjA3YTgwYjZhN2ZlYzJlMWNlZTZkYTg3MDkwZmY3YjI4NTgzNzhjNGI3OTAzZGNhMiJ9fX0=", new int[]{-1614991114, -46642991, -2050035244, -253695050})
         ));
 
-        TRADES.put(ALCHEMIST.id(), alchemistTrades);
-        TRADES.put(ARBORICULTURIST.id(), arboriculturistTrades);
-        TRADES.put(ASTRONOMER.id(), astronomerTrades);
-        TRADES.put(BAKER.id(), bakerTrades);
-        TRADES.put(BARTENDER.id(), bartenderTrades);
-        TRADES.put(BEEKEEPER.id(), beekeeperTrades);
-        TRADES.put(BLACKSMITH.id(), blacksmithTrades);
-        TRADES.put(CHEF.id(), chefTrades);
-        TRADES.put(ENGINEER.id(), engineerTrades);
-        TRADES.put(EREMOLOGIST.id(), eremologistTrades);
-        TRADES.put(FURNISHER.id(), furnisherTrades);
-        TRADES.put(GAMEMASTER.id(), gamemasterTrades);
-        TRADES.put(HORTICULTURIST.id(), horticulturistTrades);
-        TRADES.put(MINERALOGIST.id(), mineralogistTrades);
-        TRADES.put(NETHEROGRAPHER.id(), netherographerTrades);
-        TRADES.put(OCEANOGRAPHER.id(), oceanographerTrades);
-        TRADES.put(OLERICULTURIST.id(), olericulturistTrades);
-        TRADES.put(PETROLOGIST.id(), petrologistTrades);
-        TRADES.put(PLUSHIE_MANIAC.id(), plushieManiacTrades);
-        TRADES.put(POMOLOGIST.id(), pomologistTrades);
-        TRADES.put(RECYCLER.id(), recyclerTrades);
-        TRADES.put(RITUALIST.id(), ritualistTrades);
-        TRADES.put(SCULPTOR.id(), sculptorTrades);
-        TRADES.put(STEAMPUNKER.id(), steampunkerTrades);
-        TRADES.put(TAILOR.id(), tailorTrades);
+        TRADES.put(ALCHEMIST.getId(), alchemistTrades);
+        TRADES.put(ARBORICULTURIST.getId(), arboriculturistTrades);
+        TRADES.put(ASTRONOMER.getId(), astronomerTrades);
+        TRADES.put(BAKER.getId(), bakerTrades);
+        TRADES.put(BARTENDER.getId(), bartenderTrades);
+        TRADES.put(BEEKEEPER.getId(), beekeeperTrades);
+        TRADES.put(BLACKSMITH.getId(), blacksmithTrades);
+        TRADES.put(CHEF.getId(), chefTrades);
+        TRADES.put(ENGINEER.getId(), engineerTrades);
+        TRADES.put(EREMOLOGIST.getId(), eremologistTrades);
+        TRADES.put(FURNISHER.getId(), furnisherTrades);
+        TRADES.put(GAMEMASTER.getId(), gamemasterTrades);
+        TRADES.put(HORTICULTURIST.getId(), horticulturistTrades);
+        TRADES.put(MINERALOGIST.getId(), mineralogistTrades);
+        TRADES.put(NETHEROGRAPHER.getId(), netherographerTrades);
+        TRADES.put(OCEANOGRAPHER.getId(), oceanographerTrades);
+        TRADES.put(OLERICULTURIST.getId(), olericulturistTrades);
+        TRADES.put(PETROLOGIST.getId(), petrologistTrades);
+        TRADES.put(PLUSHIE_MANIAC.getId(), plushieManiacTrades);
+        TRADES.put(POMOLOGIST.getId(), pomologistTrades);
+        TRADES.put(RECYCLER.getId(), recyclerTrades);
+        TRADES.put(RITUALIST.getId(), ritualistTrades);
+        TRADES.put(SCULPTOR.getId(), sculptorTrades);
+        TRADES.put(STEAMPUNKER.getId(), steampunkerTrades);
+        TRADES.put(TAILOR.getId(), tailorTrades);
     }
 
     public static VillagerProfession get(String id) {
@@ -1113,8 +1113,7 @@ public class MMProfessions {
             ident,
             new VillagerProfession(
                 ident.toString(),
-                PointOfInterestType.NONE,
-                PointOfInterestType.NONE,
+                PointOfInterestType.UNEMPLOYED,
                 ImmutableSet.of(),
                 ImmutableSet.of(),
                 SoundEvents.ENTITY_VILLAGER_WORK_MASON

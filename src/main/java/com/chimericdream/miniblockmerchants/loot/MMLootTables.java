@@ -3,7 +3,7 @@ package com.chimericdream.miniblockmerchants.loot;
 import com.chimericdream.miniblockmerchants.config.MiniblockMerchantsConfig;
 import com.chimericdream.miniblockmerchants.config.ConfigManager;
 import com.chimericdream.miniblockmerchants.item.ModItems;
-import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
+import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -143,12 +143,7 @@ public class MMLootTables {
     public static void init() {
         MiniblockMerchantsConfig config = ConfigManager.getConfig();
 
-        LootTableEvents.MODIFY.register((resourceManager, lootManager, id, tableBuilder, source) -> {
-            // Only modify built-in loot tables and leave data pack loot tables untouched by checking the source.
-            if (!source.isBuiltin()) {
-                return;
-            }
-
+        LootTableLoadingCallback.EVENT.register((resourceManager, lootManager, id, tableBuilder, source) -> {
             List<LootPool.Builder> poolBuilders = new ArrayList<>();
 
             checkVanillaLootTables(id, poolBuilders, config);

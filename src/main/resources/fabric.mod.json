@@ -30,10 +30,10 @@
     ],
     "accessWidener": "miniblockmerchants.accesswidener",
     "depends": {
-        "fabricloader": ">=0.14.7",
-        "minecraft": "~1.19",
+        "fabricloader": ">=0.14.6",
+        "minecraft": "1.18.2",
         "java": ">=17",
-        "cloth-config": ">=7.0.65"
+        "cloth-config": "6.4.90"
     },
     "recommends": {
         "modmenu": "*"

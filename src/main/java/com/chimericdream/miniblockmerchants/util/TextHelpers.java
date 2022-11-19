@@ -1,12 +1,12 @@
 package com.chimericdream.miniblockmerchants.util;
 
 import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 
 public class TextHelpers {
     public static MutableText getTooltip(String tooltipId) {
-        return formatTooltip(Text.translatable(tooltipId));
+        return formatTooltip(new TranslatableText(tooltipId));
     }
 
     public static MutableText formatTooltip(MutableText tooltipText) {
