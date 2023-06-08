@@ -5,9 +5,10 @@ import com.chimericdream.miniblockmerchants.data.MiniblockTextures;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
 
@@ -1109,7 +1110,7 @@ public class MMProfessions {
     public static VillagerProfession register(String id) {
         Identifier ident = new Identifier(ModInfo.MOD_ID, id);
         VillagerProfession prof = Registry.register(
-            Registry.VILLAGER_PROFESSION,
+            Registries.VILLAGER_PROFESSION,
             ident,
             new VillagerProfession(
                 ident.toString(),

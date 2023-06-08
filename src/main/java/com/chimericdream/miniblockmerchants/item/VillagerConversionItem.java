@@ -14,7 +14,7 @@ import java.util.List;
 
 abstract public class VillagerConversionItem extends Item {
     public VillagerConversionItem() {
-        super(new FabricItemSettings().group(ItemGroup.MISC));
+        super(new FabricItemSettings());
     }
 
     @Override

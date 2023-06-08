@@ -87,14 +87,14 @@ abstract public class MMVillagerEntityMixin extends MMMerchantEntityMixin {
         if (itemStack.getItem() instanceof VillagerConversionItem item && this.isAlive() && !this.hasCustomer() && !this.isSleeping()) {
             if (this.isBaby()) {
                 this.sayNo();
-                cir.setReturnValue(ActionResult.success(this.world.isClient));
+                cir.setReturnValue(ActionResult.success(this.getWorld().isClient));
             } else {
                 VillagerProfession currentProfession = this.getVillagerData().getProfession();
                 if (currentProfession == VillagerProfession.NONE) {
                     VillagerProfession newProfession = MMProfessions.get(item.getVillagerProfession());
 
-                    if (this.world.isClient) {
-                        this.world.playSoundFromEntity(player, this, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.NEUTRAL, 1.0F, 1.0F);
+                    if (this.getWorld().isClient) {
+                        this.getWorld().playSoundFromEntity(player, this, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.NEUTRAL, 1.0F, 1.0F);
                     } else {
                         ((ServerPlayerEntity) player).sendMessage(getPlayerMessage(item.getVillagerProfession()), false);
 
@@ -107,7 +107,7 @@ abstract public class MMVillagerEntityMixin extends MMMerchantEntityMixin {
                         this.produceParticles(ParticleTypes.HAPPY_VILLAGER);
                         this.setPersistent();
 
-                        this.reinitializeBrain((ServerWorld) this.world);
+                        this.reinitializeBrain((ServerWorld) this.getWorld());
 
                         if (!player.isCreative()) {
                             itemStack.decrement(1);
@@ -116,7 +116,7 @@ abstract public class MMVillagerEntityMixin extends MMMerchantEntityMixin {
 
                     player.incrementStat(Stats.TALKED_TO_VILLAGER);
 
-                    cir.setReturnValue(ActionResult.success(this.world.isClient));
+                    cir.setReturnValue(ActionResult.success(this.getWorld().isClient));
                 }
             }
         }
@@ -124,7 +124,7 @@ abstract public class MMVillagerEntityMixin extends MMMerchantEntityMixin {
 
     @Inject(method = "readCustomDataFromNbt", at = @At("HEAD"))
     private void mm_setBlockTraderOffers(NbtCompound nbt, CallbackInfo ci) {
-        Set<String> tags = this.getScoreboardTags();
+        Set<String> tags = this.getCommandTags();
 
         if (tags.contains("mt_trader")) {
             mm_setBaseXp(nbt);
@@ -196,7 +196,7 @@ abstract public class MMVillagerEntityMixin extends MMMerchantEntityMixin {
     }
 
     private void mm_convertDatapackTrader(NbtCompound nbt) {
-        Set<String> tags = this.getScoreboardTags();
+        Set<String> tags = this.getCommandTags();
         Optional<String> dpProfession = tags.stream().filter(tag -> tag.startsWith("mt_trader") && !tag.equals("mt_trader")).findFirst();
 
         if (dpProfession.isEmpty()) {
