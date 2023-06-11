@@ -172,6 +172,19 @@ Drenched Score Sheet<br />
 
 ![Sample trades for the Gamemaster](./docs/img/gamemaster-trades.png)
 
+### Griefer
+![Screenshot of a Griefer](./docs/img/griefer.png)
+
+#### Conversion Item
+Stabilized Explosion<br />
+1 in 160 chance when a Creeper dies
+
+![Conversion item for the Griefer](./docs/img/griefer-item.png)
+
+#### Sample Trades
+
+![Sample trades for the Griefer](./docs/img/griefer-trades.png)
+
 ### Horticulturist
 ![Screenshot of a Horticulturist](./docs/img/horticulturist.png)
 
