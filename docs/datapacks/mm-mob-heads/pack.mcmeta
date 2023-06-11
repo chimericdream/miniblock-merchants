@@ -1,6 +1,6 @@
 {
     "pack": {
-		"pack_format": 10,
+		"pack_format": 15,
         "description": "Sample datapack with loot tables for villager/zombie villager mob heads"
     }
 }
