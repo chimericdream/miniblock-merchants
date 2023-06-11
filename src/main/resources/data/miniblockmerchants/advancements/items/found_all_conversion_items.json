@@ -216,6 +216,14 @@
                     {"items": ["miniblockmerchants:wagyu_beef"]}
                 ]
             }
+        },
+        "conv26": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {"items": ["miniblockmerchants:stabilized_explosion"]}
+                ]
+            }
         }
     },
     "requirements": [
@@ -243,6 +251,7 @@
         ["conv22"],
         ["conv23"],
         ["conv24"],
-        ["conv25"]
+        ["conv25"],
+        ["conv26"]
     ]
 }

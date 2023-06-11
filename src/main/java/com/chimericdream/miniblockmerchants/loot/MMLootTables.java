@@ -5,11 +5,14 @@ import com.chimericdream.miniblockmerchants.config.ConfigManager;
 import com.chimericdream.miniblockmerchants.item.ModItems;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTables;
 import net.minecraft.loot.entry.ItemEntry;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
@@ -18,6 +21,7 @@ import java.util.List;
 public class MMLootTables {
     private static final Identifier CARROT_LOOT_TABLE_ID = Blocks.CARROTS.getLootTableId();
     private static final Identifier CLAY_LOOT_TABLE_ID = Blocks.CLAY.getLootTableId();
+    private static final Identifier CREEPER_LOOT_TABLE_ID = EntityType.CREEPER.getLootTableId();
     private static final Identifier OAK_LEAVES_TABLE_ID = Blocks.OAK_LEAVES.getLootTableId();
     private static final Identifier REDSTONE_ORE_TABLE_ID = Blocks.REDSTONE_ORE.getLootTableId();
     private static final Identifier SPRUCE_LEAVES_TABLE_ID = Blocks.SPRUCE_LEAVES.getLootTableId();
@@ -137,6 +141,10 @@ public class MMLootTables {
 
         if (config.ancientShellChance > 0 && LootTables.UNDERWATER_RUIN_BIG_CHEST.equals(id)) {
             poolBuilders.add(makeBuilder(ModItems.ANCIENT_SHELL, config.ancientShellChance));
+        }
+
+        if (CREEPER_LOOT_TABLE_ID.equals(id)) {
+            poolBuilders.add(makeBuilder(ModItems.STABILIZED_EXPLOSION, config.stabilizedExplosionChance));
         }
     }
 

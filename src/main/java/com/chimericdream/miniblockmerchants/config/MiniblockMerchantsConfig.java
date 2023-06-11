@@ -33,6 +33,7 @@ public class MiniblockMerchantsConfig implements ConfigData {
     public int shimmeringWheatChance = Defaults.SHIMMERING_WHEAT_CHANCE;
     public int soakedVillagerPlushieChance = Defaults.SOAKED_VILLAGER_PLUSHIE_CHANCE;
     public int sparklingBlazePowderChance = Defaults.SPARKLING_BLAZE_POWDER_CHANCE;
+    public int stabilizedExplosionChance = Defaults.STABILIZED_EXPLOSION_CHANCE;
     public int unusuallyDenseRockChance = Defaults.UNUSUALLY_DENSE_ROCK_CHANCE;
     public int wagyuBeefChance = Defaults.WAGYU_BEEF_CHANCE;
 
@@ -152,6 +153,11 @@ public class MiniblockMerchantsConfig implements ConfigData {
             this.sparklingBlazePowderChance = Defaults.SPARKLING_BLAZE_POWDER_CHANCE;
         }
 
+        if (this.stabilizedExplosionChance < 0) {
+            MiniblockMerchantsMod.LOGGER.info("[config] Invalid value found for 'stabilizedExplosionChance'! Resetting to default.");
+            this.stabilizedExplosionChance = Defaults.STABILIZED_EXPLOSION_CHANCE;
+        }
+
         if (this.unusuallyDenseRockChance < 0) {
             MiniblockMerchantsMod.LOGGER.info("[config] Invalid value found for 'unusuallyDenseRockChance'! Resetting to default.");
             this.unusuallyDenseRockChance = Defaults.UNUSUALLY_DENSE_ROCK_CHANCE;
@@ -187,6 +193,7 @@ public class MiniblockMerchantsConfig implements ConfigData {
         public static int SHIMMERING_WHEAT_CHANCE = 512;
         public static int SOAKED_VILLAGER_PLUSHIE_CHANCE = 24;
         public static int SPARKLING_BLAZE_POWDER_CHANCE = 4;
+        public static int STABILIZED_EXPLOSION_CHANCE = 160;
         public static int UNUSUALLY_DENSE_ROCK_CHANCE = 12;
         public static int WAGYU_BEEF_CHANCE = 2;
     }

@@ -11,10 +11,9 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
+import org.lwjgl.openal.AL;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class MMProfessions {
     public static final Map<String, VillagerProfession> PROFESSIONS = new HashMap<>();
@@ -32,6 +31,7 @@ public class MMProfessions {
     public static final VillagerProfession EREMOLOGIST = register("mm_eremologist");
     public static final VillagerProfession FURNISHER = register("mm_furnisher");
     public static final VillagerProfession GAMEMASTER = register("mm_gamemaster");
+    public static final VillagerProfession GRIEFER = register("mm_griefer");
     public static final VillagerProfession HORTICULTURIST = register("mm_horticulturist");
     public static final VillagerProfession MINERALOGIST = register("mm_mineralogist");
     public static final VillagerProfession NETHEROGRAPHER = register("mm_netherographer");
@@ -45,6 +45,35 @@ public class MMProfessions {
     public static final VillagerProfession SCULPTOR = register("mm_sculptor");
     public static final VillagerProfession STEAMPUNKER = register("mm_steampunker");
     public static final VillagerProfession TAILOR = register("mm_tailor");
+
+    public static final List<VillagerProfession> PROFESSION_LIST = List.of(
+        ALCHEMIST,
+        ARBORICULTURIST,
+        ASTRONOMER,
+        BAKER,
+        BARTENDER,
+        BEEKEEPER,
+        BLACKSMITH,
+        CHEF,
+        ENGINEER,
+        EREMOLOGIST,
+        FURNISHER,
+        GAMEMASTER,
+        GRIEFER,
+        HORTICULTURIST,
+        MINERALOGIST,
+        NETHEROGRAPHER,
+        OCEANOGRAPHER,
+        OLERICULTURIST,
+        PETROLOGIST,
+        PLUSHIE_MANIAC,
+        POMOLOGIST,
+        RECYCLER,
+        RITUALIST,
+        SCULPTOR,
+        STEAMPUNKER,
+        TAILOR
+    );
 
     public static void init() {
     }
@@ -539,6 +568,22 @@ public class MMProfessions {
             makeOffer("Black 20", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjdiMjlhMWJiMjViMmFkOGZmM2E3YTM4MjI4MTg5Yzk0NjFmNDU3YTRkYTk4ZGFlMjkzODRjNWMyNWQ4NSJ9fX0=", new int[]{-824926972, 1458457918, -1488313899, -1952625789})
         ));
 
+        NbtCompound grieferTrades = new NbtCompound();
+        grieferTrades.put("Recipes", makeRecipeList(
+            makeOffer("Bag Of Gunpowder", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODIyYTQ4YTU3NTllZGRlZjllMjkxOGZjODU5OTZmODQ5MWNjOTI1NzhkNTRkY2Q2MmUyYjZkOTEzYmZiNDIxZSJ9fX0=", new int[]{570072899,880430595,-1197170054,-300354481}),
+            makeOffer("Blue Bomb", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmM1NjNiOWI1ODI0MDlmNDFmMGUwNzgxYTk4M2FmZTNkOGZlMmZiZjM4M2M1M2E1ZDI3NDMxNTU1NjRkNjgifX19", new int[]{1274520565,137973731,-1550009758,370346578}),
+            makeOffer("Bomb", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWYxM2I3YjNkNTBlMDcyYzVkMWIzYzUxMjFlYTJlNTllMjFmZGRmYTUzODZjYzBjZjZlZTEzMTk4M2EyNWU0NSJ9fX0=", new int[]{-984091042,1001800325,-1989162394,546600767}),
+            makeOffer("Fire Charge", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjdkNTdiNWJjOWFiM2Y1M2VjOWNjMmY5NGI3MmMxMzRhY2RlODU1YTY0M2MyNWU1YTI2YzNlMGIyYTYwM2FkZCJ9fX0=", new int[]{420496346,704925621,-2097778403,1450691027}),
+            makeOffer("Firework Rocket", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjk3NTRlYjJlMTgxZTQ3MTRmMzNlMTlhZjdkM2MyYWI0YjYxNTFmMGVkNGEzYmM4NTZjMmY4Mjg5OGZmYjhkYiJ9fX0=", new int[]{-1176812997,-301711293,-1746210852,-1256112177}),
+            makeOffer("Grenade", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDQ2MDRlMGUxZDI0Y2RmNjIxODA0ZWM1YTU4NmNjMjM4MTFiODFmZmNmZGUzNzYzYTlkNjFmMWFlZTZlZDRlOCJ9fX0=", new int[]{986948221,-2032382645,-1789459409,1134608228}),
+            makeOffer("Gunpowder", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZmRkNDM2NGZlMmIxOWE2YzExOWQxN2I1Njk0NGVmZjU2NmMxNGI0ZmVhNDVlOWI0YmMzMjkyOGQ1OTdmNDY4In19fQ==", new int[]{375802556,332154385,-1730221004,-1309631499}),
+            makeOffer("Lava Bucket", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODkxMTgzZWZiOTQxYzU3YzZhMzdmNjFjOTRlMjViNDRiNjdhODA0NDUyZTAyYTBkMjk5NmRlZGE2ZDIwZDdjNiJ9fX0=", new int[]{1211294944,-365803726,-1262039066,-1598728137}),
+            makeOffer("Red Bomb", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMWY1MzU0Y2EyZWUxYjhmZGM5NTViYjQzN2JiMjYxOTU3NWZjNzk4M2YzNjlhZmEzYTFmN2QxYjk3NTY3ZWE4In19fQ==", new int[]{2105963268,-93173279,-1568118406,1332780703}),
+            makeOffer("Smoke Bomb", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTg0YTY4ZmQ3YjYyOGQzMDk2NjdkYjdhNTU4NTViNTRhYmMyM2YzNTk1YmJlNDMyMTYyMTFiZTVmZTU3MDE0In19fQ==", new int[]{1692525654,-1637072104,-1690245337,-788445021}),
+            makeOffer("TNT", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTU3M2Q3MDQ2ZDZlMDgxOTgzOTBhYTU2YzhmODY3OGMxNmQ0NDA3YWY5ZjIxNGJmMDI5MWYzYzdkYjFmMzc5YSJ9fX0=", new int[]{-989143122,-1655158425,-1615988271,-1954958665}),
+            makeOffer("TNT Minecart", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzRkN2ZjOGUzYTk1OWFkZTdkOWNmNjYzZjFlODJkYjc5NzU1NDNlMjg4YWI4ZDExZWIyNTQxODg4MjEzNTI2In19fQ==", new int[]{-1751060147,-1939324848,-1223663423,403887968})
+        ));
+
         NbtCompound horticulturistTrades = new NbtCompound();
         horticulturistTrades.put("Recipes", makeRecipeList(
             makeOffer("Moss Block", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWIwOTZlMDFkZTJlYjFlODQ5OWZkMjg0YjhiMmNkOWMyZGI1NmU2MzJjMzAyYTJmOWEwODg0ZjIzODFkODA2NyJ9fX0=", new int[]{538523570, -610710158, -2036008709, -81306847}),
@@ -912,6 +957,7 @@ public class MMProfessions {
             makeOffer("miniblockmerchants:shimmering_wheat", "Shimmering Wheat", MiniblockTextures.SHIMMERING_WHEAT.getLeft(), MiniblockTextures.SHIMMERING_WHEAT.getRight()),
             makeOffer("miniblockmerchants:soaked_villager_plushie", "Soaked Villager Plushie", MiniblockTextures.SOAKED_VILLAGER_PLUSHIE.getLeft(), MiniblockTextures.SOAKED_VILLAGER_PLUSHIE.getRight()),
             makeOffer("miniblockmerchants:sparkling_blaze_powder", "Sparkling Blaze Powder", MiniblockTextures.SPARKLING_BLAZE_POWDER.getLeft(), MiniblockTextures.SPARKLING_BLAZE_POWDER.getRight()),
+            makeOffer("miniblockmerchants:stabilized_explosion", "Stabilized Explosion", MiniblockTextures.STABILIZED_EXPLOSION.getLeft(), MiniblockTextures.STABILIZED_EXPLOSION.getRight()),
             makeOffer("miniblockmerchants:unusually_dense_rock", "Unusually Dense Rock", MiniblockTextures.UNUSUALLY_DENSE_ROCK.getLeft(), MiniblockTextures.UNUSUALLY_DENSE_ROCK.getRight()),
             makeOffer("miniblockmerchants:wagyu_beef", "Wagyu Beef", MiniblockTextures.WAGYU_BEEF.getLeft(), MiniblockTextures.WAGYU_BEEF.getRight())
         ));
@@ -1088,6 +1134,7 @@ public class MMProfessions {
         TRADES.put(EREMOLOGIST.id(), eremologistTrades);
         TRADES.put(FURNISHER.id(), furnisherTrades);
         TRADES.put(GAMEMASTER.id(), gamemasterTrades);
+        TRADES.put(GRIEFER.id(), grieferTrades);
         TRADES.put(HORTICULTURIST.id(), horticulturistTrades);
         TRADES.put(MINERALOGIST.id(), mineralogistTrades);
         TRADES.put(NETHEROGRAPHER.id(), netherographerTrades);

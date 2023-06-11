@@ -72,6 +72,9 @@ public class MiniblockTextures {
     // https://minecraft-heads.com/custom-heads/blocks/39549-blaze-block
     public static final Pair<String, int[]> SPARKLING_BLAZE_POWDER = new Pair<>("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjRiMWI5Y2UyZTlhNmNlOGE5ODVkMzk3NzZlMjkwODA3N2I4MmU2YTMzM2QyYTgxYTQ0MTQzOGVhYjM5ZjhlMSJ9fX0=", new int[]{-1090068770, 1447773038, -1785439622, 1344557054});
 
+    // https://minecraft-heads.com/custom-heads/miscellaneous/41877-explosion
+    public static final Pair<String, int[]> STABILIZED_EXPLOSION = new Pair<>("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjAyYTExNjkzMDlmMDVlZjJmMDYxYjFmYTBmZTIyNWYyOWQ3M2EyNGY4ZjA3Y2NjMmE3MDVkZWVhY2EwNjlkMSJ9fX0=", new int[]{-2084583836, 589447753, -1940806028, 452492945});
+
     // https://minecraft-heads.com/custom-heads/blocks/45872-compressed-cobblestone
     public static final Pair<String, int[]> UNUSUALLY_DENSE_ROCK = new Pair<>("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTdmOTk5NzE2MDFlZTc3NjY2YzA1OTIzZjM0MWE4OWNlYmExMzU3NTMyMjc5ZTM5MjZhZWE3OWY1NWQyNjNhMCJ9fX0=", new int[]{-1382019773, -187020515, -1888418346, 1815556023});
 

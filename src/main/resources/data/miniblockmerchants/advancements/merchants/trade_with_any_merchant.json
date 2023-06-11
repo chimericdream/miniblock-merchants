@@ -217,6 +217,14 @@
                     "nbt": "{VillagerData:{profession:\"miniblockmerchants:mm_tailor\"}}"
                 }
             }
+        },
+        "trade26": {
+            "trigger": "minecraft:villager_trade",
+            "conditions": {
+                "villager": {
+                    "nbt": "{VillagerData:{profession:\"miniblockmerchants:mm_griefer\"}}"
+                }
+            }
         }
     },
     "requirements": [
@@ -245,7 +253,8 @@
             "trade22",
             "trade23",
             "trade24",
-            "trade25"
+            "trade25",
+            "trade26"
         ]
     ]
 }

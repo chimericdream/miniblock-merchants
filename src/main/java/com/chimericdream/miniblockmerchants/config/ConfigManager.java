@@ -37,6 +37,7 @@ public class ConfigManager {
         config.shimmeringWheatChance = Defaults.SHIMMERING_WHEAT_CHANCE;
         config.soakedVillagerPlushieChance = Defaults.SOAKED_VILLAGER_PLUSHIE_CHANCE;
         config.sparklingBlazePowderChance = Defaults.SPARKLING_BLAZE_POWDER_CHANCE;
+        config.stabilizedExplosionChance = Defaults.STABILIZED_EXPLOSION_CHANCE;
         config.unusuallyDenseRockChance = Defaults.UNUSUALLY_DENSE_ROCK_CHANCE;
         config.wagyuBeefChance = Defaults.WAGYU_BEEF_CHANCE;
     };

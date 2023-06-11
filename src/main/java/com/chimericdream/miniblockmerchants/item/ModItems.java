@@ -32,6 +32,7 @@ public class ModItems {
     public static final VillagerConversionItem SHIMMERING_WHEAT = new ShimmeringWheatItem();
     public static final VillagerConversionItem SOAKED_VILLAGER_PLUSHIE = new SoakedVillagerPlushieItem();
     public static final VillagerConversionItem SPARKLING_BLAZE_POWDER = new SparklingBlazePowderItem();
+    public static final VillagerConversionItem STABILIZED_EXPLOSION = new StabilizedExplosionItem();
     public static final VillagerConversionItem UNUSUALLY_DENSE_ROCK = new UnusuallyDenseRockItem();
     public static final VillagerConversionItem WAGYU_BEEF = new WagyuBeefItem();
 
@@ -59,6 +60,7 @@ public class ModItems {
         Registry.register(Registries.ITEM, new Identifier(ModInfo.MOD_ID, ShimmeringWheatItem.ID), SHIMMERING_WHEAT);
         Registry.register(Registries.ITEM, new Identifier(ModInfo.MOD_ID, SoakedVillagerPlushieItem.ID), SOAKED_VILLAGER_PLUSHIE);
         Registry.register(Registries.ITEM, new Identifier(ModInfo.MOD_ID, SparklingBlazePowderItem.ID), SPARKLING_BLAZE_POWDER);
+        Registry.register(Registries.ITEM, new Identifier(ModInfo.MOD_ID, StabilizedExplosionItem.ID), STABILIZED_EXPLOSION);
         Registry.register(Registries.ITEM, new Identifier(ModInfo.MOD_ID, UnusuallyDenseRockItem.ID), UNUSUALLY_DENSE_ROCK);
         Registry.register(Registries.ITEM, new Identifier(ModInfo.MOD_ID, WagyuBeefItem.ID), WAGYU_BEEF);
 
@@ -88,6 +90,7 @@ public class ModItems {
                 SHIMMERING_WHEAT,
                 SOAKED_VILLAGER_PLUSHIE,
                 SPARKLING_BLAZE_POWDER,
+                STABILIZED_EXPLOSION,
                 UNUSUALLY_DENSE_ROCK,
                 WAGYU_BEEF
             );

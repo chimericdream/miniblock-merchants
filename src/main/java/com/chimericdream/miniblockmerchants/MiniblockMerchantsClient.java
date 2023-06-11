@@ -36,6 +36,7 @@ public class MiniblockMerchantsClient implements ClientModInitializer {
         BuiltinItemRendererRegistry.INSTANCE.register(ModItems.SHIMMERING_WHEAT, new VillagerConversionItemRenderer());
         BuiltinItemRendererRegistry.INSTANCE.register(ModItems.SOAKED_VILLAGER_PLUSHIE, new VillagerConversionItemRenderer());
         BuiltinItemRendererRegistry.INSTANCE.register(ModItems.SPARKLING_BLAZE_POWDER, new VillagerConversionItemRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(ModItems.STABILIZED_EXPLOSION, new VillagerConversionItemRenderer());
         BuiltinItemRendererRegistry.INSTANCE.register(ModItems.UNUSUALLY_DENSE_ROCK, new VillagerConversionItemRenderer());
         BuiltinItemRendererRegistry.INSTANCE.register(ModItems.WAGYU_BEEF, new VillagerConversionItemRenderer());
     }

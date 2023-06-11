@@ -118,6 +118,10 @@ public class VillagerConversionItemRenderer implements BuiltinItemRendererRegist
             return MiniblockTextures.SPARKLING_BLAZE_POWDER;
         }
 
+        if (item instanceof StabilizedExplosionItem) {
+            return MiniblockTextures.STABILIZED_EXPLOSION;
+        }
+
         if (item instanceof UnusuallyDenseRockItem) {
             return MiniblockTextures.UNUSUALLY_DENSE_ROCK;
         }
