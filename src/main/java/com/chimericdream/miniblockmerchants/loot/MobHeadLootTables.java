@@ -37,7 +37,15 @@ public class MobHeadLootTables {
 
     }
 
+    private static LootPoolEntry.Builder<?> getZombieHeadLootTable(String name, String profession, Pair<String, int[]> data) {
+        return getHeadLootTable(name, profession, data, true);
+    }
+
     private static LootPoolEntry.Builder<?> getHeadLootTable(String name, String profession, Pair<String, int[]> data) {
+        return getHeadLootTable(name, profession, data, false);
+    }
+
+    private static LootPoolEntry.Builder<?> getHeadLootTable(String name, String profession, Pair<String, int[]> data, boolean isZombieVillager) {
         Item headItem = Items.PLAYER_HEAD;
 
         NbtCompound headTexture = new NbtCompound();
@@ -51,8 +59,17 @@ public class MobHeadLootTables {
         NbtCompound owner = new NbtCompound();
         owner.putIntArray("Id", data.getRight());
         owner.put("Properties", properties);
-        NbtCompound skullOwner = new NbtCompound();
-        skullOwner.put("SkullOwner", owner);
+
+        NbtCompound beTag = new NbtCompound();
+        if (isZombieVillager) {
+            beTag.putString("note_block_sound", "minecraft:entity.zombie_villager.ambient");
+        } else {
+            beTag.putString("note_block_sound", "minecraft:entity.villager.ambient");
+        }
+
+        NbtCompound skullNbt = new NbtCompound();
+        skullNbt.put("SkullOwner", owner);
+        skullNbt.put("BlockEntityTag", beTag);
 
         Text formattedName = MutableText.of(TextContent.EMPTY)
             .append(name)
@@ -60,7 +77,7 @@ public class MobHeadLootTables {
 
         LootFunction.Builder nameBuilder = () -> SetNameLootFunction.builder(formattedName).build();
 
-        LootFunction.Builder textureBuilder = () -> SetNbtLootFunction.builder(skullOwner).build();
+        LootFunction.Builder textureBuilder = () -> SetNbtLootFunction.builder(skullNbt).build();
 
         NbtPredicate professionPredicate = makeProfessionPredicate(profession);
 
@@ -144,7 +161,7 @@ public class MobHeadLootTables {
     }
 
     public static LootPoolEntry.Builder<?> getZombieAlchemistHeadLootTable() {
-        return getHeadLootTable("Zombie Alchemist", "miniblockmerchants:mm_alchemist", ALCHEMIST_ZOMBIE_VILLAGER);
+        return getZombieHeadLootTable("Zombie Alchemist", "miniblockmerchants:mm_alchemist", ALCHEMIST_ZOMBIE_VILLAGER);
     }
 
     public static LootPoolEntry.Builder<?> getArboriculturistHeadLootTable() {
@@ -152,7 +169,7 @@ public class MobHeadLootTables {
     }
 
     public static LootPoolEntry.Builder<?> getZombieArboriculturistHeadLootTable() {
-        return getHeadLootTable("Zombie Arboriculturist", "miniblockmerchants:mm_arboriculturist", ARBORICULTURIST_ZOMBIE_VILLAGER);
+        return getZombieHeadLootTable("Zombie Arboriculturist", "miniblockmerchants:mm_arboriculturist", ARBORICULTURIST_ZOMBIE_VILLAGER);
     }
 
     public static LootPoolEntry.Builder<?> getAstronomerHeadLootTable() {
@@ -160,7 +177,7 @@ public class MobHeadLootTables {
     }
 
     public static LootPoolEntry.Builder<?> getZombieAstronomerHeadLootTable() {
-        return getHeadLootTable("Zombie Astronomer", "miniblockmerchants:mm_astronomer", ASTRONOMER_ZOMBIE_VILLAGER);
+        return getZombieHeadLootTable("Zombie Astronomer", "miniblockmerchants:mm_astronomer", ASTRONOMER_ZOMBIE_VILLAGER);
     }
 
     public static LootPoolEntry.Builder<?> getBakerHeadLootTable() {
@@ -168,7 +185,7 @@ public class MobHeadLootTables {
     }
 
     public static LootPoolEntry.Builder<?> getZombieBakerHeadLootTable() {
-        return getHeadLootTable("Zombie Baker", "miniblockmerchants:mm_baker", BAKER_ZOMBIE_VILLAGER);
+        return getZombieHeadLootTable("Zombie Baker", "miniblockmerchants:mm_baker", BAKER_ZOMBIE_VILLAGER);
     }
 
     public static LootPoolEntry.Builder<?> getBartenderHeadLootTable() {
@@ -176,7 +193,7 @@ public class MobHeadLootTables {
     }
 
     public static LootPoolEntry.Builder<?> getZombieBartenderHeadLootTable() {
-        return getHeadLootTable("Zombie Bartender", "miniblockmerchants:mm_bartender", BARTENDER_ZOMBIE_VILLAGER);
+        return getZombieHeadLootTable("Zombie Bartender", "miniblockmerchants:mm_bartender", BARTENDER_ZOMBIE_VILLAGER);
     }
 
     public static LootPoolEntry.Builder<?> getBeekeeperHeadLootTable() {
@@ -184,7 +201,7 @@ public class MobHeadLootTables {
     }
 
     public static LootPoolEntry.Builder<?> getZombieBeekeeperHeadLootTable() {
-        return getHeadLootTable("Zombie Beekeeper", "miniblockmerchants:mm_beekeeper", BEEKEEPER_ZOMBIE_VILLAGER);
+        return getZombieHeadLootTable("Zombie Beekeeper", "miniblockmerchants:mm_beekeeper", BEEKEEPER_ZOMBIE_VILLAGER);
     }
 
     public static LootPoolEntry.Builder<?> getBlacksmithHeadLootTable() {
@@ -192,7 +209,7 @@ public class MobHeadLootTables {
     }
 
     public static LootPoolEntry.Builder<?> getZombieBlacksmithHeadLootTable() {
-        return getHeadLootTable("Zombie Blacksmith", "miniblockmerchants:mm_blacksmith", BLACKSMITH_ZOMBIE_VILLAGER);
+        return getZombieHeadLootTable("Zombie Blacksmith", "miniblockmerchants:mm_blacksmith", BLACKSMITH_ZOMBIE_VILLAGER);
     }
 
     public static LootPoolEntry.Builder<?> getChefHeadLootTable() {
@@ -200,7 +217,7 @@ public class MobHeadLootTables {
     }
 
     public static LootPoolEntry.Builder<?> getZombieChefHeadLootTable() {
-        return getHeadLootTable("Zombie Chef", "miniblockmerchants:mm_chef", CHEF_ZOMBIE_VILLAGER);
+        return getZombieHeadLootTable("Zombie Chef", "miniblockmerchants:mm_chef", CHEF_ZOMBIE_VILLAGER);
     }
 
     public static LootPoolEntry.Builder<?> getEngineerHeadLootTable() {
@@ -208,7 +225,7 @@ public class MobHeadLootTables {
     }
 
     public static LootPoolEntry.Builder<?> getZombieEngineerHeadLootTable() {
-        return getHeadLootTable("Zombie Engineer", "miniblockmerchants:mm_engineer", ENGINEER_ZOMBIE_VILLAGER);
+        return getZombieHeadLootTable("Zombie Engineer", "miniblockmerchants:mm_engineer", ENGINEER_ZOMBIE_VILLAGER);
     }
 
     public static LootPoolEntry.Builder<?> getEremologistHeadLootTable() {
@@ -216,7 +233,7 @@ public class MobHeadLootTables {
     }
 
     public static LootPoolEntry.Builder<?> getZombieEremologistHeadLootTable() {
-        return getHeadLootTable("Zombie Eremologist", "miniblockmerchants:mm_eremologist", EREMOLOGIST_ZOMBIE_VILLAGER);
+        return getZombieHeadLootTable("Zombie Eremologist", "miniblockmerchants:mm_eremologist", EREMOLOGIST_ZOMBIE_VILLAGER);
     }
 
     public static LootPoolEntry.Builder<?> getFurnisherHeadLootTable() {
@@ -224,7 +241,7 @@ public class MobHeadLootTables {
     }
 
     public static LootPoolEntry.Builder<?> getZombieFurnisherHeadLootTable() {
-        return getHeadLootTable("Zombie Furnisher", "miniblockmerchants:mm_furnisher", FURNISHER_ZOMBIE_VILLAGER);
+        return getZombieHeadLootTable("Zombie Furnisher", "miniblockmerchants:mm_furnisher", FURNISHER_ZOMBIE_VILLAGER);
     }
 
     public static LootPoolEntry.Builder<?> getGamemasterHeadLootTable() {
@@ -232,7 +249,7 @@ public class MobHeadLootTables {
     }
 
     public static LootPoolEntry.Builder<?> getZombieGamemasterHeadLootTable() {
-        return getHeadLootTable("Zombie Gamemaster", "miniblockmerchants:mm_gamemaster", GAMEMASTER_ZOMBIE_VILLAGER);
+        return getZombieHeadLootTable("Zombie Gamemaster", "miniblockmerchants:mm_gamemaster", GAMEMASTER_ZOMBIE_VILLAGER);
     }
 
     public static LootPoolEntry.Builder<?> getGrieferHeadLootTable() {
@@ -240,7 +257,7 @@ public class MobHeadLootTables {
     }
 
     public static LootPoolEntry.Builder<?> getZombieGrieferHeadLootTable() {
-        return getHeadLootTable("Zombie Griefer", "miniblockmerchants:mm_griefer", GRIEFER_ZOMBIE_VILLAGER);
+        return getZombieHeadLootTable("Zombie Griefer", "miniblockmerchants:mm_griefer", GRIEFER_ZOMBIE_VILLAGER);
     }
 
     public static LootPoolEntry.Builder<?> getHorticulturistHeadLootTable() {
@@ -248,7 +265,7 @@ public class MobHeadLootTables {
     }
 
     public static LootPoolEntry.Builder<?> getZombieHorticulturistHeadLootTable() {
-        return getHeadLootTable("Zombie Gorticulturist", "miniblockmerchants:mm_horticulturist", HORTICULTURIST_ZOMBIE_VILLAGER);
+        return getZombieHeadLootTable("Zombie Gorticulturist", "miniblockmerchants:mm_horticulturist", HORTICULTURIST_ZOMBIE_VILLAGER);
     }
 
     public static LootPoolEntry.Builder<?> getMineralogistHeadLootTable() {
@@ -256,7 +273,7 @@ public class MobHeadLootTables {
     }
 
     public static LootPoolEntry.Builder<?> getZombieMineralogistHeadLootTable() {
-        return getHeadLootTable("Zombie Mineralogist", "miniblockmerchants:mm_mineralogist", MINERALOGIST_ZOMBIE_VILLAGER);
+        return getZombieHeadLootTable("Zombie Mineralogist", "miniblockmerchants:mm_mineralogist", MINERALOGIST_ZOMBIE_VILLAGER);
     }
 
     public static LootPoolEntry.Builder<?> getNetherographerHeadLootTable() {
@@ -264,7 +281,7 @@ public class MobHeadLootTables {
     }
 
     public static LootPoolEntry.Builder<?> getZombieNetherographerHeadLootTable() {
-        return getHeadLootTable("Zombie Netherographer", "miniblockmerchants:mm_netherographer", NETHEROGRAPHER_ZOMBIE_VILLAGER);
+        return getZombieHeadLootTable("Zombie Netherographer", "miniblockmerchants:mm_netherographer", NETHEROGRAPHER_ZOMBIE_VILLAGER);
     }
 
     public static LootPoolEntry.Builder<?> getOceanographerHeadLootTable() {
@@ -272,7 +289,7 @@ public class MobHeadLootTables {
     }
 
     public static LootPoolEntry.Builder<?> getZombieOceanographerHeadLootTable() {
-        return getHeadLootTable("Zombie Oceanographer", "miniblockmerchants:mm_oceanographer", OCEANOGRAPHER_ZOMBIE_VILLAGER);
+        return getZombieHeadLootTable("Zombie Oceanographer", "miniblockmerchants:mm_oceanographer", OCEANOGRAPHER_ZOMBIE_VILLAGER);
     }
 
     public static LootPoolEntry.Builder<?> getOlericulturistHeadLootTable() {
@@ -280,7 +297,7 @@ public class MobHeadLootTables {
     }
 
     public static LootPoolEntry.Builder<?> getZombieOlericulturistHeadLootTable() {
-        return getHeadLootTable("Zombie Olericulturist", "miniblockmerchants:mm_olericulturist", OLERICULTURIST_ZOMBIE_VILLAGER);
+        return getZombieHeadLootTable("Zombie Olericulturist", "miniblockmerchants:mm_olericulturist", OLERICULTURIST_ZOMBIE_VILLAGER);
     }
 
     public static LootPoolEntry.Builder<?> getPetrologistHeadLootTable() {
@@ -288,7 +305,7 @@ public class MobHeadLootTables {
     }
 
     public static LootPoolEntry.Builder<?> getZombiePetrologistHeadLootTable() {
-        return getHeadLootTable("Zombie Petrologist", "miniblockmerchants:mm_petrologist", PETROLOGIST_ZOMBIE_VILLAGER);
+        return getZombieHeadLootTable("Zombie Petrologist", "miniblockmerchants:mm_petrologist", PETROLOGIST_ZOMBIE_VILLAGER);
     }
 
     public static LootPoolEntry.Builder<?> getPlushieManiacHeadLootTable() {
@@ -296,7 +313,7 @@ public class MobHeadLootTables {
     }
 
     public static LootPoolEntry.Builder<?> getZombiePlushieManiacHeadLootTable() {
-        return getHeadLootTable("Zombie Plushie Maniac", "miniblockmerchants:mm_plushie_maniac", PLUSHIE_MANIAC_ZOMBIE_VILLAGER);
+        return getZombieHeadLootTable("Zombie Plushie Maniac", "miniblockmerchants:mm_plushie_maniac", PLUSHIE_MANIAC_ZOMBIE_VILLAGER);
     }
 
     public static LootPoolEntry.Builder<?> getPomologistHeadLootTable() {
@@ -304,7 +321,7 @@ public class MobHeadLootTables {
     }
 
     public static LootPoolEntry.Builder<?> getZombiePomologistHeadLootTable() {
-        return getHeadLootTable("Zombie Pomologist", "miniblockmerchants:mm_pomologist", POMOLOGIST_ZOMBIE_VILLAGER);
+        return getZombieHeadLootTable("Zombie Pomologist", "miniblockmerchants:mm_pomologist", POMOLOGIST_ZOMBIE_VILLAGER);
     }
 
     public static LootPoolEntry.Builder<?> getRecyclerHeadLootTable() {
@@ -312,7 +329,7 @@ public class MobHeadLootTables {
     }
 
     public static LootPoolEntry.Builder<?> getZombieRecyclerHeadLootTable() {
-        return getHeadLootTable("Zombie Recycler", "miniblockmerchants:mm_recycler", RECYCLER_ZOMBIE_VILLAGER);
+        return getZombieHeadLootTable("Zombie Recycler", "miniblockmerchants:mm_recycler", RECYCLER_ZOMBIE_VILLAGER);
     }
 
     public static LootPoolEntry.Builder<?> getRitualistHeadLootTable() {
@@ -320,7 +337,7 @@ public class MobHeadLootTables {
     }
 
     public static LootPoolEntry.Builder<?> getZombieRitualistHeadLootTable() {
-        return getHeadLootTable("Zombie Ritualist", "miniblockmerchants:mm_ritualist", RITUALIST_ZOMBIE_VILLAGER);
+        return getZombieHeadLootTable("Zombie Ritualist", "miniblockmerchants:mm_ritualist", RITUALIST_ZOMBIE_VILLAGER);
     }
 
     public static LootPoolEntry.Builder<?> getSculptorHeadLootTable() {
@@ -328,7 +345,7 @@ public class MobHeadLootTables {
     }
 
     public static LootPoolEntry.Builder<?> getZombieSculptorHeadLootTable() {
-        return getHeadLootTable("Zombie Sculptor", "miniblockmerchants:mm_sculptor", SCULPTOR_ZOMBIE_VILLAGER);
+        return getZombieHeadLootTable("Zombie Sculptor", "miniblockmerchants:mm_sculptor", SCULPTOR_ZOMBIE_VILLAGER);
     }
 
     public static LootPoolEntry.Builder<?> getSteampunkerHeadLootTable() {
@@ -336,7 +353,7 @@ public class MobHeadLootTables {
     }
 
     public static LootPoolEntry.Builder<?> getZombieSteampunkerHeadLootTable() {
-        return getHeadLootTable("Zombie Steampunker", "miniblockmerchants:mm_steampunker", STEAMPUNKER_ZOMBIE_VILLAGER);
+        return getZombieHeadLootTable("Zombie Steampunker", "miniblockmerchants:mm_steampunker", STEAMPUNKER_ZOMBIE_VILLAGER);
     }
 
     public static LootPoolEntry.Builder<?> getTailorHeadLootTable() {
@@ -344,6 +361,6 @@ public class MobHeadLootTables {
     }
 
     public static LootPoolEntry.Builder<?> getZombieTailorHeadLootTable() {
-        return getHeadLootTable("Zombie Tailor", "miniblockmerchants:mm_tailor", TAILOR_ZOMBIE_VILLAGER);
+        return getZombieHeadLootTable("Zombie Tailor", "miniblockmerchants:mm_tailor", TAILOR_ZOMBIE_VILLAGER);
     }
 }
