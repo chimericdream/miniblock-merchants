@@ -1,6 +1,5 @@
 package com.chimericdream.miniblockmerchants.loot;
 
-import com.chimericdream.miniblockmerchants.MiniblockMerchantsMod;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
@@ -64,8 +63,6 @@ public class MobHeadLootTables {
         LootFunction.Builder textureBuilder = () -> SetNbtLootFunction.builder(skullOwner).build();
 
         NbtPredicate professionPredicate = makeProfessionPredicate(profession);
-
-        MiniblockMerchantsMod.LOGGER.info("Profession predicate: {}", professionPredicate.toJson().toString());
 
         return ItemEntry.builder(headItem)
             .apply(nameBuilder)
