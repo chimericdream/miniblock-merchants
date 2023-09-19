@@ -6,17 +6,18 @@ import com.chimericdream.miniblockmerchants.item.ModItems;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTables;
 import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.chimericdream.miniblockmerchants.loot.MobHeadLootTables.getVillagerHeadLootTable;
+import static com.chimericdream.miniblockmerchants.loot.MobHeadLootTables.getZombieVillagerHeadLootTable;
 
 public class MMLootTables {
     private static final Identifier CARROT_LOOT_TABLE_ID = Blocks.CARROTS.getLootTableId();
@@ -25,7 +26,9 @@ public class MMLootTables {
     private static final Identifier OAK_LEAVES_TABLE_ID = Blocks.OAK_LEAVES.getLootTableId();
     private static final Identifier REDSTONE_ORE_TABLE_ID = Blocks.REDSTONE_ORE.getLootTableId();
     private static final Identifier SPRUCE_LEAVES_TABLE_ID = Blocks.SPRUCE_LEAVES.getLootTableId();
+    private static final Identifier VILLAGER_LOOT_TABLE_ID = EntityType.VILLAGER.getLootTableId();
     private static final Identifier WHEAT_TABLE_ID = Blocks.WHEAT.getLootTableId();
+    private static final Identifier ZOMBIE_VILLAGER_LOOT_TABLE_ID = EntityType.ZOMBIE_VILLAGER.getLootTableId();
 
     private static LootPool.Builder makeBuilder(Item item, int chance) {
         LootPool.Builder builder = LootPool.builder()
@@ -145,6 +148,14 @@ public class MMLootTables {
 
         if (CREEPER_LOOT_TABLE_ID.equals(id)) {
             poolBuilders.add(makeBuilder(ModItems.STABILIZED_EXPLOSION, config.stabilizedExplosionChance));
+        }
+
+        if (VILLAGER_LOOT_TABLE_ID.equals(id)) {
+            poolBuilders.add(getVillagerHeadLootTable());
+        }
+
+        if (ZOMBIE_VILLAGER_LOOT_TABLE_ID.equals(id)) {
+            poolBuilders.add(getZombieVillagerHeadLootTable());
         }
     }
 
