@@ -7,7 +7,7 @@ import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-import static com.chimericdream.miniblockmerchants.config.MiniblockMerchantsConfig.*;
+import com.chimericdream.miniblockmerchants.config.MiniblockMerchantsConfig.Defaults;
 
 public class ConfigManager {
     private static ConfigHolder<MiniblockMerchantsConfig> holder;

@@ -1,7 +1,7 @@
 package com.chimericdream.miniblockmerchants.advancement;
 
 import com.chimericdream.miniblockmerchants.ModInfo;
-import net.minecraft.advancement.Advancement;
+import net.minecraft.advancement.AdvancementEntry;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
 
@@ -13,7 +13,7 @@ public class MMAdvancements {
     public static final Identifier TRADE_5000_TIMES = new Identifier(ModInfo.MOD_ID, "trades/5000_trades");
     public static final Identifier TRADE_10000_TIMES = new Identifier(ModInfo.MOD_ID, "trades/10000_trades");
 
-    public static Advancement getAdvancement(MinecraftServer server, Identifier id) {
+    public static AdvancementEntry getAdvancement(MinecraftServer server, Identifier id) {
         return server.getAdvancementLoader().get(id);
     }
 }

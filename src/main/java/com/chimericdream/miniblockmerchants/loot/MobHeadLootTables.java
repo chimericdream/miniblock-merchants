@@ -7,6 +7,7 @@ import net.minecraft.loot.condition.EntityPropertiesLootCondition;
 import net.minecraft.loot.condition.KilledByPlayerLootCondition;
 import net.minecraft.loot.condition.RandomChanceWithLootingLootCondition;
 import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.entry.AlternativeEntry;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.entry.LootPoolEntry;
 import net.minecraft.loot.function.LootFunction;
@@ -18,9 +19,9 @@ import net.minecraft.nbt.NbtList;
 import net.minecraft.predicate.NbtPredicate;
 import net.minecraft.predicate.entity.EntityPredicate;
 import net.minecraft.text.MutableText;
+import net.minecraft.text.PlainTextContent;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
-import net.minecraft.text.TextContent;
 import net.minecraft.util.Pair;
 
 import static com.chimericdream.miniblockmerchants.data.SkullTextureData.*;
@@ -71,7 +72,7 @@ public class MobHeadLootTables {
         skullNbt.put("SkullOwner", owner);
         skullNbt.put("BlockEntityTag", beTag);
 
-        Text formattedName = MutableText.of(TextContent.EMPTY)
+        Text formattedName = MutableText.of(PlainTextContent.EMPTY)
             .append(name)
             .setStyle(Style.EMPTY.withItalic(false));
 
@@ -91,32 +92,34 @@ public class MobHeadLootTables {
         LootPool.Builder builder = LootPool.builder();
 
         return builder
-            .with(getAlchemistHeadLootTable())
-            .with(getArboriculturistHeadLootTable())
-            .with(getAstronomerHeadLootTable())
-            .with(getBakerHeadLootTable())
-            .with(getBartenderHeadLootTable())
-            .with(getBeekeeperHeadLootTable())
-            .with(getBlacksmithHeadLootTable())
-            .with(getChefHeadLootTable())
-            .with(getEngineerHeadLootTable())
-            .with(getEremologistHeadLootTable())
-            .with(getFurnisherHeadLootTable())
-            .with(getGamemasterHeadLootTable())
-            .with(getGrieferHeadLootTable())
-            .with(getHorticulturistHeadLootTable())
-            .with(getMineralogistHeadLootTable())
-            .with(getNetherographerHeadLootTable())
-            .with(getOceanographerHeadLootTable())
-            .with(getOlericulturistHeadLootTable())
-            .with(getPetrologistHeadLootTable())
-            .with(getPlushieManiacHeadLootTable())
-            .with(getPomologistHeadLootTable())
-            .with(getRecyclerHeadLootTable())
-            .with(getRitualistHeadLootTable())
-            .with(getSculptorHeadLootTable())
-            .with(getSteampunkerHeadLootTable())
-            .with(getTailorHeadLootTable())
+            .with(AlternativeEntry.builder(
+                getAlchemistHeadLootTable(),
+                getArboriculturistHeadLootTable(),
+                getAstronomerHeadLootTable(),
+                getBakerHeadLootTable(),
+                getBartenderHeadLootTable(),
+                getBeekeeperHeadLootTable(),
+                getBlacksmithHeadLootTable(),
+                getChefHeadLootTable(),
+                getEngineerHeadLootTable(),
+                getEremologistHeadLootTable(),
+                getFurnisherHeadLootTable(),
+                getGamemasterHeadLootTable(),
+                getGrieferHeadLootTable(),
+                getHorticulturistHeadLootTable(),
+                getMineralogistHeadLootTable(),
+                getNetherographerHeadLootTable(),
+                getOceanographerHeadLootTable(),
+                getOlericulturistHeadLootTable(),
+                getPetrologistHeadLootTable(),
+                getPlushieManiacHeadLootTable(),
+                getPomologistHeadLootTable(),
+                getRecyclerHeadLootTable(),
+                getRitualistHeadLootTable(),
+                getSculptorHeadLootTable(),
+                getSteampunkerHeadLootTable(),
+                getTailorHeadLootTable()
+            ).build())
             .conditionally(() -> KilledByPlayerLootCondition.builder().build())
             .rolls(ConstantLootNumberProvider.create(1));
     }
@@ -125,32 +128,34 @@ public class MobHeadLootTables {
         LootPool.Builder builder = LootPool.builder();
 
         return builder
-            .with(getZombieAlchemistHeadLootTable())
-            .with(getZombieArboriculturistHeadLootTable())
-            .with(getZombieAstronomerHeadLootTable())
-            .with(getZombieBakerHeadLootTable())
-            .with(getZombieBartenderHeadLootTable())
-            .with(getZombieBeekeeperHeadLootTable())
-            .with(getZombieBlacksmithHeadLootTable())
-            .with(getZombieChefHeadLootTable())
-            .with(getZombieEngineerHeadLootTable())
-            .with(getZombieEremologistHeadLootTable())
-            .with(getZombieFurnisherHeadLootTable())
-            .with(getZombieGamemasterHeadLootTable())
-            .with(getZombieGrieferHeadLootTable())
-            .with(getZombieHorticulturistHeadLootTable())
-            .with(getZombieMineralogistHeadLootTable())
-            .with(getZombieNetherographerHeadLootTable())
-            .with(getZombieOceanographerHeadLootTable())
-            .with(getZombieOlericulturistHeadLootTable())
-            .with(getZombiePetrologistHeadLootTable())
-            .with(getZombiePlushieManiacHeadLootTable())
-            .with(getZombiePomologistHeadLootTable())
-            .with(getZombieRecyclerHeadLootTable())
-            .with(getZombieRitualistHeadLootTable())
-            .with(getZombieSculptorHeadLootTable())
-            .with(getZombieSteampunkerHeadLootTable())
-            .with(getZombieTailorHeadLootTable())
+            .with(AlternativeEntry.builder(
+                getZombieAlchemistHeadLootTable(),
+                getZombieArboriculturistHeadLootTable(),
+                getZombieAstronomerHeadLootTable(),
+                getZombieBakerHeadLootTable(),
+                getZombieBartenderHeadLootTable(),
+                getZombieBeekeeperHeadLootTable(),
+                getZombieBlacksmithHeadLootTable(),
+                getZombieChefHeadLootTable(),
+                getZombieEngineerHeadLootTable(),
+                getZombieEremologistHeadLootTable(),
+                getZombieFurnisherHeadLootTable(),
+                getZombieGamemasterHeadLootTable(),
+                getZombieGrieferHeadLootTable(),
+                getZombieHorticulturistHeadLootTable(),
+                getZombieMineralogistHeadLootTable(),
+                getZombieNetherographerHeadLootTable(),
+                getZombieOceanographerHeadLootTable(),
+                getZombieOlericulturistHeadLootTable(),
+                getZombiePetrologistHeadLootTable(),
+                getZombiePlushieManiacHeadLootTable(),
+                getZombiePomologistHeadLootTable(),
+                getZombieRecyclerHeadLootTable(),
+                getZombieRitualistHeadLootTable(),
+                getZombieSculptorHeadLootTable(),
+                getZombieSteampunkerHeadLootTable(),
+                getZombieTailorHeadLootTable()
+            ).build())
             .conditionally(() -> KilledByPlayerLootCondition.builder().build())
             .conditionally(() -> RandomChanceWithLootingLootCondition.builder(0.5f, 0.02f).build())
             .rolls(ConstantLootNumberProvider.create(1));
