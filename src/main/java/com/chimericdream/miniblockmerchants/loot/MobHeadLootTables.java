@@ -1,27 +1,33 @@
 package com.chimericdream.miniblockmerchants.loot;
 
+import com.chimericdream.miniblockmerchants.util.NbtHelpers;
+import com.mojang.authlib.GameProfile;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ProfileComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.condition.EntityPropertiesLootCondition;
 import net.minecraft.loot.condition.KilledByPlayerLootCondition;
-import net.minecraft.loot.condition.RandomChanceWithLootingLootCondition;
+import net.minecraft.loot.condition.RandomChanceWithEnchantedBonusLootCondition;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.entry.AlternativeEntry;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.entry.LootPoolEntry;
 import net.minecraft.loot.function.LootFunction;
+import net.minecraft.loot.function.SetComponentsLootFunction;
 import net.minecraft.loot.function.SetNameLootFunction;
-import net.minecraft.loot.function.SetNbtLootFunction;
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.predicate.NbtPredicate;
 import net.minecraft.predicate.entity.EntityPredicate;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.PlainTextContent;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 
 import static com.chimericdream.miniblockmerchants.data.SkullTextureData.*;
@@ -61,30 +67,29 @@ public class MobHeadLootTables {
         owner.putIntArray("Id", data.getRight());
         owner.put("Properties", properties);
 
-        NbtCompound beTag = new NbtCompound();
+        String nbSound;
         if (isZombieVillager) {
-            beTag.putString("note_block_sound", "minecraft:entity.zombie_villager.ambient");
+            nbSound = "minecraft:entity.zombie_villager.ambient";
         } else {
-            beTag.putString("note_block_sound", "minecraft:entity.villager.ambient");
+            nbSound = "minecraft:entity.villager.ambient";
         }
 
-        NbtCompound skullNbt = new NbtCompound();
-        skullNbt.put("SkullOwner", owner);
-        skullNbt.put("BlockEntityTag", beTag);
+        GameProfile gameProfile = NbtHelpers.toGameProfile(owner);
 
         Text formattedName = MutableText.of(PlainTextContent.EMPTY)
             .append(name)
             .setStyle(Style.EMPTY.withItalic(false));
 
-        LootFunction.Builder nameBuilder = () -> SetNameLootFunction.builder(formattedName).build();
-
-        LootFunction.Builder textureBuilder = () -> SetNbtLootFunction.builder(skullNbt).build();
+        LootFunction.Builder nameBuilder = () -> SetNameLootFunction.builder(formattedName, SetNameLootFunction.Target.ITEM_NAME).build();
+        LootFunction.Builder textureBuilder = () -> SetComponentsLootFunction.builder(DataComponentTypes.PROFILE, new ProfileComponent(gameProfile)).build();
+        LootFunction.Builder nbSoundBuilder = () -> SetComponentsLootFunction.builder(DataComponentTypes.NOTE_BLOCK_SOUND, Identifier.of(nbSound)).build();
 
         NbtPredicate professionPredicate = makeProfessionPredicate(profession);
 
         return ItemEntry.builder(headItem)
             .apply(nameBuilder)
             .apply(textureBuilder)
+            .apply(nbSoundBuilder)
             .conditionally(() -> EntityPropertiesLootCondition.builder(LootContext.EntityTarget.THIS, EntityPredicate.Builder.create().nbt(professionPredicate)).build());
     }
 
@@ -124,7 +129,7 @@ public class MobHeadLootTables {
             .rolls(ConstantLootNumberProvider.create(1));
     }
 
-    public static LootPool.Builder getZombieVillagerHeadLootTable() {
+    public static LootPool.Builder getZombieVillagerHeadLootTable(RegistryWrapper.WrapperLookup wrapperLookup) {
         LootPool.Builder builder = LootPool.builder();
 
         return builder
@@ -157,7 +162,7 @@ public class MobHeadLootTables {
                 getZombieTailorHeadLootTable()
             ).build())
             .conditionally(() -> KilledByPlayerLootCondition.builder().build())
-            .conditionally(() -> RandomChanceWithLootingLootCondition.builder(0.5f, 0.02f).build())
+            .conditionally(() -> RandomChanceWithEnchantedBonusLootCondition.builder(wrapperLookup, 0.5f, 0.02f).build())
             .rolls(ConstantLootNumberProvider.create(1));
     }
 

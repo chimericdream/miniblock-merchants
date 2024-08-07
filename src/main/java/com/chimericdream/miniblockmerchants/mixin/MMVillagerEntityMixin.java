@@ -12,6 +12,8 @@ import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -33,6 +35,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.ArrayList;
 
 @Mixin(VillagerEntity.class)
 abstract public class MMVillagerEntityMixin extends MMMerchantEntityMixin {
@@ -92,11 +96,10 @@ abstract public class MMVillagerEntityMixin extends MMMerchantEntityMixin {
                     } else {
                         ((ServerPlayerEntity) player).sendMessage(getPlayerMessage(item.getVillagerProfession()), false);
 
-                        NbtCompound nbtOffers = MMProfessions.getOffersForProfession(item.getVillagerProfession());
-                        TradeOfferList offerList = new TradeOfferList(nbtOffers);
+                        TradeOfferList offers = MMProfessions.getOffersForProfession(item.getVillagerProfession());
 
                         this.setVillagerData(new VillagerData(VillagerType.PLAINS, newProfession, 5));
-                        this.setOffers(offerList);
+                        this.setOffers(offers);
                         this.setExperience(250);
                         this.produceParticles(ParticleTypes.HAPPY_VILLAGER);
                         this.setPersistent();
@@ -126,7 +129,8 @@ abstract public class MMVillagerEntityMixin extends MMMerchantEntityMixin {
         }
 
         mm_setBaseXp(nbt);
-        nbt.put("Offers", MMProfessions.getOffersForProfession(profession));
+        TradeOfferList offers = MMProfessions.getOffersForProfession(profession);
+        nbt.put("Offers", (NbtElement)TradeOfferList.CODEC.encodeStart(this.getRegistryManager().getOps(NbtOps.INSTANCE), offers).getOrThrow());
     }
 
     @Inject(method = "afterUsing", at = @At("TAIL"))

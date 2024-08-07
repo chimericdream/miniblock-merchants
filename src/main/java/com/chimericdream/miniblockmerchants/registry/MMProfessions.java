@@ -2,22 +2,32 @@ package com.chimericdream.miniblockmerchants.registry;
 
 import com.chimericdream.miniblockmerchants.ModInfo;
 import com.chimericdream.miniblockmerchants.data.MiniblockTextures;
+import com.chimericdream.miniblockmerchants.item.ModItems;
+import com.chimericdream.miniblockmerchants.util.NbtHelpers;
 import com.google.common.collect.ImmutableSet;
+import com.mojang.authlib.GameProfile;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ProfileComponent;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.village.TradeOffer;
+import net.minecraft.village.TradeOfferList;
+import net.minecraft.village.TradedItem;
 import net.minecraft.village.VillagerProfession;
 import net.minecraft.world.poi.PointOfInterestType;
-import org.lwjgl.openal.AL;
 
 import java.util.*;
 
 public class MMProfessions {
     public static final Map<String, VillagerProfession> PROFESSIONS = new HashMap<>();
-    public static final Map<String, NbtCompound> TRADES = new HashMap<>();
+    public static final Map<String, TradeOfferList> TRADES = new HashMap<>();
 
     public static final VillagerProfession ALCHEMIST = register("mm_alchemist");
     public static final VillagerProfession ARBORICULTURIST = register("mm_arboriculturist");
@@ -79,8 +89,7 @@ public class MMProfessions {
     }
 
     public static void populateTrades() {
-        NbtCompound alchemistTrades = new NbtCompound();
-        alchemistTrades.put("Recipes", makeRecipeList(
+        TradeOfferList alchemistTrades = makeOfferList(
             makeOffer("Cauldron", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzA5NTc3YmNiYzMxYTA0MjI2ODkyMDEzOGJlZmMwMTA0OTNjZTZjMjdkMjA4YWI5Y2RiOGNlOWZhMjQ1NzMwOCJ9fX0=", new int[]{-922603379, -497987848, -1632532933, -2069520577}),
             makeOffer("Cauldron with Blood", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGExZjMwYWM2N2VjMTBhM2Q1ZTdkZWFmNjRkMGU5YTIwMDRhZTgwMWMwYmQ2Y2U4NWM1ZDYwNzM5YTlkODgyYSJ9fX0=", new int[]{-1511826865, -301906378, -1630532647, 317859372}),
             makeOffer("Sugar", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2E2YWE0MGRiNzQxYTZjYmVkYjExOWEzZTVjYmE4YTg3ZjdlYzhmNzRkMjY4YWQ4MjgyYTQ2ZTVlMDU0ZmNiOSJ9fX0=", new int[]{-1171650357, -2028255289, -1780378138, 1576325737}),
@@ -97,10 +106,9 @@ public class MMProfessions {
             makeOffer("Brain in a Bottle", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzVmYmM3NDBmMjRkNGY1Y2U5YzZhZmM3ZTVlYWEyNWFkYTYxYmM5MTU0MTQ1YTRmNmQ3YTk5OTFmNTQwYmM0MyJ9fX0=", new int[]{-657118275, 2045067670, -1866290852, -20333074}),
             makeOffer("Eye in a Bottle", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDViZTRiYTgyODYxZWZmY2Q4ZGNjNWMyNDY5YjllZThkNGUwMjFiMDYwZGFhZjM0ODMxOWUwMjAxMTgyOCJ9fX0=", new int[]{-762062609, -2064825526, -1719606184, -2101208395}),
             makeOffer("Organ in a Bottle", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmZjOWQ0NzFmMzczNTU3NTgzMzkyZWFlZmFmNjU5YmJmZWMyMzg1YzYwZmJhYjY4NjBmMjM2YjVmYjI0MSJ9fX0=", new int[]{41213480, 826101342, -1295841538, 1915000144})
-        ));
+        );
 
-        NbtCompound arboriculturistTrades = new NbtCompound();
-        arboriculturistTrades.put("Recipes", makeRecipeList(
+        TradeOfferList arboriculturistTrades = makeOfferList(
             makeOffer("Oak Log", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTRhYWRhNGQ5ZmNlZGE5MDE4NjkxOGQ2Y2EzNWI5YTBlYWQ4ZTRiMTRjOWQ5NDI3MTU3ZWU5YjkzMzlkN2IxIn19fQ==", new int[]{-55379546, 753746504, -1517949859, -1306493605}),
             makeOffer("Rounded Oak Log", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjBjZDEzMjIzYThkOWMxNzNjZWRjZTZjNGJlYmViYTA2YTI0YTFiYTI3NWRkM2ViNWM3OTMzZjlhNzRiYTAxMSJ9fX0=", new int[]{2045552266, -1956040570, -1809882858, -852453119}),
             makeOffer("Stripped Oak Log", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmRlYTIxZmQzMGQ3ZThjYTIyOTZiMjA1ZjhiMjZjMmViYzA2NWUxOGRjZDNkYzIyNjM3MDI1NTYxNjZmMGRhZiJ9fX0=", new int[]{-2025414481, -1437646155, -1282854958, 978735206}),
@@ -133,10 +141,9 @@ public class MMProfessions {
             makeOffer("Spruce Sapling", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjdmYTY0YmJiNGJkNTE0Zjc5ZDdlYTQzNGI1MGMwYmQzNDJkOWY4MDdiZTllMTA4NDZkMGU4NTA1MTY2MzlmYyJ9fX0=", new int[]{364565918, -1539880395, -1679179384, -922808441}),
             makeOffer("Acorn", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWJlNzIzMjY2Y2Q2ZGU2YWNmODYzOTA4M2NmZGZkNzEyNDUzNGZhN2E2M2E5MmY3ZTIxOGVkOTNmY2YzOGIzIn19fQ==", new int[]{-1941682614, -1651294118, -1552524500, -1063220409}),
             makeOffer("Fir Cone", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTRlMjg4OTBlODY1YzdkOTUwYjE1MTMxYTQzZDc2Yzk0ZGUzODk5NWQ2MDlmZWZiNGYyOTczNjJmZWQxMjE4In19fQ==", new int[]{122709924, 593466750, -1994325822, -174546356})
-        ));
+        );
 
-        NbtCompound astronomerTrades = new NbtCompound();
-        astronomerTrades.put("Recipes", makeRecipeList(
+        TradeOfferList astronomerTrades = makeOfferList(
             makeOffer("Spyglass", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWZlM2JjYmE1N2M3YjdmOGQ0NjJiMzAwNTQzZDEzMmVjZWE5YmYyZWQ1ODdjYzlkOTk0YTM5NWFjOTU5MmVhYSJ9fX0=", new int[]{-1054666174, -1656598702, -1876453964, -461724679}),
             makeOffer("Spyglass", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTI2ODAwMmNiMGI5N2JlZTUwOGU4N2Y5OTU0Y2YxODk5YWI5MDU2MGJkNzQ3YzQ4OWNiNTQyNTFiYTZjNTBmMyJ9fX0=", new int[]{628217491, 1172324583, -1342291521, -107037697}),
             makeOffer("Sun", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMWMzNzgzMmM0MTM1MjU1NTU1M2Q4NmFhYWUxMzQxOTMzMWUzYWRlOTk3YmNlMGI4MTEzN2Q1MjA0ZTRjZGU3ZSJ9fX0=", new int[]{29464294, 160580508, -1779136758, 1804506042}),
@@ -185,10 +192,9 @@ public class MMProfessions {
             makeOffer("Globe", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzY5MTk2YjMzMGM2Yjg5NjJmMjNhZDU2MjdmYjZlY2NlNDcyZWFmNWM5ZDQ0Zjc5MWY2NzA5YzdkMGY0ZGVjZSJ9fX0=", new int[]{-485704741, -1233827990, -1082665562, 741461867}),
             makeOffer("Old Globe", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTZlYTZjMDYwYzgzMTExMzY3MDM4NjNiNjU4ZjdkZGJmYjNhNDI3N2E0MjMzMTI3YjZlNGI4Nzc5YTFiM2YzNSJ9fX0=", new int[]{-333047376, 2075282472, -1654557064, -1376638642}),
             makeOffer("World on Fire", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmQ4MjEwOTJjZTVlNzU1NzQ1MWM3MjNhMDM0MWU5MGI5M2UwNTY0ZTJiMDE0ODFkZTgxZWVhMjcxZjA0YzViNiJ9fX0=", new int[]{-1195778884, 212553325, -1862081928, -1360317608})
-        ));
+        );
 
-        NbtCompound bakerTrades = new NbtCompound();
-        bakerTrades.put("Recipes", makeRecipeList(
+        TradeOfferList bakerTrades = makeOfferList(
             makeOffer("Cake", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzhmYWE0Y2U3OTA1NGNjOWI4ZTFjOWRlNDgyM2MyMmNjMDY5ODRhOGE0ZjZkZTYyYmRhOTBiNTJjNWZlY2RkNiJ9fX0=", new int[]{1116589873, 253052146, -1537080906, -693884363}),
             makeOffer("Cake", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGFkNDI1NTE0Y2NmOGNiOWMwZTE0MzQyNWQ3M2Q5Mzk0YTUwZGRhNDE5NzdiMjEyMDYxNmMwZjllMzg5MjBlNSJ9fX0=", new int[]{-197447966, -1270199445, -1729338201, 469712511}),
             makeOffer("Carrot Cake", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmIyNmMxMjJlZGYwZDExZTQ2NWE1OTEyMDkwMDYwYWUyOTI3NGQyM2IxOWZkYjhkNzdiMWQ0YjM3NzNhN2VjZCJ9fX0=", new int[]{1706944402, 742739098, -1787158039, -475029988}),
@@ -233,10 +239,9 @@ public class MMProfessions {
             makeOffer("Bag Of Sugar", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTNjZTc2NjAyZDNmZWM3YzAyNzNkYTYwMDA5MDA3YmU0MTQwYWM5ZmFjMDM0MTQ1MGMwNzU3ZTUzZDc1MTU3NyJ9fX0=", new int[]{218269152, 1739148954, -2122940369, 1409776583}),
             makeOffer("Basket of Eggs (no handle)", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjFkYzBkNGVhYjA3MTExYzdlNTMxYmU2N2QzMzA5ZDFjOTYwNTdjMWI0YWViNzdjNGEzYTgxZTkwNGU5MThlZSJ9fX0=", new int[]{-1092656431, -734705953, -1140304694, -1224542186}),
             makeOffer("Bag of Semolina", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjAyMzE2MTZlYzYwMzIyY2M1MWUyZTE4NGVmMTg0ZTMzNTNmYTIxYjBhMTE0YjQyNzg0NTc0MDg5NjgxNDE1OCJ9fX0=", new int[]{1120928665, -2033170402, -1437311155, -371959761})
-        ));
+        );
 
-        NbtCompound bartenderTrades = new NbtCompound();
-        bartenderTrades.put("Recipes", makeRecipeList(
+        TradeOfferList bartenderTrades = makeOfferList(
             makeOffer("Coca Cola", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjlmYTMxNjM1YTZiY2JkNjAwNjEzNTYxNTQ5YTMwYzE4ODg4ZWQ2MmZiMDViZjJkYTIzMTM5OGY4ODJlYTNkIn19fQ==", new int[]{-1157208890, 1574650735, -1377882779, 1281476000}),
             makeOffer("Pepsi-Cola", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzE0YmVmZDRkMzc5N2E4YTZhYjUzY2VlZGViYWIzYzEyYjdiMWYwMzQ0MGJmMDA4NTAxMDAyNWMzNTcxNzYyOCJ9fX0=", new int[]{1153837622, -2043131296, -2097111420, -848722408}),
             makeOffer("Sprite", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjQ3MzNhNDc2YjdjNDYwOTY2Y2QxZWU1ZWJlMmUwNzcwYWY1NzRjZTlhMTc1NzZhN2MyMDBkODY4YWNmZmYzZiJ9fX0=", new int[]{-1596413158, -421048538, -1850884638, -560215747}),
@@ -268,10 +273,9 @@ public class MMProfessions {
             makeOffer("Cup of Coffee", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTFjZWRkNTdlYzFiM2FjMTQ1NDQ2MjZjYzZiNGJjZGJkYzM1MTNmMzlhOTFjYzM3YTA0OGE5ZmQyNDRkNGQifX19", new int[]{130280126, 1869038472, -1329933697, -1333362264}),
             makeOffer("Pack of Water Bottles", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjAzYmM4MWMxNjRlZTc5ODQyNjg1ZGU2MDIyYzY2OTg1M2M0MTY2NDg1NTk0NzFkYjZkYTg4YjkwOTI5NGNiOSJ9fX0=", new int[]{-678150841, 1643462898, -1489430702, -896513075}),
             makeOffer("Pack of Bottles", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjNhZTE3YzllZmNiZmRkODc3MThhYzA4MGFjODE1Y2Q4MDA5Yzg3ZjgyYzQ3NDQ0NDA4MmE0ZDg3ZWVmNzA2MiJ9fX0=", new int[]{7076563, 226904294, -2066022928, -1635283772})
-        ));
+        );
 
-        NbtCompound beekeeperTrades = new NbtCompound();
-        beekeeperTrades.put("Recipes", makeRecipeList(
+        TradeOfferList beekeeperTrades = makeOfferList(
             makeOffer("Honey", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7ImlkIjoiMGMwOGJiNmIyZWMzNDI2MjhhYmRkYjRkYmVhZWU1MDMiLCJ0eXBlIjoiU0tJTiIsInVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDA3ZTQ1MDE5MjhlYThkYjUzZWM4MGVjY2ZhMzgzNjQ0OTY3YTAwZDhjZTViODczNWZiOWRmOGU2ODYwM2RhYiIsInByb2ZpbGVJZCI6IjgwMThhYjAwYjJhZTQ0Y2FhYzliZjYwZWY5MGY0NWU1IiwidGV4dHVyZUlkIjoiNDA3ZTQ1MDE5MjhlYThkYjUzZWM4MGVjY2ZhMzgzNjQ0OTY3YTAwZDhjZTViODczNWZiOWRmOGU2ODYwM2RhYiJ9fSwic2tpbiI6eyJpZCI6IjBjMDhiYjZiMmVjMzQyNjI4YWJkZGI0ZGJlYWVlNTAzIiwidHlwZSI6IlNLSU4iLCJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzQwN2U0NTAxOTI4ZWE4ZGI1M2VjODBlY2NmYTM4MzY0NDk2N2EwMGQ4Y2U1Yjg3MzVmYjlkZjhlNjg2MDNkYWIiLCJwcm9maWxlSWQiOiI4MDE4YWIwMGIyYWU0NGNhYWM5YmY2MGVmOTBmNDVlNSIsInRleHR1cmVJZCI6IjQwN2U0NTAxOTI4ZWE4ZGI1M2VjODBlY2NmYTM4MzY0NDk2N2EwMGQ4Y2U1Yjg3MzVmYjlkZjhlNjg2MDNkYWIiLCJtZXRhZGF0YSI6eyJtb2RlbCI6InNsaW0ifX0sImNhcGUiOm51bGx9", new int[]{-1353968602, -2075572998, -1764666166, -524272984}),
             makeOffer("Honeycomb", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDE1NDkxMzJkYmM4NzVkNjM5ZDY3ZDkzY2M3MTNlOTQxYmIxNmM5NjRkMGE2MmU4YzY3OTRiZDNkZTZmZjgifX19", new int[]{-688088462, -1271378425, -1673475377, 1921030549}),
             makeOffer("Beeswax", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjMwYmRmYTM0ZWRlOGM2NGYwZjMwNWZjNDgzMTU2NTBiMDg3OWFjNDNjYjdkM2I4OGFhNzhkYTUxYTU3OTBhZiJ9fX0=", new int[]{1986817906, -113030055, -1485537748, -1062382032}),
@@ -283,10 +287,9 @@ public class MMProfessions {
             makeOffer("Honey Pot", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODAzNjc3ZDc5NjQ5NDkzOTQwNTkzOGIwODBlN2E2MTZjYzk0YWU2NzMxOWMzMmYxNTI2NmMzYTc0NTU1OGQxIn19fQ==", new int[]{838462697, 92293747, -1871452516, 391262982}),
             makeOffer("Honey Jar", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjkwNmJmZDgxN2NjNTgxOGM3NjIwZTI4OGY0ZTQxMzAxNDMxOGMwYmNiYjVlY2Q2ZGE4YTU5MjNkNTFjNTJmMiJ9fX0=", new int[]{2061359882, 1553943730, -2026977421, 1376425424}),
             makeOffer("Honey Jar", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTczY2M5NjhiNTI1ODhhMTBkYjY2N2VlMmI0M2Q2OWI1MjFiYzM2NWIyNDM1ZjJkODI0OGZlNDI4ZTE4ODUifX19", new int[]{981506669, 1288782656, -1189572945, 683836919})
-        ));
+        );
 
-        NbtCompound blacksmithTrades = new NbtCompound();
-        blacksmithTrades.put("Recipes", makeRecipeList(
+        TradeOfferList blacksmithTrades = makeOfferList(
             makeOffer("Anvil", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOWI0MjVhYTNkOTQ2MThhODdkYWM5Yzk0ZjM3N2FmNmNhNDk4NGMwNzU3OTY3NGZhZDkxN2Y2MDJiN2JmMjM1In19fQ==", new int[]{-1827611109, 269961553, -2135234946, 1151404620}),
             makeOffer("Block of Copper", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZmQ1NzI0YTc5ZjkwZmQxZTU0NzY1ZDc1OTY5MjgxNDZkY2I5ZTUwZmRiODg1OTYyMDFjNGEyMzVjNGE2ZjRlZSJ9fX0=", new int[]{1427075118, -735883869, -1482513100, 1893312011}),
             makeOffer("Iron Block", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGFmNmJkMmMwMzNhODM4ZDRmZjdmZDU1NTMyMWUwNmNmODA2YTc1YzRhMmI1ODY4YzcxMDA0ZTAyYTE4NjBhNCJ9fX0=", new int[]{-1251684449, 2137935534, -1943659716, -1491289363}),
@@ -310,10 +313,9 @@ public class MMProfessions {
             makeOffer("Knight Helmet (purple gem)", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTFjMzAzMjU3NzM0N2I1Y2M5M2Y3OWQ5NDljMmIxMjdhOTc4N2JjNTBiMzcyMTcxZWJiZGVjYmU2ZmViODhmYyJ9fX0=", new int[]{1633524151, -476297704, -1687170353, 1453037304}),
             makeOffer("Knight Helmet (black gem)", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTRlNDY3YTA2ZDcwOTRmY2E5YWM1Y2QxZGIyYzlmMjYzMTUxYmJhMjRjZGI5ZjBkY2Y1Yjk4NjZlYmI3ZmU4ZCJ9fX0=", new int[]{206259505, 342838864, -1936026353, -861891103}),
             makeOffer("Ender Knight Helmet", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMWQwYTM5YWVhYWVhYjQ5OGM1NTBhNzZjZjFiYWFiZjAwNWRlNzQzZWYyOTBlMzJhNzFlY2UwNjRkMWYyMGU4YyJ9fX0=", new int[]{161965987, 2050377278, -1872684503, 1433099303})
-        ));
+        );
 
-        NbtCompound chefTrades = new NbtCompound();
-        chefTrades.put("Recipes", makeRecipeList(
+        TradeOfferList chefTrades = makeOfferList(
             makeOffer("Mac and Cheese", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmJiZWNiYTUyMzE4MDVhYWFkZGE4MWQ3NjRiMDk2ZWVlNjJlZDJlNGNiNDQ3NDQ4NTQ0ZjUxODJiMDkxZjEwMSJ9fX0=", new int[]{-1528446196, -808237267, -2059520990, -1542307753}),
             makeOffer("Bowl of Noodles", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZThlMDEwMmE5MGRiODI5MTlmZGRlOTc2YTc2MDJjNTEzZDMwMWEwY2RhZTk3ZWYyNTkyMTg2NTBmY2VhOCJ9fX0=", new int[]{-854721655, -2132261734, -1268268824, -1053483058}),
             makeOffer("Lasagna", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMWRiMzk4ZTM5ZDM0ZWZiNjQ4YjExYzlmMzMyMWY3YTgwZWUzMjQxODAyNjQ1ZTE1YTNjOGU0NzVmZjc2MTYifX19", new int[]{129924919, 1218463286, -1755691348, 131402843}),
@@ -348,10 +350,9 @@ public class MMProfessions {
             makeOffer("Raw Chicken", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDEyYzE5YjliODRiNGY1OTQ1NjA1ODA4NmM3NTIzYThkYWQ0YWM5MDcxOWZhMjQyYjIwN2RiMzJiYmFlOGY1ZCJ9fX0=", new int[]{-1655009910, -645575743, -1485969291, -1279746189}),
             makeOffer("Goblin Omlette", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGU5NDdmZTA5ZWJiN2U3YjM3NjliYjhhNWRhNWNiNzM0NjQ2YjJjNzk3M2FiNmEzNWI2NjI3YTdkYzEyNDVkMSJ9fX0=", new int[]{1565525140, 1926251564, -1888710519, 222446597}),
             makeOffer("Spicy Goblin Omlette", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmM5NGM2ZWRiZDljOTFhNDUxMDViN2UxZmU5ZWI1OGYxYmVlYzU0OWI3Mzg1MDFkNzg0MWZlNzNlMDQ3NDdiOSJ9fX0=", new int[]{-1904708969, 1650672937, -2080684324, 105837649})
-        ));
+        );
 
-        NbtCompound engineerTrades = new NbtCompound();
-        engineerTrades.put("Recipes", makeRecipeList(
+        TradeOfferList engineerTrades = makeOfferList(
             makeOffer("Redstone Dust", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmIyYzI2NzhlOTM2NDA5ODhlNjg1YWM4OTM0N2VmYTQ1MjQxMTljOWQ4ZjcyNzhjZTAxODFiYzNlNGZiMmIwOSJ9fX0=", new int[]{-1658424990, 920798264, -1687667913, -1278144185}),
             makeOffer("Redstone Torch Top", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzJiMGEyNzA5YWQyN2M1NzgzYmE3YWNiZGFlODc4N2QxNzY3M2YwODg4ZjFiNmQ0ZTI0ZWUxMzI5OGQ0In19fQ==", new int[]{-1460296685, -1879880444, -1548143272, 1415626638}),
             makeOffer("Redstone Lamp (on)", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2ViNGIzNDUxOWZlMTU4NDdkYmVhNzIyOTE3OWZlZWI2ZWE1NzcxMmQxNjVkY2M4ZmY2Yjc4NWJiNTg5MTFiMCJ9fX0=", new int[]{-232114097, -1876409202, -1463232328, 724804809}),
@@ -405,10 +406,9 @@ public class MMProfessions {
             makeOffer("Battery", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzQxOTI2M2Y5ZWJjOTMxN2RjNWFiYjg3OWNkNTk3MzhkNzZlMmEyM2RjMWFjYmNiOTRlOWRjMzYyZmZjNGIifX19", new int[]{-348323053, -2104620888, -988443101, -786159885}),
             makeOffer("Robot", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTJjZTlhNDg4YTZlZTQ0N2ExYzg3NzllZDBmYzAwOWU1YWE4MDJlY2E5YWZjOWIwMmU1ZGE5NTRmM2QwODY3MCJ9fX0=", new int[]{565879459, 2073120672, -1568273054, 115881328}),
             makeOffer("Soulflow Engine", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2IwNDMzZjFjMjI3OTYwOGY3YmQyY2VjZWI5OGNkMTc1Y2JhYWRjM2Y2Mjk5YWUzY2NhZTI1N2RjMjJhNTViMiJ9fX0=", new int[]{1415077840, -1096793858, -1202550676, -587324367})
-        ));
+        );
 
-        NbtCompound eremologistTrades = new NbtCompound();
-        eremologistTrades.put("Recipes", makeRecipeList(
+        TradeOfferList eremologistTrades = makeOfferList(
             makeOffer("Sand", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTMzOThhYjNjYjY5NmIzNDQzMGJlOTQ0YjE0YWZiZDIyN2ZkODdlOTkwMjZiY2ZjOGI3Mzg3YTg2MWJkZSJ9fX0=", new int[]{1381378554, 1711423830, -2009393088, 1937950700}),
             makeOffer("Red Sand", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTNjYjU0NjRhYjliODUxYjlkNGFjOGI4Y2RiYjg2NWU3NGM1ODliMzQ4NWFiZWNlNTg5ZDQyOWQ4OTlhZWQifX19", new int[]{1115752381, -1932768137, -1799524842, -1635272322}),
             makeOffer("Sandstone", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOWFjZWJkZGNlZTg2ODhiODU3NWQ5Y2M4NWQyZDgzMmE2NGMyZGIzYWEyMzViZDdlNzZmZDJlOGUxZDY1ZSJ9fX0=", new int[]{-1180158627, -237420399, -1972249935, 607001151}),
@@ -425,10 +425,9 @@ public class MMProfessions {
             makeOffer("T-Rex Skull", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzQ0OTU1OWI2ZjdlMjQ5MjBlY2RmM2JkMmU0MjVmNDM0MTU3YzIzNjMzNGY0ODJjZjk4YTEzNDlkYTE2OCJ9fX0=", new int[]{1892755531, -61030601, -1398801212, -1564556525}),
             makeOffer("Ritual Skull", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzVkNWNhZTdlZDJmOTVjMGI3Y2ExMWYwMTQwNjQ5MDEzMjAwN2RhY2IzZDhiZTBkOWUxNjIwMTg3NDViMDFkMiJ9fX0=", new int[]{-1719227606, 1814840296, -1798938983, 1120962104}),
             makeOffer("Animal Skull", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTdjNDZjZTY2MDM3Nzg0OTgzOWQyYmU2OTgwNjYwYjQ5YjNkNmIzMzUyMGE3YTRhZjlmZWVlNzVlNWJjMTBlZiJ9fX0=", new int[]{1385607739, 1527596045, -1436535224, -1199740636})
-        ));
+        );
 
-        NbtCompound furnisherTrades = new NbtCompound();
-        furnisherTrades.put("Recipes", makeRecipeList(
+        TradeOfferList furnisherTrades = makeOfferList(
             makeOffer("Wooden Chest", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDdlYzQxZTBkZjhlMTcwZDk3ZjliOWFmMWQ2NWVkYWQ0OTc5Yzc4Yzg5YjAxYjE4MGYzODllZTA4YTYxYWY4MiJ9fX0=", new int[]{1475604554, -133937347, -1728975250, -417416949}),
             makeOffer("Regal Chest", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmE2ZGFjODAzNWQzNjFiYTdmMmMyYTYxNGI0ZWJhYWZjMWU1ZTMxMDFmODViZWVmNjgzNTM2ZjMzN2U1MDkwIn19fQ==", new int[]{1772007514, 1440433578, -1717327762, -859867748}),
             makeOffer("Coal Chest", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzY1OGNjYzczNDU1NTllOTMyMWY0OWVlMWFmNjc1MjJlNzA4ZGNhODkzMmIwYTcyMWNjMzQxMzA3MzFlYjU5OCJ9fX0=", new int[]{477832284, 2026588190, -1123594741, 2095845784}),
@@ -498,10 +497,9 @@ public class MMProfessions {
             makeOffer("Crimson Stool", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTQwMDNjOWZmZDc5MzZkNTZkZThhMTM3YzRmNjU4ZGQ3NThhYjM2ODMzNzJmNmNhM2Q0MTlmNGQwYTQ0MTdjZCJ9fX0=", new int[]{234446493, 1692942489, -1742371294, -1993372204}),
             makeOffer("White Bowl (Pet Food)", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWMwM2M1ODE1YThhOWNkNDBiOTdlMGE1MGI1MjM0NzZiMjk2NTQxMGQwODZiNTYzYTUwNmRlYjQwMzU1NDY5NiJ9fX0=", new int[]{1106175667, -1996536541, -1352207114, 190027173}),
             makeOffer("White Bowl (Water)", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZmI1MmVmYzFiMDkzMTkzZGNkMWYxZmRiYWI3MWRkM2NkMDM0Yjg0MzE4YzczMDE3YWIxMzBkZGM0YzdjYzdkMyJ9fX0=", new int[]{-110500288, 1585924626, -1177168419, -1509761685})
-        ));
+        );
 
-        NbtCompound gamemasterTrades = new NbtCompound();
-        gamemasterTrades.put("Recipes", makeRecipeList(
+        TradeOfferList gamemasterTrades = makeOfferList(
             makeOffer("Red Player Piece", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTMzYTViZmM4YTJhM2ExNTJkNjQ2YTViZWE2OTRhNDI1YWI3OWRiNjk0YjIxNGYxNTZjMzdjNzE4M2FhIn19fQ==", new int[]{-63035681, 225069933, -1372847351, 1276459827}),
             makeOffer("Orange Player Piece", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWRjNTYzNTVmMTFjZTUzZTE0ZDM3NGVjZjJhMGIyNTUzMDFiNzM0ZDk5YzY3NDI0MGFmYWNjNzNlMjE0NWMifX19", new int[]{-162898245, -1020639690, -1630312116, -1949545875}),
             makeOffer("Yellow Player Piece", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDExMzliM2VmMmU0YzQ0YTRjOTgzZjExNGNiZTk0OGQ4YWI1ZDRmODc5YTVjNjY1YmI4MjBlNzM4NmFjMmYifX19", new int[]{-2146185637, -1391639195, -1094454784, 274136625}),
@@ -566,10 +564,9 @@ public class MMProfessions {
             makeOffer("Black 18", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMWJlYjY0Y2Y4MjY4MzFlY2EyNDZmMTJjM2QzOTdmNjg4MWRlY2Y5OGFkZTg4N2U2YmMwMWFiNTQyNjMxMjgifX19", new int[]{1470858202, -2054994231, -1889771126, -739620965}),
             makeOffer("Black 19", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMWY0ZGUxMjgyZmJlMzg0OTc1ZDkxYzdlYzRlMmRmMmZmMTdjOWRhNDY0MmJiNGFlMzZhZjQ1NDFhNDk4N2IxNiJ9fX0=", new int[]{1980656291, 1550534320, -1949347133, 162237560}),
             makeOffer("Black 20", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjdiMjlhMWJiMjViMmFkOGZmM2E3YTM4MjI4MTg5Yzk0NjFmNDU3YTRkYTk4ZGFlMjkzODRjNWMyNWQ4NSJ9fX0=", new int[]{-824926972, 1458457918, -1488313899, -1952625789})
-        ));
+        );
 
-        NbtCompound grieferTrades = new NbtCompound();
-        grieferTrades.put("Recipes", makeRecipeList(
+        TradeOfferList grieferTrades = makeOfferList(
             makeOffer("Bag Of Gunpowder", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODIyYTQ4YTU3NTllZGRlZjllMjkxOGZjODU5OTZmODQ5MWNjOTI1NzhkNTRkY2Q2MmUyYjZkOTEzYmZiNDIxZSJ9fX0=", new int[]{570072899,880430595,-1197170054,-300354481}),
             makeOffer("Blue Bomb", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmM1NjNiOWI1ODI0MDlmNDFmMGUwNzgxYTk4M2FmZTNkOGZlMmZiZjM4M2M1M2E1ZDI3NDMxNTU1NjRkNjgifX19", new int[]{1274520565,137973731,-1550009758,370346578}),
             makeOffer("Bomb", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWYxM2I3YjNkNTBlMDcyYzVkMWIzYzUxMjFlYTJlNTllMjFmZGRmYTUzODZjYzBjZjZlZTEzMTk4M2EyNWU0NSJ9fX0=", new int[]{-984091042,1001800325,-1989162394,546600767}),
@@ -582,10 +579,9 @@ public class MMProfessions {
             makeOffer("Smoke Bomb", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTg0YTY4ZmQ3YjYyOGQzMDk2NjdkYjdhNTU4NTViNTRhYmMyM2YzNTk1YmJlNDMyMTYyMTFiZTVmZTU3MDE0In19fQ==", new int[]{1692525654,-1637072104,-1690245337,-788445021}),
             makeOffer("TNT", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTU3M2Q3MDQ2ZDZlMDgxOTgzOTBhYTU2YzhmODY3OGMxNmQ0NDA3YWY5ZjIxNGJmMDI5MWYzYzdkYjFmMzc5YSJ9fX0=", new int[]{-989143122,-1655158425,-1615988271,-1954958665}),
             makeOffer("TNT Minecart", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzRkN2ZjOGUzYTk1OWFkZTdkOWNmNjYzZjFlODJkYjc5NzU1NDNlMjg4YWI4ZDExZWIyNTQxODg4MjEzNTI2In19fQ==", new int[]{-1751060147,-1939324848,-1223663423,403887968})
-        ));
+        );
 
-        NbtCompound horticulturistTrades = new NbtCompound();
-        horticulturistTrades.put("Recipes", makeRecipeList(
+        TradeOfferList horticulturistTrades = makeOfferList(
             makeOffer("Moss Block", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWIwOTZlMDFkZTJlYjFlODQ5OWZkMjg0YjhiMmNkOWMyZGI1NmU2MzJjMzAyYTJmOWEwODg0ZjIzODFkODA2NyJ9fX0=", new int[]{538523570, -610710158, -2036008709, -81306847}),
             makeOffer("Rooted Dirt", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMWNkNDZiMzU4N2IyMGQ4ZDdkYzk4YTdjNzdhMDhkNjE4NzA2NDcyMGU5YzEzOGUxYWM3YzFkOTYwMTgxODg3NCJ9fX0=", new int[]{-900730224, 900221810, -1296656787, 15569554}),
             makeOffer("Oak Leaves", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjI0ODQ4OTI4NWVjOTM3MzVmMjNhOGYzNDU2OGFmMTIxMGU2YjViZDlmYjRlZjgwNzViY2Q5MjBiYTBkNTlmOCJ9fX0=", new int[]{-2117259736, 1476084201, -2117594981, -1450309933}),
@@ -617,10 +613,9 @@ public class MMProfessions {
             makeOffer("Plantera's Bulb", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmI4MjIwZTUzNGVlYzBjM2VmNzFhNDk3MDk3YTQxNTYwYWUwMTU0ZTM0NGNjZmQ1MWYzZmE5N2Y0MWZmNTM5NSJ9fX0=", new int[]{50887090, -128234532, -1818411812, 202902635}),
             makeOffer("Scarecrow", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU0MDRiNjAzYTYxZjc1MTZkNWVjNzc2YjgzYmY3NTM2MzYyNWE3NWU1MGFiMTkzOGI4NDYyMzljYzBlNmJjIn19fQ==", new int[]{2119996354, -467711742, -1802878344, 190761159}),
             makeOffer("Scarecrow", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWZlNjUwMmFjNGM4NDdiMWFjMzc4MTBkNjZkMjhjOTFhOGIxOGZkN2Y2MzgzMTI4MjI4NzU1YWE4YzhmNSJ9fX0=", new int[]{405988732, 1223116081, -1633747462, -1824827819})
-        ));
+        );
 
-        NbtCompound mineralogistTrades = new NbtCompound();
-        mineralogistTrades.put("Recipes", makeRecipeList(
+        TradeOfferList mineralogistTrades = makeOfferList(
             makeOffer("Coal Ore", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzYxYzU3OTc0ZjEwMmQzZGViM2M1M2Q0MmZkZTkwOWU5YjM5Y2NiYzdmNzc2ZTI3NzU3NWEwMmQ1MWExOTk5ZSJ9fX0=", new int[]{-640806278, -3390182, -1730348283, -303318522}),
             makeOffer("Iron Ore", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTAxODQzZWM0M2YwODhjOTYzZmZjM2UyZjcxYzY2ZTMxNTU5NDNiMTc3YTFhMzU5ODJiMTIwZjZmNjQ4MjJiYyJ9fX0=", new int[]{373955113, -1893973236, -1382621792, 1764712526}),
             makeOffer("Copper Ore", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTE4NGY0ZDVlZWVhOWJmZDE2NTdiNzY2OWI2ZWE4YTI0MzI5ZmY2ZDk3M2I3YmRmMzg4ZmNhNTYyYTg4MTNmNSJ9fX0=", new int[]{-1941413026, -531805651, -1511995196, -259814477}),
@@ -657,10 +652,9 @@ public class MMProfessions {
             makeOffer("Pearl", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2QxNmFlOTUxMTIwMzk0ZjM2OGYyMjUwYjdjM2FkM2ZiMTJjZWE1NWVjMWIyZGI1YTk0ZDFmYjdmZDRiNmZhIn19fQ==", new int[]{963052403, 591151397, -1855964815, 1543651791}),
             makeOffer("Boulder Opal", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjZhNzRmMTRiMWJjYzQzYmRhZmYyNjEwOTdlNmQ4YTMxNjM5YzIyZGJlODIyNWU5OWU5Zjk5NmI5NDFlMzliNCJ9fX0=", new int[]{-804834575, 79643200, -1769255773, 493639986}),
             makeOffer("Mosquito Amber", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGRlZTViYmFlM2M4NTIyZWJlZWM5OThmNmNjMDcwZTljNDRjMzUxMzY3Yzc5ZWFmZjUxMTA3MTJmMDZhMDMwOSJ9fX0=", new int[]{1371322123, -781627632, -2095610134, 116730592})
-        ));
+        );
 
-        NbtCompound netherographerTrades = new NbtCompound();
-        netherographerTrades.put("Recipes", makeRecipeList(
+        TradeOfferList netherographerTrades = makeOfferList(
             makeOffer("Netherrack", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMWRkMzBlMmZjNWNiMDQ0NjFiYWJjMzk0MjMzODAxODdkMzUyNjUwOWNkNmQ0YzM1YzA0ZjYxNmYzMWIxYjkxZiJ9fX0=", new int[]{-1696461021, -1396682981, -1685500882, 189325391}),
             makeOffer("Nether Gold Ore", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZmEyZjA1ZTZkNmQ1OThkYTZiZGVjYjI2ZTc3MGRiNDE3NTdjYWI1OGU2ZWQzOTJiYjE0ZTNjNjc0NWIwZDcyMCJ9fX0=", new int[]{-1883409119, -1479062779, -1977877739, 1385525164}),
             makeOffer("Nether Quartz Ore", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjRkNjljNGNkZGY5MDNmYmNjNWE4YzY3Y2MyMmU0ZDkzMjQyNzJkNTJhNDc5NmQ2NjcyNDM1ZDEwMTU5ODk4NSJ9fX0=", new int[]{351783933, 1232489776, -1385409704, -1822148250}),
@@ -686,10 +680,9 @@ public class MMProfessions {
             makeOffer("Crimson Fungus", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWIyMDY0MzkwZTc5ZDllNTRjY2I0MThiMDczMzE1M2NmOTkyM2ZjNGE4ZDE0YWIxZDJiN2VmNTk2ODgzMWM5MyJ9fX0=", new int[]{1066769412, -1463267488, -1687174407, 1687170222}),
             makeOffer("Warped Fungus", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDUzZWJiZmU4NjIwYmI5OGUyZjQzYzE0MTZkZDdlYmMxMjZjYTQxZGNmZjg5N2VkZTM0YjA0ZmM5ZWUzMDM2ZSJ9fX0=", new int[]{418030412, -1197912851, -1997806740, -1175113468}),
             makeOffer("Nether Orb", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDUwMDI5MmY0YWZlNTJkMTBmMjk5ZGZiMjYwMzYzMjI4MzA0NTAzMzFlMDAzMDg0YmIyMjAzMzM1MzA2NjRlMSJ9fX0=", new int[]{1185639029, 1846363053, -1787704507, 813969860})
-        ));
+        );
 
-        NbtCompound oceanographerTrades = new NbtCompound();
-        oceanographerTrades.put("Recipes", makeRecipeList(
+        TradeOfferList oceanographerTrades = makeOfferList(
             makeOffer("Prismarine", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjdiZjExMWQ2NzFiNTI3NzBkNmEyNGZkNzhjOGYwZTEwN2QzZjdjZmRmNjcxZDcyYjUzMjEwM2ZkOWVlOWI4OSJ9fX0=", new int[]{1522064447, 1838826504, -1792806733, 201393392}),
             makeOffer("Polished Prismarine", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGM4NDJlZWI4NjhlZTg1YzVhYjk3NGZlYzUyZGIwN2UzYWQ0ZTRmMTU4NjFhYmJmOGY2NDUzNGRiM2Y0NTBmMyJ9fX0=", new int[]{-2084007218, -67615836, -1721988974, -1232281838}),
             makeOffer("Prismarine Brick", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzU5YzlmZGFmMzBiM2I0ZjYzMzlhOWEwNTVlNTA0YmRjOTU2YjIzN2VjZjEyY2FhZGE3Mjg5YTVkNGYyNzkyZCJ9fX0=", new int[]{1140060955, 1870022260, -1342384152, 49889799}),
@@ -743,10 +736,9 @@ public class MMProfessions {
             makeOffer("Sandcastle", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTY0ZTI5NGVhYWI0ODZlYWIzZDQ5YWM5NWFjNmM3ZGYxYmEyM2RiN2Y1N2UwODJmOGMyMDNiNThiM2JhZThiYSJ9fX0=", new int[]{-1127761099, 619859954, -1929491367, -1566393563}),
             makeOffer("Sandcastle", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWE0YjdlODc4MjFkYjRlNmU0MmU3OGQ3ZjI2MGI2Mzc5OTNkNmJlOGRlOTRmNDNlNDMxNzViYWZmOTFmNSJ9fX0=", new int[]{1836335429, 98584528, -1886402579, -1128529615}),
             makeOffer("Toy Ship", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmEyOWVhMjRlNTI5ZGMxNzA4YWUzYTI5MDJkZTNlMjljMjJhOWVkYmJiMDdlY2JjZDI3Y2I1MzYwMmM3MSJ9fX0=", new int[]{-1681042001, -1415034218, -1978075281, -678912740})
-        ));
+        );
 
-        NbtCompound olericulturistTrades = new NbtCompound();
-        olericulturistTrades.put("Recipes", makeRecipeList(
+        TradeOfferList olericulturistTrades = makeOfferList(
             makeOffer("Lettuce", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTk3OWZlN2IzMmZiN2ZjOTc0NmUxNTc0NzFmOTc1ZjMxYWZjYjU4ZmQ4YjVhY2I4YmY1M2VjMzUwZjRkNWMyIn19fQ==", new int[]{-110667807, -1464269963, 1137403645, -2048879243}),
             makeOffer("Broccoli", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjUxMDZmMGNjNGMxMmRjZmU3NzM2YTFmZmM5Mjc3MmY0MWI2NmUxYjc2ODJiMWY0NzUzNzc4NzcyMDU2NzI2MiJ9fX0=", new int[]{1479487917, 334186074, -1136243544, 2065758105}),
             makeOffer("Carrots", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGQzYTZiZDk4YWMxODMzYzY2NGM0OTA5ZmY4ZDJkYzYyY2U4ODdiZGNmM2NjNWIzODQ4NjUxYWU1YWY2YiJ9fX0=", new int[]{-319110374, -1443871767, -1539027072, 935922312}),
@@ -784,10 +776,9 @@ public class MMProfessions {
             makeOffer("Basket with Golden Carrots", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjI3YjAxNTE3YjJhMmUyN2YxYTRjZjE1YzU3N2M2ZTZjMGQ1MTVhYzIzZWIxZTMyZDRlNmRlNjJlZDZmNjNhNSJ9fX0=", new int[]{1966806514, -1845671571, -1199834040, 2065307422}),
             makeOffer("Basket with Potatoes", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTZlYzI5M2RiNWZhODVlMjdiNjc1ZmJkYmE4OGY4NzFlZGVmMzk1NzM0YjVkOWUzMjdlYWRhNmJlMzgxNDM0MCJ9fX0=", new int[]{753857068, 1512916794, -1411363424, 70219508}),
             makeOffer("Basket with Beetroot", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDIyOWQ2NmVmZjU3ZTFmODk1MzRhZjljYTk2ZmE1NzQ2OGU0ZjkyZDBkZTU4MDk3MzYwZTVlMWMyNjYzZTNmZSJ9fX0=", new int[]{2008012670, -1688647239, -1499179086, 1656203295})
-        ));
+        );
 
-        NbtCompound petrologistTrades = new NbtCompound();
-        petrologistTrades.put("Recipes", makeRecipeList(
+        TradeOfferList petrologistTrades = makeOfferList(
             makeOffer("Stone", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTU0ODE4MjMzYzgxMTg3M2U4NWY1YTRlYTQ0MjliNzVmMjNiNmFlMGVhNmY1ZmMwZjdiYjQyMGQ3YzQ3MSJ9fX0=", new int[]{1574779933, -1714798066, -1987665384, 2114116260}),
             makeOffer("Cobblestone", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGMxNzU0ODUxZTM2N2U4YmViYTJhNmQ4ZjdjMmZlZGU4N2FlNzkzYWM1NDZiMGYyOTlkNjczMjE1YjI5MyJ9fX0=", new int[]{686627684, -1988148325, -2098939964, -950127968}),
             makeOffer("Mossy Cobblestone", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2RlNjIwZTE4MDBiM2JlZDViNzcyODYwZDdmNWU0YzNmOGE3MTJhZTQ2MmJmOWE3OTdkNTA0YmUxMzBkYTNiOCJ9fX0=", new int[]{1684206543, -658486815, -2035398035, -67162188}),
@@ -814,10 +805,9 @@ public class MMProfessions {
             makeOffer("Barrel with Diorite", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTc5OTNkZjA0ZGQwZTU2MTIxMjU4ZTFhMjVhN2I0M2RmZTA4NDc3Y2I5YTNjM2VjYzA1MWJhMTU5NWRiOTZmMCJ9fX0=", new int[]{-974292722, -2059909813, -1466967129, 155820836}),
             makeOffer("Barrel with Andesite", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWMzYjQzYjUxOWY5NzIzMzg5OGRjNGU0ZmI1OWEwZmI4ZDgwZmU5NWU1NjdmYmI3NDM4YzNhY2FhNmE3OTNkIn19fQ==", new int[]{-974292722, -2059909813, -1464869977, 155829028}),
             makeOffer("Barrel with Obsidian", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDUwMjMyMzdiZGJhMjZmMDlhODg4YzkyOWEzNWIwYTE0YTY2ZjMzY2E0NTBmZjJiOGE2NzVmMzNmNjA0ZmYzZSJ9fX0=", new int[]{-974292722, -2060237493, -1466967129, 155829028})
-        ));
+        );
 
-        NbtCompound plushieManiacTrades = new NbtCompound();
-        plushieManiacTrades.put("Recipes", makeRecipeList(
+        TradeOfferList plushieManiacTrades = makeOfferList(
             makeOffer("Steve Plushie", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzgzNWRhMjY4NWY3YWQzZjE5MTlhMDE4OTc2YWQ1NjgyNjY5MWUyNjc1OGEzYTU1YTE5MThmN2YxN2FkOTM4In19fQ==", new int[]{1899696613, 419123106, -1497348806, 537574103}),
             makeOffer("Alex Plushie", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzFjZDI3NjJhY2I0YjQyNzhjZjExMTc2YTVmODc3OTlmOTNhMWQ5MTE2Y2IzY2I1N2VlNGQxZTYwMTM0NTg4In19fQ==", new int[]{-1042875197, 2130332210, -1968490269, 608847136}),
             makeOffer("Creeper Plushie", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzIwMzMwZDg5MDBlZWY4MDAyYzlmOTgxYjM5MTU5ZWU4YjlmOTM4NTRmZmU1YjQwMmQyNTJhYTJkN2U0NTBlIn19fQ==", new int[]{-215293920, 553207038, -1301846297, -138099246}),
@@ -884,10 +874,9 @@ public class MMProfessions {
             makeOffer("Mario Plushie", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTgwNTFiMTkyZTk3NjJkNTVhOWJiYTg5NTM5Yzk2YzljOTY0MWMyMzZlZGExMDA2N2Q5MGVlYjhkZWU3MzM5MyJ9fX0=", new int[]{1246996366, -735625143, -2032499124, -1101144149}),
             makeOffer("Retro Link Plushie", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzRmNmYxMDg2OGRlZGRhYjBlYTRkYjkzMTQ4MzQ0MmJiYWU5ZTFmZDlhM2IzMWUxNjk0MjFmM2UwZDdiMTEyZSJ9fX0=", new int[]{1200620807, -564639081, -2104160849, -608234321}),
             makeOffer("Shrek Plushie", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmE3NDY2Njc5MWM4MmYyZTkzZWJlMjc1M2M3OTg4MDIyMTQ2MWFhMDJjNGZmNGFhOGRlMzJlOTEwZjJhYTZhIn19fQ==", new int[]{641235608, 831734771, -1256257602, -768904809})
-        ));
+        );
 
-        NbtCompound pomologistTrades = new NbtCompound();
-        pomologistTrades.put("Recipes", makeRecipeList(
+        TradeOfferList pomologistTrades = makeOfferList(
             makeOffer("Red Apple", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTJiMzViZGE1ZWJkZjEzNWY0ZTcxY2U0OTcyNmZiZWM1NzM5ZjBhZGVkZjAxYzUxOWUyYWVhN2Y1MTk1MWVhMiJ9fX0=", new int[]{224385475, -800831601, -1217080453, 1602681386}),
             makeOffer("Green Apple", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTZjMTVmYjRlOWEzMTE5MWYwY2I0ZGE1NmZlNjAzMzRkZDQ2ZWIzYTU4MjExMWI0ZjhmMjdlZGRiNzYwZTJjIn19fQ==", new int[]{-1494102527, 1695042176, -1540297872, 819027921}),
             makeOffer("Golden Apple", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDIxY2FiNDA5NWU3MWJkOTI1Y2Y0NjQ5OTBlMThlNDNhZGI3MjVkYjdjYzE3NWZkOWQxZGVjODIwOTE0YjNkZSJ9fX0=", new int[]{335506107, 1707692026, -1974806069, 2034944701}),
@@ -930,40 +919,38 @@ public class MMProfessions {
             makeOffer("Fruit Basket", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjU3ZTJjNTc1NmQ0ZjQ0ZDM4MzQ1ODI2NjNlNmQ4NDhlMTE2NDE2MzRjYjIwNWI3Y2EzZWE0YWQyODU3MzQxIn19fQ==", new int[]{219386713, 1208762826, -1278982691, -494845915}),
             makeOffer("Fruit Basket", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWE0ZDk5NWI3ZGM5ZGNlNTE0YzZhOWU5ZmZkNzM0NDE1MDViMmM1YTgyYzk3NGEyY2Y0YTczNGY1OGI5Zjc0YSJ9fX0=", new int[]{34933553, 1788039081, -1458367140, 1441965057}),
             makeOffer("Basket with Apples", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDc2ZDYxZDBkYTljMzM5NTcyNWZkNTBkYTE3ODk2MjE5Mzc5ZmM5OWNkYjVmNjEzN2JlYWNmNDlmMjM3ZTJlZiJ9fX0=", new int[]{1176513721, -348503925, -2065094847, 1574496047})
-        ));
+        );
 
-        NbtCompound recyclerTrades = new NbtCompound();
-        recyclerTrades.put("Recipes", makeRecipeList(
-            makeOffer("miniblockmerchants:ancient_shell", "Ancient Shell", MiniblockTextures.ANCIENT_SHELL.getLeft(), MiniblockTextures.ANCIENT_SHELL.getRight()),
-            makeOffer("miniblockmerchants:book_of_rituals", "Book of Rituals", MiniblockTextures.BOOK_OF_RITUALS.getLeft(), MiniblockTextures.BOOK_OF_RITUALS.getRight()),
-            makeOffer("miniblockmerchants:budding_cactus", "Budding Cactus", MiniblockTextures.BUDDING_CACTUS.getLeft(), MiniblockTextures.BUDDING_CACTUS.getRight()),
-            makeOffer("miniblockmerchants:crystal_phial", "Crystal Phial", MiniblockTextures.CRYSTAL_PHIAL.getLeft(), MiniblockTextures.CRYSTAL_PHIAL.getRight()),
-            makeOffer("miniblockmerchants:cultivated_sapling", "Cultivated Sapling", MiniblockTextures.CULTIVATED_SAPLING.getLeft(), MiniblockTextures.CULTIVATED_SAPLING.getRight()),
-            makeOffer("miniblockmerchants:drenched_score_sheet", "Drenched Score Sheet", MiniblockTextures.DRENCHED_SCORE_SHEET.getLeft(), MiniblockTextures.DRENCHED_SCORE_SHEET.getRight()),
-            makeOffer("miniblockmerchants:enchanted_red_delicious", "Enchanted Red Delicious", MiniblockTextures.ENCHANTED_RED_DELICIOUS.getLeft(), MiniblockTextures.ENCHANTED_RED_DELICIOUS.getRight()),
-            makeOffer("miniblockmerchants:endless_bookshelf", "Endless Bookshelf", MiniblockTextures.ENDLESS_BOOKSHELF.getLeft(), MiniblockTextures.ENDLESS_BOOKSHELF.getRight()),
-            makeOffer("miniblockmerchants:fine_thread", "Fine Thread", MiniblockTextures.FINE_THREAD.getLeft(), MiniblockTextures.FINE_THREAD.getRight()),
-            makeOffer("miniblockmerchants:forgotten_scrap_metal", "Forgotten Scrap Metal", MiniblockTextures.FORGOTTEN_SCRAP_METAL.getLeft(), MiniblockTextures.FORGOTTEN_SCRAP_METAL.getRight()),
-            makeOffer("miniblockmerchants:fragrant_flower", "Fragrant Flower", MiniblockTextures.FRAGRANT_FLOWER.getLeft(), MiniblockTextures.FRAGRANT_FLOWER.getRight()),
-            makeOffer("miniblockmerchants:galilean_spyglass", "Galilean Spyglass", MiniblockTextures.GALILEAN_SPYGLASS.getLeft(), MiniblockTextures.GALILEAN_SPYGLASS.getRight()),
-            makeOffer("miniblockmerchants:mastercrafted_iron", "Mastercrafted Iron", MiniblockTextures.MASTERCRAFTED_IRON.getLeft(), MiniblockTextures.MASTERCRAFTED_IRON.getRight()),
-            makeOffer("miniblockmerchants:mixology_station", "Mixology Station", MiniblockTextures.MIXOLOGY_STATION.getLeft(), MiniblockTextures.MIXOLOGY_STATION.getRight()),
-            makeOffer("miniblockmerchants:overgrown_carrot", "Overgrown Carrot", MiniblockTextures.OVERGROWN_CARROT.getLeft(), MiniblockTextures.OVERGROWN_CARROT.getRight()),
-            makeOffer("miniblockmerchants:prismatic_honeycomb", "Prismatic Honeycomb", MiniblockTextures.PRISMATIC_HONEYCOMB.getLeft(), MiniblockTextures.PRISMATIC_HONEYCOMB.getRight()),
-            makeOffer("miniblockmerchants:pure_gold", "24-Karat Gold", MiniblockTextures.PURE_GOLD.getLeft(), MiniblockTextures.PURE_GOLD.getRight()),
-            makeOffer("miniblockmerchants:radiating_redstone", "Radiating Redstone", MiniblockTextures.RADIATING_REDSTONE.getLeft(), MiniblockTextures.RADIATING_REDSTONE.getRight()),
-            makeOffer("miniblockmerchants:rotting_recycling_bin", "Rotting Recycling Bin", MiniblockTextures.ROTTING_RECYCLING_BIN.getLeft(), MiniblockTextures.ROTTING_RECYCLING_BIN.getRight()),
-            makeOffer("miniblockmerchants:sculpting_clay", "Sculpting Clay", MiniblockTextures.SCULPTING_CLAY.getLeft(), MiniblockTextures.SCULPTING_CLAY.getRight()),
-            makeOffer("miniblockmerchants:shimmering_wheat", "Shimmering Wheat", MiniblockTextures.SHIMMERING_WHEAT.getLeft(), MiniblockTextures.SHIMMERING_WHEAT.getRight()),
-            makeOffer("miniblockmerchants:soaked_villager_plushie", "Soaked Villager Plushie", MiniblockTextures.SOAKED_VILLAGER_PLUSHIE.getLeft(), MiniblockTextures.SOAKED_VILLAGER_PLUSHIE.getRight()),
-            makeOffer("miniblockmerchants:sparkling_blaze_powder", "Sparkling Blaze Powder", MiniblockTextures.SPARKLING_BLAZE_POWDER.getLeft(), MiniblockTextures.SPARKLING_BLAZE_POWDER.getRight()),
-            makeOffer("miniblockmerchants:stabilized_explosion", "Stabilized Explosion", MiniblockTextures.STABILIZED_EXPLOSION.getLeft(), MiniblockTextures.STABILIZED_EXPLOSION.getRight()),
-            makeOffer("miniblockmerchants:unusually_dense_rock", "Unusually Dense Rock", MiniblockTextures.UNUSUALLY_DENSE_ROCK.getLeft(), MiniblockTextures.UNUSUALLY_DENSE_ROCK.getRight()),
-            makeOffer("miniblockmerchants:wagyu_beef", "Wagyu Beef", MiniblockTextures.WAGYU_BEEF.getLeft(), MiniblockTextures.WAGYU_BEEF.getRight())
-        ));
+        TradeOfferList recyclerTrades = makeOfferList(
+            makeOffer(new TradedItem(ModItems.ANCIENT_SHELL), "Ancient Shell", MiniblockTextures.ANCIENT_SHELL.getLeft(), MiniblockTextures.ANCIENT_SHELL.getRight()),
+            makeOffer(new TradedItem(ModItems.BOOK_OF_RITUALS), "Book of Rituals", MiniblockTextures.BOOK_OF_RITUALS.getLeft(), MiniblockTextures.BOOK_OF_RITUALS.getRight()),
+            makeOffer(new TradedItem(ModItems.BUDDING_CACTUS), "Budding Cactus", MiniblockTextures.BUDDING_CACTUS.getLeft(), MiniblockTextures.BUDDING_CACTUS.getRight()),
+            makeOffer(new TradedItem(ModItems.CRYSTAL_PHIAL), "Crystal Phial", MiniblockTextures.CRYSTAL_PHIAL.getLeft(), MiniblockTextures.CRYSTAL_PHIAL.getRight()),
+            makeOffer(new TradedItem(ModItems.CULTIVATED_SAPLING), "Cultivated Sapling", MiniblockTextures.CULTIVATED_SAPLING.getLeft(), MiniblockTextures.CULTIVATED_SAPLING.getRight()),
+            makeOffer(new TradedItem(ModItems.DRENCHED_SCORE_SHEET), "Drenched Score Sheet", MiniblockTextures.DRENCHED_SCORE_SHEET.getLeft(), MiniblockTextures.DRENCHED_SCORE_SHEET.getRight()),
+            makeOffer(new TradedItem(ModItems.ENCHANTED_RED_DELICIOUS), "Enchanted Red Delicious", MiniblockTextures.ENCHANTED_RED_DELICIOUS.getLeft(), MiniblockTextures.ENCHANTED_RED_DELICIOUS.getRight()),
+            makeOffer(new TradedItem(ModItems.ENDLESS_BOOKSHELF), "Endless Bookshelf", MiniblockTextures.ENDLESS_BOOKSHELF.getLeft(), MiniblockTextures.ENDLESS_BOOKSHELF.getRight()),
+            makeOffer(new TradedItem(ModItems.FINE_THREAD), "Fine Thread", MiniblockTextures.FINE_THREAD.getLeft(), MiniblockTextures.FINE_THREAD.getRight()),
+            makeOffer(new TradedItem(ModItems.FORGOTTEN_SCRAP_METAL), "Forgotten Scrap Metal", MiniblockTextures.FORGOTTEN_SCRAP_METAL.getLeft(), MiniblockTextures.FORGOTTEN_SCRAP_METAL.getRight()),
+            makeOffer(new TradedItem(ModItems.FRAGRANT_FLOWER), "Fragrant Flower", MiniblockTextures.FRAGRANT_FLOWER.getLeft(), MiniblockTextures.FRAGRANT_FLOWER.getRight()),
+            makeOffer(new TradedItem(ModItems.GALILEAN_SPYGLASS), "Galilean Spyglass", MiniblockTextures.GALILEAN_SPYGLASS.getLeft(), MiniblockTextures.GALILEAN_SPYGLASS.getRight()),
+            makeOffer(new TradedItem(ModItems.MASTERCRAFTED_IRON), "Mastercrafted Iron", MiniblockTextures.MASTERCRAFTED_IRON.getLeft(), MiniblockTextures.MASTERCRAFTED_IRON.getRight()),
+            makeOffer(new TradedItem(ModItems.MIXOLOGY_STATION), "Mixology Station", MiniblockTextures.MIXOLOGY_STATION.getLeft(), MiniblockTextures.MIXOLOGY_STATION.getRight()),
+            makeOffer(new TradedItem(ModItems.OVERGROWN_CARROT), "Overgrown Carrot", MiniblockTextures.OVERGROWN_CARROT.getLeft(), MiniblockTextures.OVERGROWN_CARROT.getRight()),
+            makeOffer(new TradedItem(ModItems.PRISMATIC_HONEYCOMB), "Prismatic Honeycomb", MiniblockTextures.PRISMATIC_HONEYCOMB.getLeft(), MiniblockTextures.PRISMATIC_HONEYCOMB.getRight()),
+            makeOffer(new TradedItem(ModItems.PURE_GOLD), "24-Karat Gold", MiniblockTextures.PURE_GOLD.getLeft(), MiniblockTextures.PURE_GOLD.getRight()),
+            makeOffer(new TradedItem(ModItems.RADIATING_REDSTONE), "Radiating Redstone", MiniblockTextures.RADIATING_REDSTONE.getLeft(), MiniblockTextures.RADIATING_REDSTONE.getRight()),
+            makeOffer(new TradedItem(ModItems.ROTTING_RECYCLING_BIN), "Rotting Recycling Bin", MiniblockTextures.ROTTING_RECYCLING_BIN.getLeft(), MiniblockTextures.ROTTING_RECYCLING_BIN.getRight()),
+            makeOffer(new TradedItem(ModItems.SCULPTING_CLAY), "Sculpting Clay", MiniblockTextures.SCULPTING_CLAY.getLeft(), MiniblockTextures.SCULPTING_CLAY.getRight()),
+            makeOffer(new TradedItem(ModItems.SHIMMERING_WHEAT), "Shimmering Wheat", MiniblockTextures.SHIMMERING_WHEAT.getLeft(), MiniblockTextures.SHIMMERING_WHEAT.getRight()),
+            makeOffer(new TradedItem(ModItems.SOAKED_VILLAGER_PLUSHIE), "Soaked Villager Plushie", MiniblockTextures.SOAKED_VILLAGER_PLUSHIE.getLeft(), MiniblockTextures.SOAKED_VILLAGER_PLUSHIE.getRight()),
+            makeOffer(new TradedItem(ModItems.SPARKLING_BLAZE_POWDER), "Sparkling Blaze Powder", MiniblockTextures.SPARKLING_BLAZE_POWDER.getLeft(), MiniblockTextures.SPARKLING_BLAZE_POWDER.getRight()),
+            makeOffer(new TradedItem(ModItems.STABILIZED_EXPLOSION), "Stabilized Explosion", MiniblockTextures.STABILIZED_EXPLOSION.getLeft(), MiniblockTextures.STABILIZED_EXPLOSION.getRight()),
+            makeOffer(new TradedItem(ModItems.UNUSUALLY_DENSE_ROCK), "Unusually Dense Rock", MiniblockTextures.UNUSUALLY_DENSE_ROCK.getLeft(), MiniblockTextures.UNUSUALLY_DENSE_ROCK.getRight()),
+            makeOffer(new TradedItem(ModItems.WAGYU_BEEF), "Wagyu Beef", MiniblockTextures.WAGYU_BEEF.getLeft(), MiniblockTextures.WAGYU_BEEF.getRight())
+        );
 
-        NbtCompound ritualistTrades = new NbtCompound();
-        ritualistTrades.put("Recipes", makeRecipeList(
+        TradeOfferList ritualistTrades = makeOfferList(
             makeOffer("Water Rune", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzUxZDVhMWFjMTE0YTgyZmE2NTJmYzIzN2IzZTc4ZjIyZmU5ZDU4ZGU5N2M1MzdiZDVlZjk5YzM4ZmI2NmIyIn19fQ==", new int[]{245611374, -2062007065, -1916001814, 802225404}),
             makeOffer("Earth Rune", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGZiODAyMmM5ZDlhMDVlMDgzMTZkYTg3NDU3YmNhYjI3ODVjM2JhN2E1OTBkNDk0N2NlZjY4ODQzYjRkMDdhZCJ9fX0=", new int[]{-1690381855, 1180584462, -1406468635, -1197718696}),
             makeOffer("Fire Rune", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2E3ZDU3ODM2Y2FkNzc1ZDFmMzBmMGVlYmFmMDQwZjg5Y2VkYzMwN2E5ZGZlYTBiNDgzNjMxYmI1Zjc1YjI1YSJ9fX0=", new int[]{127991645, 1435454288, -1248188706, 1741961659}),
@@ -1002,10 +989,9 @@ public class MMProfessions {
             makeOffer("Fire Orb", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzM2ODdlMjVjNjMyYmNlOGFhNjFlMGQ2NGMyNGU2OTRjM2VlYTYyOWVhOTQ0ZjRjZjMwZGNmYjRmYmNlMDcxIn19fQ==", new int[]{506271496, -186691926, -1902844364, 1414935678}),
             makeOffer("Air Orb", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODY4NmQ5NmFkOGU1OGE4NmE1YTI4MzI2Yzk5ZmRlOWQ0OTgxZTQ2YzA5ZWFlNTFlN2E5ODYxOTBjZDM2YjBmIn19fQ==", new int[]{-1275901885, 1775847455, -1188146681, -2095116733}),
             makeOffer("Dark Orb", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjg4Y2ZhZmE1ZjAzZjhhZWYwNDJhMTQzNzk5ZTk2NDM0MmRmNzZiN2MxZWI0NjFmNjE4ZTM5OGY4NGE5OWE2MyJ9fX0=", new int[]{609190262, 1386629600, -2045872823, 1522879293})
-        ));
+        );
 
-        NbtCompound sculptorTrades = new NbtCompound();
-        sculptorTrades.put("Recipes", makeRecipeList(
+        TradeOfferList sculptorTrades = makeOfferList(
             makeOffer("Clay Ball", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGFhNTUzOTFlZjg5YjJhNTM0YTU4ZDAxNTBmMTYyMTE3NTMxMGVhODc3MzU2MDFhZWJlOGQ2YjFkN2M1NjhiYiJ9fX0=", new int[]{-352396343, 1414874783, -1724849305, 612586855}),
             makeOffer("Clay", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjc4MjY4MjllYWI1YWQ2MmYwYzExZDlmYWFmZGM5OTU0MzY0ODcxMTYwZGQ4MzllMWFiNWEzYjIxM2EzMyJ9fX0=", new int[]{-781671474, 194596528, -1278393834, 413024264}),
             makeOffer("Clay Pot", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjhjNjAwNzM2ZWQ5MDIxYTdmZTcyMjk4OGQwYTQxODE3N2EyZDIzMGJlZjQzODBlMzAxNmU1NzVjN2Y3ZGFjNiJ9fX0=", new int[]{1813037718, 403522586, -2094962406, -245569533}),
@@ -1057,10 +1043,9 @@ public class MMProfessions {
             makeOffer("Chimney (andesite)", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGUwNjhmMTcyZTBiZGQyMWIwM2ExMjhiYmI3MTMxNjgzOWIxNzAxYTE2NDI5MzZjZTJlY2Y4OGY1NDgxOGIyIn19fQ==", new int[]{-1175314674, -437893732, -1751057428, 676507154}),
             makeOffer("Chimney (polished diorite)", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTg1M2U2YzJjZGZjNGJkZmM3MmI5NWI5NTRlMTBhMmU5MmZiMzE0YWY2NDcwMjc4ZGY0ODA5NmJiN2QzN2I3NCJ9fX0=", new int[]{-1132704294, -2018359503, -1311946792, -1418508901}),
             makeOffer("Chimney (polished diorite)", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWI1OTM2NzgxYTJmMjEwNjQyNDI5ZjE1MDZkOWU3MjAwMzdlNDlkMGI0ZTM4MGVkZTIxYTg0ZWQxNjI1ZTA0MyJ9fX0=", new int[]{448316632, -1590276170, -1975792916, 1808842461})
-        ));
+        );
 
-        NbtCompound steampunkerTrades = new NbtCompound();
-        steampunkerTrades.put("Recipes", makeRecipeList(
+        TradeOfferList steampunkerTrades = makeOfferList(
             makeOffer("Steampunk Device", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTM0NzRkMGFhMWZhMTA5YmY5ZjRmMDVlYWEyZDJjNmZlZjc1Y2ViNmUyOTIzZjg1ZThlM2E2MmNjNWE0NDk1OCJ9fX0=", new int[]{-483707455, 38948704, -1555055281, -777760050}),
             makeOffer("Steampunk Robot", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGVhN2RhNGZlOGI4OGVkNmM4ZDAwZTlmNjlkNjMyNTlkNDcxODYzZGY5NGUyNWFlMjkwNDNjYzc3ZGY0YzAzZSJ9fX0=", new int[]{1374965242, -1570617428, -1770847629, 1645723245}),
             makeOffer("Steampunk Robot", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzczMTA1NDY1ZGFkMmQwMjM4MjVmODQyNjJiMzg4ZmY3ZDBhMjliNzAwNmRkMmE1N2Q3ZThjYzY5ZDk1NTBjMyJ9fX0=", new int[]{1504946014, 1516454875, -2082045037, 880660664}),
@@ -1081,10 +1066,9 @@ public class MMProfessions {
             makeOffer("Weathered Cut Copper", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDM4MDNjNDNjNjc5NWFhZjg3MzhmZTFkODNlOGUyNmJjNjY0OTdmMGUwNDA4MTM4NzEwYmE5MDNhODllY2VmYSJ9fX0=", new int[]{-23057738, 253643055, -1846156481, -1372357788}),
             makeOffer("Oxidized Cut Copper", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjRkYzViYzYwNDllYTgyYWFiYTE1NzkwM2E1YzZlODAyNTA2ZjQxNTE1NzkyNzAzZWQ1ZTUyNTJkMGM5YzFiMiJ9fX0=", new int[]{-1971898569, -2076750177, -2047657273, 2123502967}),
             makeOffer("Block of Raw Copper", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWU4YTRmMzVjMWEwYzhiM2JkODIxYTc2ZTM4NDczNDI3Yzk4OGZkZjVhMmRlMDI1NjQ2ZTA3MzUxZTM5M2M3ZSJ9fX0=", new int[]{1811749435, -1305065694, -1752689835, -378378799})
-        ));
+        );
 
-        NbtCompound tailorTrades = new NbtCompound();
-        tailorTrades.put("Recipes", makeRecipeList(
+        TradeOfferList tailorTrades = makeOfferList(
             makeOffer("Steve's Clothes", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmUyMDNmYmY5ZTU3ODRjZmZlYzkzYTJlYmNjNTU4YmI4ZTU1NmVjM2VjNTI1ZDZiY2Q4ZTRiMjIxMDZlNzk5In19fQ==", new int[]{924865078, 1573931399, -1490389728, -1737180909}),
             makeOffer("Alex's Clothes", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzgwN2VkNjY5NTBjZGEzMWQwOTZhNGNjM2ZmZjFmOTYxM2ExZGQyMzQwNWViOTM3NzZhNzQxOTdlOTRiZDk2NSJ9fX0=", new int[]{1944886890, -2060761456, -2027220993, -801562732}),
             makeOffer("Pile of Shirts", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTE2Y2UxMDRlYWVmOWZhYThjZmNlNmViMDYxNmI5MTVlODgwNGIyNjI5Y2VjMTQyODE2M2ZhOTUxNGY3NzA4MyJ9fX0=", new int[]{-2130204718, 1319060125, -1618289757, -1207456364}),
@@ -1120,7 +1104,7 @@ public class MMProfessions {
             makeOffer("Gucci Towel", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDExYzNlM2ZlMGMwNzZjNDNlMzQ2MDg3YTMxZjVhZTMyMTFmMzA4OWYzMTU5ZDM5ZGJjMWQ1N2Q2OTdlMTJmNyJ9fX0=", new int[]{-29851827, 500254772, -2007922383, -863671526}),
             makeOffer("Towels (blue)", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmY3YTljMTI1ZGYyZWY1MjYyZDcwYzg2MGE5OWVkZGYzNDE3YzczNzJkNDNmN2UxZGRmYTA3NmVmMmQ2ODEzOCJ9fX0=", new int[]{-220258457, -2119416918, -1097146664, -1182464468}),
             makeOffer("Towels (green)", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWYyNzIzMTBjNTk2MDdmNjA3YTgwYjZhN2ZlYzJlMWNlZTZkYTg3MDkwZmY3YjI4NTgzNzhjNGI3OTAzZGNhMiJ9fX0=", new int[]{-1614991114, -46642991, -2050035244, -253695050})
-        ));
+        );
 
         TRADES.put(ALCHEMIST.id(), alchemistTrades);
         TRADES.put(ARBORICULTURIST.id(), arboriculturistTrades);
@@ -1155,7 +1139,7 @@ public class MMProfessions {
     }
 
     public static VillagerProfession register(String id) {
-        Identifier ident = new Identifier(ModInfo.MOD_ID, id);
+        Identifier ident = Identifier.of(ModInfo.MOD_ID, id);
         VillagerProfession prof = Registry.register(
             Registries.VILLAGER_PROFESSION,
             ident,
@@ -1174,14 +1158,11 @@ public class MMProfessions {
         return prof;
     }
 
-    public static NbtCompound getDefaultOffers() {
-        NbtCompound emptyTrades = new NbtCompound();
-        emptyTrades.put("Recipes", new NbtList());
-
-        return emptyTrades;
+    public static TradeOfferList getDefaultOffers() {
+        return new TradeOfferList();
     }
 
-    public static NbtCompound getOffersForProfession(String profession) {
+    public static TradeOfferList getOffersForProfession(String profession) {
         if (!profession.startsWith(ModInfo.MOD_ID)) {
             return TRADES.getOrDefault(ModInfo.MOD_ID + ":" + profession, getDefaultOffers());
         }
@@ -1189,30 +1170,17 @@ public class MMProfessions {
         return TRADES.getOrDefault(profession, getDefaultOffers());
     }
 
-    private static NbtList makeRecipeList(NbtCompound... offers) {
-        NbtList list = new NbtList();
+    private static TradeOfferList makeOfferList(TradeOffer... offers) {
+        TradeOfferList list = new TradeOfferList();
         Collections.addAll(list, offers);
         return list;
     }
 
-    private static NbtCompound makeOffer(String name, String texture, int[] id) {
-        return makeOffer("emerald", name, texture, id);
+    private static TradeOffer makeOffer(String name, String texture, int[] id) {
+        return makeOffer(new TradedItem(Items.EMERALD), name, texture, id);
     }
 
-    private static NbtCompound makeOffer(String buyItem, String name, String texture, int[] id) {
-        NbtCompound offer = new NbtCompound();
-
-        NbtCompound buy = new NbtCompound();
-        buy.putString("id", buyItem);
-        buy.putInt("Count", 1);
-
-        NbtCompound sell = new NbtCompound();
-        sell.putString("id", "player_head");
-        sell.putInt("Count", 1);
-
-        NbtCompound display = new NbtCompound();
-        display.putString("Name", "{\"text\":\"" + name + "\"}");
-
+    private static TradeOffer makeOffer(TradedItem buyItem, String name, String texture, int[] id) {
         NbtCompound headTexture = new NbtCompound();
         headTexture.putString("Value", texture);
 
@@ -1223,20 +1191,14 @@ public class MMProfessions {
         properties.put("textures", textureList);
 
         NbtCompound owner = new NbtCompound();
-        owner.putIntArray("Id", id);
         owner.put("Properties", properties);
 
-        NbtCompound headTag = new NbtCompound();
-        headTag.put("display", display);
-        headTag.put("SkullOwner", owner);
+        GameProfile gameProfile = NbtHelpers.toGameProfile(owner);
 
-        sell.put("tag", headTag);
+        ItemStack sellHead = Items.PLAYER_HEAD.getDefaultStack();
+        sellHead.set(DataComponentTypes.PROFILE, new ProfileComponent(gameProfile));
+        sellHead.set(DataComponentTypes.ITEM_NAME, Text.of(name));
 
-        offer.put("buy", buy);
-        offer.put("sell", sell);
-        offer.putInt("rewardExp", 0);
-        offer.putInt("maxUses", 99999);
-
-        return offer;
+        return new TradeOffer(buyItem, sellHead, 99999, 0, 0.0f);
     }
 }

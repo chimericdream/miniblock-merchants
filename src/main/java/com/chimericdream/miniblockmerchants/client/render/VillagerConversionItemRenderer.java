@@ -2,6 +2,7 @@ package com.chimericdream.miniblockmerchants.client.render;
 
 import com.chimericdream.miniblockmerchants.data.MiniblockTextures;
 import com.chimericdream.miniblockmerchants.item.*;
+import com.chimericdream.miniblockmerchants.util.NbtHelpers;
 import com.mojang.authlib.GameProfile;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -13,10 +14,10 @@ import net.minecraft.client.render.block.entity.SkullBlockEntityRenderer;
 import net.minecraft.client.render.entity.model.SkullEntityModel;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.component.type.ProfileComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtHelper;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.Direction;
@@ -150,9 +151,9 @@ public class VillagerConversionItemRenderer implements BuiltinItemRendererRegist
         owner.putIntArray("Id", data.getRight());
         owner.put("Properties", properties);
 
-        GameProfile gameProfile = NbtHelper.toGameProfile(owner);
+        GameProfile gameProfile = NbtHelpers.toGameProfile(owner);
 
-        RenderLayer renderLayer = SkullBlockEntityRenderer.getRenderLayer(SkullBlock.Type.PLAYER, gameProfile);
+        RenderLayer renderLayer = SkullBlockEntityRenderer.getRenderLayer(SkullBlock.Type.PLAYER, new ProfileComponent(gameProfile));
         SkullBlockEntityRenderer.renderSkull((Direction) null, 180.0F, 0.0F, matrices, vertexConsumers, light, MODEL, renderLayer);
     }
 }
