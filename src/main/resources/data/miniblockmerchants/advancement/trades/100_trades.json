@@ -1,0 +1,38 @@
+{
+    "parent": "miniblockmerchants:root",
+    "display": {
+        "icon": {
+            "id": "minecraft:player_head",
+            "components": {
+                "minecraft:profile": {
+                    "id": [-1753847203, 373116306, -1604641070, 529663040],
+                    "properties": [
+                        {
+                            "name": "textures",
+                            "value": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzdhZTIzNmNkZWMzZjJhNmY1MWVhZTE1ZTJjOGY2MjI4YjM0ZjEzN2RhMTU2OWZlYzllODAzZjljZDgxNzU5ZCJ9fX0="
+                        }
+                    ]
+                },
+                "minecraft:custom_data": {
+                    "comment": "https://minecraft-heads.com/custom-heads/decoration/48264-perfect-amber-gemstone"
+                }
+            }
+        },
+        "title": {
+            "translate": "advancements.miniblockmerchants.100_trades.title",
+            "italic": false
+        },
+        "description": {
+            "translate": "advancements.miniblockmerchants.100_trades.desc",
+            "color": "green"
+        },
+        "show_toast": true,
+        "announce_to_chat": false,
+        "hidden": true
+    },
+    "criteria": {
+        "magic": {
+            "trigger": "minecraft:impossible"
+        }
+    }
+}

@@ -1,5 +1,8 @@
 {
     "display": {
+        "icon": {
+            "id": "miniblockmerchants:soaked_villager_plushie"
+        },
         "title": {
             "translate": "advancements.miniblockmerchants.root.title"
         },
@@ -17,9 +20,6 @@
                 "color": "green"
             }
         ],
-        "icon": {
-            "item": "miniblockmerchants:soaked_villager_plushie"
-        },
         "background": "minecraft:textures/block/white_concrete_powder.png",
         "show_toast": false,
         "announce_to_chat": false,

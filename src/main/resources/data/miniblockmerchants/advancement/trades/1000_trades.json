@@ -1,0 +1,42 @@
+{
+    "parent": "miniblockmerchants:trades/500_trades",
+    "display": {
+        "icon": {
+            "id": "minecraft:player_head",
+            "components": {
+                "minecraft:profile": {
+                    "id": [-1312110985, -1917761512, -1609324763, -1377349956],
+                    "properties": [
+                        {
+                            "name": "textures",
+                            "value": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzliNmUwNDdkM2IyYmNhODVlOGNjNDllNTQ4MGY5Nzc0ZDhhMGVhZmU2ZGZhOTU1OTUzMDU5MDI4MzcxNTE0MiJ9fX0="
+                        }
+                    ]
+                },
+                "minecraft:custom_data": {
+                    "comment": "https://minecraft-heads.com/custom-heads/decoration/48269-perfect-ruby-gemstone"
+                }
+            }
+        },
+        "title": {
+            "translate": "advancements.miniblockmerchants.1000_trades.title",
+            "italic": false
+        },
+        "description": {
+            "translate": "advancements.miniblockmerchants.1000_trades.desc",
+            "color": "green"
+        },
+        "frame": "challenge",
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": true
+    },
+    "criteria": {
+        "magic": {
+            "trigger": "minecraft:impossible"
+        }
+    },
+    "rewards": {
+        "experience": 50
+    }
+}

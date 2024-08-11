@@ -1,0 +1,38 @@
+{
+    "parent": "miniblockmerchants:trades/100_trades",
+    "display": {
+        "icon": {
+            "id": "minecraft:player_head",
+            "components": {
+                "minecraft:profile": {
+                    "id": [1746237920, 439173754, -1915820812, 1718909563],
+                    "properties": [
+                        {
+                            "name": "textures",
+                            "value": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2RhNmVjZGNiYzNmZTM1NWNhMDYxMTE5MmEzZmJkMzVkZDU2MzVkNWZjZGYzZmJjNzllZDJiYzFmNGEwMTdmZSJ9fX0="
+                        }
+                    ]
+                },
+                "minecraft:custom_data": {
+                    "comment": "https://minecraft-heads.com/custom-heads/decoration/48244-perfect-topaz-gemstone"
+                }
+            }
+        },
+        "title": {
+            "translate": "advancements.miniblockmerchants.250_trades.title",
+            "italic": false
+        },
+        "description": {
+            "translate": "advancements.miniblockmerchants.250_trades.desc",
+            "color": "green"
+        },
+        "show_toast": true,
+        "announce_to_chat": false,
+        "hidden": true
+    },
+    "criteria": {
+        "magic": {
+            "trigger": "minecraft:impossible"
+        }
+    }
+}

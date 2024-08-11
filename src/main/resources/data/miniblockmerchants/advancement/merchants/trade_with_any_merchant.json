@@ -1,5 +1,23 @@
 {
+    "parent": "miniblockmerchants:root",
     "display": {
+        "icon": {
+            "id": "minecraft:player_head",
+            "components": {
+                "minecraft:profile": {
+                    "id": [451210373, 257638853, -1119372328, -578155307],
+                    "properties": [
+                        {
+                            "name": "textures",
+                            "value": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmE0MGJhZWI5NmZlYTFiZDZlZTA2NDY5NmNkYjc0ZmZkMDhhNmY3YzQwNjE3ZDQ2MmU0ZTJkYThmYWFmNzNlNSJ9fX0="
+                        }
+                    ]
+                },
+                "minecraft:custom_data": {
+                    "comment": "https://minecraft-heads.com/custom-heads/blocks/48933-emerald-ore"
+                }
+            }
+        },
         "title": {
             "translate": "advancements.miniblockmerchants.trade_with_merchant.title",
             "italic": false
@@ -8,15 +26,9 @@
             "translate": "advancements.miniblockmerchants.trade_with_merchant.desc",
             "color": "green"
         },
-        "icon": {
-            "item": "minecraft:player_head",
-            "nbt": "{SkullOwner:{Id:[I;451210373,257638853,-1119372328,-578155307],Properties:{textures:[{Value:\"eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmE0MGJhZWI5NmZlYTFiZDZlZTA2NDY5NmNkYjc0ZmZkMDhhNmY3YzQwNjE3ZDQ2MmU0ZTJkYThmYWFmNzNlNSJ9fX0=\"}]}}}",
-            "comment": "https://minecraft-heads.com/custom-heads/blocks/48933-emerald-ore"
-        },
         "show_toast": true,
         "announce_to_chat": true
     },
-    "parent": "miniblockmerchants:root",
     "criteria": {
         "trade1": {
             "trigger": "minecraft:villager_trade",

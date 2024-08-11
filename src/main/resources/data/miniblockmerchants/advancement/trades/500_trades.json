@@ -1,0 +1,38 @@
+{
+    "parent": "miniblockmerchants:trades/250_trades",
+    "display": {
+        "icon": {
+            "id": "minecraft:player_head",
+            "components": {
+                "minecraft:profile": {
+                    "id": [-866127046, -1446689706, -1885633432, 761438113],
+                    "properties": [
+                        {
+                            "name": "textures",
+                            "value": "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmE4OWI1MjM2MzIzZDhmNTc2ZTcxY2I0YTEyZjI4ODE0ZGQzMjIyOTQ3OWI5NzY1ZGVhNzEwZGY2ZTM5MTA0OCJ9fX0="
+                        }
+                    ]
+                },
+                "minecraft:custom_data": {
+                    "comment": "https://minecraft-heads.com/custom-heads/decoration/50421-perfect-aquamarine-gemstone"
+                }
+            }
+        },
+        "title": {
+            "translate": "advancements.miniblockmerchants.500_trades.title",
+            "italic": false
+        },
+        "description": {
+            "translate": "advancements.miniblockmerchants.500_trades.desc",
+            "color": "green"
+        },
+        "show_toast": true,
+        "announce_to_chat": false,
+        "hidden": true
+    },
+    "criteria": {
+        "magic": {
+            "trigger": "minecraft:impossible"
+        }
+    }
+}
